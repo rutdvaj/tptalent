@@ -347,6 +347,12 @@ a:hover { color: #0E332B; }
 .tp-card__media { position: relative; flex: 1; margin-top: 18px; pointer-events: none; }
 .tp-card__media-glow { position: absolute; left: -8%; right: -8%; bottom: -30%; height: 48%; filter: blur(30px); opacity: 0.55; background: linear-gradient(120deg, var(--p1) 0%, var(--p2) 50%, var(--p3) 100%); }
 .tp-card__media-label { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(20,28,43,0.45); white-space: nowrap; }
+.tp-card__media--image { overflow: hidden; border-radius: 10px; }
+.tp-card__media--image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.tp-card--soon { cursor: default; opacity: 0.75; }
+.tp-card--soon:hover { border-color: #E4E8EF; }
+.tp-card__title--soon { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #8A93A3; }
 
 /* ===========================================================
    CTA BAND
