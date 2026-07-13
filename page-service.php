@@ -18,7 +18,6 @@ if (!$content) {
         'problems' => [], 'steps' => [], 'cta_heading' => '', 'cta_subhead' => '',
     ];
 }
-$hero_data = tp_get_section('tp_hero');
 $insights_cross = tp_get_insights_nav_items(2);
 ?>
 
@@ -39,24 +38,7 @@ $insights_cross = tp_get_insights_nav_items(2);
     </div>
   </div>
 
-  <div class="tp-pagehero__ticker">
-    <div class="tp-pagehero__ticker-inner">
-      <div class="tp-pagehero__ticker-label">Trusted by</div>
-      <div class="tp-ticker">
-        <div class="tp-ticker__track">
-          <?php
-          $logos = $hero_data['ticker_logos'];
-          $loop = array_merge($logos, $logos);
-          foreach ($loop as $logo) :
-              $src = tp_image_url($logo);
-              if (!$src) continue;
-          ?>
-            <img src="<?php echo esc_url($src); ?>" alt="Client logo" class="tp-ticker__logo" loading="lazy">
-          <?php endforeach; ?>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php get_template_part('template-parts/pagehero-ticker'); ?>
 </div>
 
 <section class="tp-problems" data-screen-label="Problems">

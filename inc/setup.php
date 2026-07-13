@@ -82,6 +82,37 @@ function tp_bootstrap_service_pages() {
 add_action('init', 'tp_bootstrap_service_pages');
 
 /**
+ * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
+ * posts (see inc/blog-seed-content.php) — native 'post' type so they
+ * behave like any post written in wp-admin from here on.
+ */
+function tp_bootstrap_blog_posts() {
+    if (get_option('tp_blog_posts_bootstrapped')) return;
+
+    foreach (tp_blog_seed_posts() as $slug => $post) {
+        if (get_page_by_path($slug, OBJECT, 'post')) continue;
+        wp_insert_post([
+            'post_title'   => $post['title'],
+            'post_name'    => $slug,
+            'post_excerpt' => $post['excerpt'],
+            'post_content' => $post['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'post',
+            'post_date'    => '2026-07-01 09:00:00',
+        ], true);
+    }
+
+    // WordPress's default sample post — was cluttering the live Insights
+    // dropdown before any real posts existed; trashed (not permanently
+    // deleted) now that real content is in place.
+    $hello = get_page_by_path('hello-world', OBJECT, 'post');
+    if ($hello) wp_trash_post($hello->ID);
+
+    update_option('tp_blog_posts_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_blog_posts');
+
+/**
  * If no static front page is assigned yet, gently nudge the admin (front-page.php
  * only renders automatically once Settings > Reading is set to a static page).
  */

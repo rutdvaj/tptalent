@@ -362,3 +362,61 @@ function tp_get_insights_nav_items($limit = 5) {
     $cache = $items;
     return $items;
 }
+
+/**
+ * Auto-numbers every <h2> in a post's rendered content with an id +
+ * scroll-margin, and builds the matching table-of-contents array from
+ * the same pass. Editors never type ids/anchors themselves — this is
+ * the only place that logic lives, so it works the same whether the
+ * post came from wp-admin's normal editor or (for the two seed posts)
+ * hand-written HTML.
+ */
+function tp_process_article_content($html) {
+    $toc = [];
+    $i = 0;
+    $processed = preg_replace_callback(
+        '/<h2([^>]*)>(.*?)<\/h2>/is',
+        function ($m) use (&$toc, &$i) {
+            $i++;
+            $id = 's' . $i;
+            $label = trim(wp_strip_all_tags($m[2]));
+            $toc[] = ['id' => $id, 'label' => $label];
+            $attrs = preg_replace('/\sid="[^"]*"/i', '', $m[1]);
+            return '<h2' . $attrs . ' id="' . esc_attr($id) . '" class="tp-article__h2">' . $m[2] . '</h2>';
+        },
+        $html
+    );
+    return ['html' => $processed, 'toc' => $toc];
+}
+
+/**
+ * "Keep reading" cross-links for the bottom of an article: other
+ * published posts first (excluding the current one), padded out with
+ * the service pages if there aren't 3 other posts yet — always fills
+ * the row regardless of how many posts exist so far.
+ */
+function tp_get_related_posts($exclude_id, $limit = 3) {
+    $items = [];
+    $q = new WP_Query([
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => $limit,
+        'post__not_in'   => [$exclude_id],
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'no_found_rows'  => true,
+    ]);
+    foreach ($q->posts as $p) {
+        $excerpt = has_excerpt($p) ? get_the_excerpt($p) : '';
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p), 'excerpt' => $excerpt, 'tag' => 'Workforce'];
+    }
+    wp_reset_postdata();
+
+    if (count($items) < $limit) {
+        foreach (tp_get_services_nav_items() as $s) {
+            if (count($items) >= $limit) break;
+            $items[] = ['label' => $s['label'], 'url' => $s['url'], 'excerpt' => '', 'tag' => 'Service'];
+        }
+    }
+    return array_slice($items, 0, $limit);
+}

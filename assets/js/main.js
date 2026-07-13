@@ -165,6 +165,36 @@
   }
 
   /* -----------------------------------------------------------
+   * Article (single.php) — fixed top reading-progress bar + sticky TOC
+   * active-section highlight. Headings (and their ids) come from
+   * tp_process_article_content() in PHP; this just tracks scroll
+   * position against them, same algorithm as the design's onScroll().
+   * --------------------------------------------------------- */
+  function initArticleProgress() {
+    var bar = document.getElementById('tp-article-progress');
+    if (!bar) return;
+    var headings = document.querySelectorAll('.tp-article__h2');
+    var tocLinks = document.querySelectorAll('.tp-article-toc__link');
+    var update = function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      bar.style.width = pct + '%';
+      if (!headings.length || !tocLinks.length) return;
+      var current = headings[0].id;
+      for (var i = 0; i < headings.length; i++) {
+        if (headings[i].getBoundingClientRect().top <= 140) current = headings[i].id;
+      }
+      tocLinks.forEach(function (link) {
+        link.classList.toggle('is-active', link.getAttribute('data-toc-target') === current);
+      });
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+
+  /* -----------------------------------------------------------
    * Kinetic testimonial roller ("Chosen by")
    * --------------------------------------------------------- */
   function initKinetic() {
@@ -677,6 +707,7 @@
     initMobileNav();
     initMobileNavSubmenus();
     initEngagementFill();
+    initArticleProgress();
     initAccordion();
     initKinetic();
     initRibbon();

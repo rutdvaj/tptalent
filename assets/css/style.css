@@ -431,6 +431,52 @@ a:hover { color: #0E332B; }
 .tp-svc-cta__subhead { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.82); max-width: 46ch; margin: 0 auto 36px; text-wrap: pretty; }
 
 /* ===========================================================
+   ARTICLE (single.php) — blog posts. Reuses .tp-pagehero for the dark
+   header shell and .tp-svc-articles/.tp-svc-cta from the service page
+   for Related/CTA, so only the article-specific pieces are new here:
+   reading progress bar, header title block, cover, 3-col body (share
+   rail / reading column / sticky TOC).
+   =========================================================== */
+.tp-article-progress-track { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 300; pointer-events: none; }
+.tp-article-progress { height: 4px; width: 0%; background: linear-gradient(90deg, #071B15 0%, var(--ink-deep, #0E332B) 55%, var(--ink, #16483B) 85%, var(--mid, #3E7159) 100%); box-shadow: 0 0 10px rgba(14,51,43,0.55); border-radius: 0 4px 4px 0; transition: width 80ms linear; }
+
+.tp-article-header__inner { position: relative; z-index: 2; flex: 1 1 auto; align-self: center; width: 100%; max-width: 760px; margin: 0 auto; box-sizing: border-box; padding: 80px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; }
+.tp-article-header__title { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(30px, 4.4vw, 56px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; color: #FFFFFF; max-width: 20ch; text-wrap: pretty; }
+.tp-article-header__dek { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0; max-width: 48ch; text-wrap: pretty; }
+.tp-article-header__byline { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px; }
+.tp-article-header__author { font-size: 14px; font-weight: 600; color: #FFFFFF; }
+.tp-article-header__date { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.7); }
+
+.tp-article-cover-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+.tp-article-cover { height: clamp(200px, 32vw, 420px); border-radius: 16px; border: 1px solid #E4E8EF; background: repeating-linear-gradient(135deg, var(--wash-a, #DCE7DD) 0 14px, var(--wash-b, #EEF3EE) 14px 28px); display: flex; align-items: center; justify-content: center; margin-top: 40px; }
+.tp-article-cover span { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--metric, #33544A); background: rgba(255,255,255,0.8); padding: 8px 14px; border-radius: 8px; }
+
+.tp-article-body { max-width: 1240px; margin: 0 auto; padding: 64px 40px 96px; display: grid; grid-template-columns: 80px minmax(0, 720px) 260px; gap: 48px; justify-content: center; }
+.tp-article-share { display: flex; flex-direction: column; gap: 10px; align-items: center; position: sticky; top: 96px; align-self: start; }
+.tp-article-share__label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8A96A8; writing-mode: vertical-rl; margin-bottom: 4px; }
+.tp-article-share__btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 999px; border: 1px solid #E4E8EF; background: #FFFFFF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 13px; color: var(--ink, #16483B); transition: border-color 200ms; }
+.tp-article-share__btn:hover { border-color: var(--soft, #A9C4B0); }
+
+.tp-article-content { min-width: 0; display: flex; flex-direction: column; gap: 26px; font-size: 18px; line-height: 1.75; color: #2A3442; }
+.tp-article-content p { margin: 0; }
+.tp-article-content > p:first-of-type { font-size: 20px; line-height: 1.7; color: #1D2634; }
+.tp-article__h2 { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(25px, 2.5vw, 32px); line-height: 1.18; letter-spacing: -0.01em; margin: 30px 0 0; padding-top: 30px; border-top: 1px solid #ECEFF3; color: var(--ink, #16483B); scroll-margin-top: 80px; }
+.tp-article-content blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid var(--mid, #3E7159); font-family: 'Newsreader', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(21px, 2vw, 26px); line-height: 1.4; color: var(--ink, #16483B); }
+.tp-article-content blockquote p { margin: 0; }
+.tp-article-content ul { margin: 4px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.tp-article-content ul li { display: flex; align-items: baseline; gap: 12px; font-size: 17px; line-height: 1.6; }
+.tp-article-content ul li::before { content: ''; flex: 0 0 auto; width: 9px; height: 9px; border-radius: 2px; background: var(--mid, #3E7159); transform: translateY(2px); }
+
+.tp-article-author { margin-top: 24px; display: flex; flex-direction: column; gap: 4px; padding: 24px 26px; border: 1px solid #E4E8EF; border-radius: 14px; background: var(--wash-b, #EEF3EE); }
+.tp-article-author__name { font-size: 16px; font-weight: 600; color: #141C2B; }
+.tp-article-author__bio { font-size: 14px; line-height: 1.55; color: #5A6478; }
+
+.tp-article-toc { position: sticky; top: 96px; align-self: start; display: flex; flex-direction: column; gap: 2px; padding: 6px 0 6px 24px; border-left: 3px solid var(--mid, #3E7159); }
+.tp-article-toc__label { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #141C2B; margin-bottom: 14px; }
+.tp-article-toc__link { display: block; font-size: 14.5px; line-height: 1.5; font-weight: 500; color: #5A6478; text-decoration: none; padding: 11px 0; transition: color 200ms, font-weight 200ms; }
+.tp-article-toc__link.is-active { font-weight: 700; color: var(--ink, #16483B); }
+
+/* ===========================================================
    RESPONSIVE
    =========================================================== */
 @media (max-width: 980px) {
@@ -455,6 +501,10 @@ a:hover { color: #0E332B; }
   .tp-engagement__node { left: -33px; }
   /* "hover a problem" doesn't apply on touch — hidden below desktop */
   .tp-problems__hint { display: none; }
+  /* Article: share rail + sticky TOC are desktop-only, matching the design */
+  .tp-article-header__inner { padding: 64px 24px; }
+  .tp-article-body { grid-template-columns: 1fr; padding: 48px 24px 72px; }
+  .tp-article-share, .tp-article-toc { display: none; }
 }
 @media (max-width: 640px) {
   .tp-services .tp-container, .tp-capabilities .tp-container, .tp-insights .tp-container, .tp-cta__inner, .tp-footer .tp-container, .tp-bento__inner { padding-left: 20px; padding-right: 20px; padding-top: 56px; padding-bottom: 56px; }
@@ -506,6 +556,12 @@ a:hover { color: #0E332B; }
   .tp-engagement__timeline { padding-left: 36px; }
   .tp-engagement__node { left: -27px; width: 14px; height: 14px; }
   .tp-svc-cta__inner { padding: 64px 20px; }
+  .tp-article-header__inner { padding: 100px 20px 48px; }
+  .tp-article-cover-wrap { padding: 0 20px; }
+  .tp-article-cover { margin-top: 24px; }
+  .tp-article-body { padding: 40px 20px 56px; }
+  .tp-article-content { font-size: 16px; }
+  .tp-article-content > p:first-of-type { font-size: 18px; }
 }
 @media (max-width: 430px) {
   .tp-hero__headline { font-size: 46px; }
