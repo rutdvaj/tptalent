@@ -28,8 +28,21 @@ $hero  = tp_get_section('tp_hero');
     </div>
     <div class="tp-nav__cta-wrap">
       <a class="tp-nav__cta" href="<?php echo esc_url($nav['cta_url']); ?>"><?php echo esc_html($nav['cta_label']); ?></a>
+      <button type="button" class="tp-nav__burger" aria-label="Menu" aria-expanded="false" aria-controls="tp-nav-mobile">
+        <span class="tp-nav__burger-bar"></span>
+        <span class="tp-nav__burger-bar"></span>
+        <span class="tp-nav__burger-bar"></span>
+      </button>
     </div>
   </nav>
+
+  <div class="tp-nav-mobile" id="tp-nav-mobile" aria-hidden="true">
+    <a href="<?php echo esc_url($nav['services_url']); ?>"><?php echo esc_html($nav['services_label']); ?></a>
+    <a href="<?php echo esc_url($nav['industries_url']); ?>"><?php echo esc_html($nav['industries_label']); ?></a>
+    <a href="<?php echo esc_url($nav['insights_url']); ?>"><?php echo esc_html($nav['insights_label']); ?></a>
+    <a href="<?php echo esc_url($nav['contact_url']); ?>"><?php echo esc_html($nav['contact_label']); ?></a>
+    <a href="<?php echo esc_url($nav['cta_url']); ?>" class="tp-nav-mobile__cta"><?php echo esc_html($nav['cta_label']); ?></a>
+  </div>
 
   <div class="tp-hero__inner">
     <h1 class="tp-hero__headline"><?php echo esc_html($hero['headline']); ?></h1>

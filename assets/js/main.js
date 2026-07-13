@@ -83,6 +83,41 @@
   }
 
   /* -----------------------------------------------------------
+   * Mobile nav — hamburger toggle for the <=980px collapsed nav.
+   * --------------------------------------------------------- */
+  function initMobileNav() {
+    var burger = document.querySelector('.tp-nav__burger');
+    var panel = document.getElementById('tp-nav-mobile');
+    if (!burger || !panel) return;
+    var nav = burger.closest('.tp-nav');
+
+    var close = function () {
+      nav.classList.remove('is-nav-open');
+      burger.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+    };
+    var open = function () {
+      nav.classList.add('is-nav-open');
+      burger.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+    };
+
+    burger.addEventListener('click', function () {
+      if (nav.classList.contains('is-nav-open')) close(); else open();
+    });
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+    // Collapsing back to desktop width shouldn't leave the panel stuck open.
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 980) close();
+    });
+  }
+
+  /* -----------------------------------------------------------
    * Kinetic testimonial roller ("Chosen by")
    * --------------------------------------------------------- */
   function initKinetic() {
@@ -578,6 +613,7 @@
 
   function init() {
     initReveal();
+    initMobileNav();
     initAccordion();
     initKinetic();
     initRibbon();
