@@ -130,13 +130,12 @@
    * --------------------------------------------------------- */
 
   /* -----------------------------------------------------------
-   * Desktop nav dropdowns (Services / Insights) — fully JS-controlled
-   * (open/close only ever toggles the .is-open class). Deliberately NOT
-   * using raw CSS :hover to open these: it was closing the panel mid-
-   * click if the mouse position flickered out of the hover zone for
-   * even a frame while moving toward a link, silently eating the
-   * navigation. mouseenter/mouseleave here use a short close delay so
-   * moving from the trigger down into the panel doesn't lose "hover".
+   * Desktop nav dropdowns (Services / Insights) — pure click-to-toggle,
+   * same mechanism as the mobile nav's submenus (which already works
+   * reliably). No hover, no mouseenter/mouseleave, no timers — those
+   * were all candidate sources of the panel closing before a link click
+   * could register. Only two things can close it now: clicking the
+   * trigger again, or clicking truly outside the dropdown.
    * --------------------------------------------------------- */
   function initDesktopDropdowns() {
     var dropdowns = document.querySelectorAll('.tp-nav__dropdown');
@@ -147,25 +146,13 @@
     dropdowns.forEach(function (dd) {
       var trigger = dd.querySelector('.tp-nav__dropdown-trigger');
       if (!trigger) return;
-      var closeTimer = null;
-      var cancelClose = function () { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } };
-      var scheduleClose = function () { cancelClose(); closeTimer = setTimeout(function () { dd.classList.remove('is-open'); }, 220); };
-
       trigger.addEventListener('click', function (e) {
         e.stopPropagation();
         var open = dd.classList.contains('is-open');
         closeAll();
         if (!open) dd.classList.add('is-open');
       });
-      dd.addEventListener('mouseenter', function () {
-        cancelClose();
-        dd.classList.add('is-open');
-      });
-      dd.addEventListener('mouseleave', scheduleClose);
     });
-    // Close on outside click only — closing on every click was also
-    // firing when the click landed on a link *inside* the panel, hiding
-    // it mid-click and aborting the navigation in some browsers.
     document.addEventListener('click', function (e) {
       if (e.target.closest('.tp-nav__dropdown')) return;
       closeAll();
