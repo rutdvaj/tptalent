@@ -99,7 +99,7 @@ $related = tp_get_related_posts(get_the_ID(), 3);
     <p class="tp-svc-cta__subhead">One insight in your inbox each month. No noise, no forwarding chains.</p>
     <a href="mailto:business@tecnoprism.com" class="tp-pill-btn" data-hover-icon>
       <span class="tp-pill-btn__icon"><span class="tp-pill-btn__arrow">&#8594;</span></span>
-      Subscribe
+      Start a conversation
     </a>
   </div>
 </section>
