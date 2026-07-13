@@ -20,17 +20,25 @@ add_action('after_setup_theme', 'tp_setup');
 function tp_enqueue_assets() {
     wp_enqueue_style(
         'tp-fonts',
-        'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap',
+        'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap',
         [],
         null
     );
-    wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], TP_THEME_VERSION);
-    wp_enqueue_style('tp-main', TP_THEME_URI . '/assets/css/style.css', ['tp-style'], TP_THEME_VERSION);
+    // filemtime() cache-busts automatically on every edit — TP_THEME_VERSION
+    // alone was static, so browsers could keep serving a stale cached copy
+    // of these files after a change until it was manually bumped.
+    $style_path = get_template_directory() . '/style.css';
+    $main_css_path = get_template_directory() . '/assets/css/style.css';
+    $shader_js_path = get_template_directory() . '/assets/js/shader-bg.js';
+    $main_js_path = get_template_directory() . '/assets/js/main.js';
+
+    wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], file_exists($style_path) ? filemtime($style_path) : TP_THEME_VERSION);
+    wp_enqueue_style('tp-main', TP_THEME_URI . '/assets/css/style.css', ['tp-style'], file_exists($main_css_path) ? filemtime($main_css_path) : TP_THEME_VERSION);
 
     // shader-bg is a plain custom element that loads its React dependencies
     // via dynamic import() at runtime — no <script type=module> needed.
-    wp_enqueue_script('tp-shader-bg', TP_THEME_URI . '/assets/js/shader-bg.js', [], TP_THEME_VERSION, true);
-    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg'], TP_THEME_VERSION, true);
+    wp_enqueue_script('tp-shader-bg', TP_THEME_URI . '/assets/js/shader-bg.js', [], file_exists($shader_js_path) ? filemtime($shader_js_path) : TP_THEME_VERSION, true);
+    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
 

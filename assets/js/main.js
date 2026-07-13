@@ -89,21 +89,25 @@
     var burger = document.querySelector('.tp-nav__burger');
     var panel = document.getElementById('tp-nav-mobile');
     if (!burger || !panel) return;
-    var nav = burger.closest('.tp-nav');
+    // .tp-nav-mobile is a sibling of <nav>, not a descendant — the open/close
+    // state has to live on their shared ancestor (.tp-hero) so a single CSS
+    // selector (.tp-hero.is-nav-open ...) can reach both the panel and the
+    // burger icon.
+    var scope = burger.closest('.tp-hero');
 
     var close = function () {
-      nav.classList.remove('is-nav-open');
+      scope.classList.remove('is-nav-open');
       burger.setAttribute('aria-expanded', 'false');
       panel.setAttribute('aria-hidden', 'true');
     };
     var open = function () {
-      nav.classList.add('is-nav-open');
+      scope.classList.add('is-nav-open');
       burger.setAttribute('aria-expanded', 'true');
       panel.setAttribute('aria-hidden', 'false');
     };
 
     burger.addEventListener('click', function () {
-      if (nav.classList.contains('is-nav-open')) close(); else open();
+      if (scope.classList.contains('is-nav-open')) close(); else open();
     });
     panel.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', close);
@@ -361,8 +365,16 @@
         var a = hexToArr(hex);
         return 'rgb(' + Math.round(a[0] + (255 - a[0]) * amt) + ',' + Math.round(a[1] + (255 - a[1]) * amt) + ',' + Math.round(a[2] + (255 - a[2]) * amt) + ')';
       };
-      ctx.fillStyle = mixToWhite(pal[0], 0.45);
-      ctx.globalAlpha = 0.7;
+      // Mobile: the continent dot-matrix reads too "sea mint" (mixToWhite at
+      // only 45% keeps most of pal[0]'s green). Use a neutral off-white at
+      // lower alpha instead — visible but no longer color-dominant.
+      if (window.innerWidth <= 640) {
+        ctx.fillStyle = 'rgba(232,236,230,0.85)';
+        ctx.globalAlpha = 0.32;
+      } else {
+        ctx.fillStyle = mixToWhite(pal[0], 0.45);
+        ctx.globalAlpha = 0.7;
+      }
       for (var i = 0; i < dots.length; i++) { var d = P(dots[i].lon, dots[i].lat); ctx.fillRect(d.x, d.y, 1.8, 1.8); }
       ctx.globalAlpha = 1;
 
@@ -425,27 +437,33 @@
         ctx.fillText(txt, cx2, cy2 + 1);
         ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
       };
+      // Mobile: plain emitting dots only, no name-pill labels, and a more
+      // saturated teal-green (pal[0] is a very pale, washed-out mint).
+      var isMobileMap = window.innerWidth <= 640;
+      var dotColor = isMobileMap ? '#2FD98A' : pal[0];
       for (var k = 0; k < locations.length; k++) {
         var pp = pts[k];
         var ph = ((t * 0.5 + k * 0.13) % 1);
         ctx.globalAlpha = 0.6 * (1 - ph);
-        ctx.lineWidth = 1.5; ctx.strokeStyle = pal[0];
+        ctx.lineWidth = 1.5; ctx.strokeStyle = dotColor;
         ctx.beginPath(); ctx.arc(pp.x, pp.y, 4 + ph * 12, 0, 7); ctx.stroke();
         ctx.globalAlpha = 1;
-        ctx.fillStyle = pal[0];
+        ctx.fillStyle = dotColor;
         ctx.beginPath(); ctx.arc(pp.x, pp.y, locations[k].hq ? 5.5 : 4, 0, 7); ctx.fill();
         ctx.fillStyle = '#08170F';
         ctx.beginPath(); ctx.arc(pp.x, pp.y, locations[k].hq ? 2.2 : 1.5, 0, 7); ctx.fill();
       }
-      for (var k2 = 0; k2 < locations.length; k2++) {
-        if (parseInt(locations[k2].hq, 10)) continue;
-        var pq = pts[k2]; var o = lofs[locations[k2].name] || [0, -30];
-        pill(locations[k2].name, pq.x + o[0], pq.y + o[1], false);
-      }
-      for (var k3 = 0; k3 < locations.length; k3++) {
-        if (!parseInt(locations[k3].hq, 10)) continue;
-        var pq2 = pts[k3]; var o2 = lofs[locations[k3].name] || [0, -30];
-        pill(locations[k3].name, pq2.x + o2[0], pq2.y + o2[1], true);
+      if (!isMobileMap) {
+        for (var k2 = 0; k2 < locations.length; k2++) {
+          if (parseInt(locations[k2].hq, 10)) continue;
+          var pq = pts[k2]; var o = lofs[locations[k2].name] || [0, -30];
+          pill(locations[k2].name, pq.x + o[0], pq.y + o[1], false);
+        }
+        for (var k3 = 0; k3 < locations.length; k3++) {
+          if (!parseInt(locations[k3].hq, 10)) continue;
+          var pq2 = pts[k3]; var o2 = lofs[locations[k3].name] || [0, -30];
+          pill(locations[k3].name, pq2.x + o2[0], pq2.y + o2[1], true);
+        }
       }
       requestAnimationFrame(draw);
     };
