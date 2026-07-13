@@ -289,10 +289,39 @@ function tp_get_section($section) {
     if (isset($cache[$section])) return $cache[$section];
     $defaults = tp_default($section);
     $id = tp_front_page_id();
-    $saved = $id ? get_post_meta($id, $section, true) : '';
+    $saved = $id ? tp_get_section_saved_data($section, $id) : '';
     $data = (is_array($saved) && !empty($saved)) ? array_replace($defaults, $saved) : $defaults;
     $cache[$section] = $data;
     return $data;
+}
+
+/**
+ * tp_case_study and tp_testimonial are ACF-backed (see inc/acf-fields.php)
+ * — every other section still reads the original meta-box post meta.
+ * Keeping this switch inside tp_get_section() means the template parts
+ * never need to know or care which system a given section uses.
+ */
+function tp_get_section_saved_data($section, $id) {
+    if ($section === 'tp_case_study' && function_exists('get_field')) {
+        $keys = ['eyebrow', 'heading', 'sourcing_title', 'sourcing_body', 'fill_rate_value', 'fill_rate_label', 'months_count', 'months_value', 'months_label', 'retention_value', 'retention_label', 'cta_card_text', 'cta_label', 'cta_url'];
+        $out = [];
+        foreach ($keys as $k) {
+            $v = get_field($k, $id);
+            if ($v !== null && $v !== '') $out[$k] = $v;
+        }
+        return $out;
+    }
+    if ($section === 'tp_testimonial' && function_exists('get_field')) {
+        $rotator = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $g = get_field('rotator_' . $i, $id);
+            if (is_array($g) && !empty($g['name'])) {
+                $rotator[] = ['name' => $g['name'], 'desc' => $g['desc'], 'metric' => $g['metric']];
+            }
+        }
+        return $rotator ? ['rotator' => $rotator] : [];
+    }
+    return get_post_meta($id, $section, true);
 }
 
 function tp_field($section, $key, $fallback = '') {
