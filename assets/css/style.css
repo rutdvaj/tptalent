@@ -391,16 +391,16 @@ a:hover { color: #0E332B; }
 .tp-problem-card:hover::after { transform: scaleX(1); }
 
 .tp-engagement { position: relative; overflow: hidden; background: var(--ink-deep, #0E332B); }
-.tp-engagement__inner { padding: 78px 40px; }
-.tp-engagement__head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+.tp-engagement__inner { padding: 100px 40px; }
+.tp-engagement__head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
 .tp-engagement__timeline { position: relative; padding-left: 64px; display: flex; flex-direction: column; }
 .tp-engagement__timeline::before { content: ''; position: absolute; left: 27px; top: 12px; bottom: 12px; width: 2px; background: rgba(255,255,255,0.16); }
 .tp-engagement__fill { position: absolute; left: 27px; top: 12px; width: 2px; height: 0%; background: linear-gradient(180deg, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 100%); box-shadow: 0 0 14px var(--p1, #94ffd1); transition: height 130ms linear; }
-.tp-engagement__step { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 40px; row-gap: 6px; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.tp-engagement__step { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 48px; row-gap: 8px; padding: 34px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
 .tp-engagement__node { position: absolute; left: -45px; top: 44px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink-deep, #0E332B); border: 2px solid var(--p1, #94ffd1); animation: nodePulse 2.8s ease-in-out infinite; }
 @keyframes nodePulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(148,255,209,0.35); } 50% { box-shadow: 0 0 0 6px rgba(148,255,209,0); } }
 .tp-engagement__num { flex: 0 0 auto; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(46px, 6vw, 78px); line-height: 0.9; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--p1) 0%, var(--p2) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; min-width: 1.7em; }
-.tp-engagement__copy { flex: 1 1 340px; min-width: min(100%, 280px); display: flex; flex-direction: column; gap: 9px; }
+.tp-engagement__copy { flex: 1 1 340px; min-width: min(100%, 280px); display: flex; flex-direction: column; gap: 12px; }
 .tp-engagement__title { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; color: #FFFFFF; }
 .tp-engagement__body { font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.74); margin: 0; max-width: 62ch; }
 
