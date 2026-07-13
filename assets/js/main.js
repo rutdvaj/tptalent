@@ -151,7 +151,13 @@
         if (!open) dd.classList.add('is-open');
       });
     });
-    document.addEventListener('click', closeAll);
+    // Close on outside click only — closing on every click was also
+    // firing when the click landed on a link *inside* the panel, hiding
+    // it mid-click and aborting the navigation in some browsers.
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.tp-nav__dropdown')) return;
+      closeAll();
+    });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeAll();
     });
