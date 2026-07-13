@@ -373,8 +373,8 @@ function tp_get_services_nav_items() {
  * 'post' type — no per-post nav edits needed as new posts are published.
  */
 function tp_get_insights_nav_items($limit = 5) {
-    static $cache = null;
-    if ($cache !== null) return $cache;
+    static $cache = [];
+    if (isset($cache[$limit])) return $cache[$limit];
     $q = new WP_Query([
         'post_type'      => 'post',
         'post_status'    => 'publish',
@@ -385,10 +385,10 @@ function tp_get_insights_nav_items($limit = 5) {
     ]);
     $items = [];
     foreach ($q->posts as $p) {
-        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p), 'thumb' => get_the_post_thumbnail_url($p, 'medium')];
     }
     wp_reset_postdata();
-    $cache = $items;
+    $cache[$limit] = $items;
     return $items;
 }
 

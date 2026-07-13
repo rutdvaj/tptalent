@@ -97,7 +97,13 @@ $insights_cross = tp_get_insights_nav_items(2);
     <div class="tp-svc-articles__grid">
       <?php foreach ($insights_cross as $post) : ?>
         <a href="<?php echo esc_url($post['url']); ?>" class="tp-svc-article-card">
-          <div class="tp-svc-article-card__media" aria-hidden="true"></div>
+          <?php if (!empty($post['thumb'])) : ?>
+            <div class="tp-svc-article-card__media tp-svc-article-card__media--image" aria-hidden="true">
+              <img src="<?php echo esc_url($post['thumb']); ?>" alt="" loading="lazy">
+            </div>
+          <?php else : ?>
+            <div class="tp-svc-article-card__media" aria-hidden="true"></div>
+          <?php endif; ?>
           <div class="tp-svc-article-card__body">
             <div class="tp-svc-article-card__title"><?php echo esc_html($post['label']); ?></div>
             <div class="tp-svc-article-card__read">Read <span aria-hidden="true">&#8594;</span></div>
