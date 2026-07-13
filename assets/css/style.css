@@ -351,9 +351,12 @@ a:hover { color: #0E332B; }
    3 service pages via inc/service-content.php. NOTE: the design files use
    an animated canvas background here (beam-field.js/grid-glow.js/wave-
    field.js) that hasn't been ported yet — this ships with a static CSS
-   gradient approximation as a placeholder.
+   gradient animated via the <wave-field> custom element (assets/js/
+   wave-field.js, ported from the design 1:1) — the CSS gradient below is
+   just the fallback shown behind/before the WebGL canvas.
    =========================================================== */
 .tp-pagehero { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 100vh; background: radial-gradient(120% 90% at 50% -10%, var(--ink, #16483B) 0%, var(--ink-deep, #0E332B) 45%, #050B09 100%); }
+.tp-pagehero__wave { position: absolute; inset: 0; z-index: 0; opacity: 0.9; pointer-events: none; }
 .tp-pagehero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; box-sizing: border-box; flex: 1 1 auto; padding: 80px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 26px; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; }
 .tp-pagehero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 72px); line-height: 1.04; letter-spacing: -0.02em; margin: 0; max-width: 18ch; color: #FFFFFF; text-wrap: pretty; text-shadow: 0 2px 30px rgba(0,0,0,0.35); }
 .tp-pagehero__subhead { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0; max-width: 44ch; text-wrap: pretty; }

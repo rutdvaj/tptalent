@@ -21,6 +21,11 @@ function tp_palette() {
     return ['#94ffd1', '#6bf5ff', '#ffffff'];
 }
 
+/** Comma-joined palette for the <wave-field> custom element's "colors" attribute. */
+function tp_wave_colors() {
+    return implode(',', tp_palette());
+}
+
 function tp_hex_to_arr($hex) {
     $hex = ltrim($hex ?: '#808080', '#');
     $n = hexdec($hex);
