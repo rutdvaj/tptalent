@@ -31,7 +31,10 @@ $insights_cross = tp_get_insights_nav_items(2);
     <h1 class="tp-pagehero__headline"><?php echo esc_html($content['headline']); ?></h1>
     <p class="tp-pagehero__subhead"><?php echo esc_html($content['subhead']); ?></p>
     <div class="tp-pagehero__actions">
-      <a href="#cta" class="tp-pagehero__cta-btn">Start a conversation <span aria-hidden="true">&#8594;</span></a>
+      <a href="#cta" class="tp-pill-btn" data-hover-icon>
+        <span class="tp-pill-btn__icon"><span class="tp-pill-btn__arrow">&#8594;</span></span>
+        Start a conversation
+      </a>
       <a href="#engagement" class="tp-pagehero__ghost-btn">How we work</a>
     </div>
   </div>
@@ -128,7 +131,10 @@ $insights_cross = tp_get_insights_nav_items(2);
   <div class="tp-container tp-svc-cta__inner" data-reveal>
     <h2 class="tp-svc-cta__heading"><?php echo esc_html($content['cta_heading']); ?></h2>
     <p class="tp-svc-cta__subhead"><?php echo esc_html($content['cta_subhead']); ?></p>
-    <a href="mailto:business@tecnoprism.com" class="tp-svc-cta__btn">Start a conversation <span aria-hidden="true">&#8594;</span></a>
+    <a href="mailto:business@tecnoprism.com" class="tp-pill-btn" data-hover-icon>
+      <span class="tp-pill-btn__icon"><span class="tp-pill-btn__arrow">&#8594;</span></span>
+      Start a conversation
+    </a>
   </div>
 </section>
 

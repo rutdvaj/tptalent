@@ -140,6 +140,18 @@ a:hover { color: #0E332B; }
 .tp-subnav__burger { background: rgba(10,28,24,0.35); border-color: transparent; }
 .tp-subnav__burger-bar { background: #FFFFFF; }
 
+/* The mobile dropdown panel (.tp-nav-mobile) is a light frosted glass
+   card either way, but it sits on the light homepage hero vs. the dark
+   service-page hero — dark-green text (correct on light) reads as
+   near-invisible dark-on-dark there. Scoped to .tp-pagehero so the
+   homepage nav is untouched. */
+.tp-pagehero .tp-nav-mobile a,
+.tp-pagehero .tp-nav-mobile__toggle { color: #FFFFFF; }
+.tp-pagehero .tp-nav-mobile a:hover,
+.tp-pagehero .tp-nav-mobile__toggle:hover { color: #16483B; }
+.tp-pagehero .tp-nav-mobile__submenu a { color: rgba(255,255,255,0.82); }
+.tp-pagehero .tp-nav-mobile__submenu a:hover { color: #16483B; }
+
 .tp-hero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; padding: 128px 40px 28px; text-align: center; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
 .tp-hero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(52px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto 28px; max-width: 17ch; color: #FFFFFF; text-wrap: pretty; }
 .tp-hero__subhead { font-size: 20px; line-height: 1.55; color: #FFFFFF; max-width: 46ch; margin: 0 auto 40px; text-wrap: pretty; }
@@ -361,8 +373,6 @@ a:hover { color: #0E332B; }
 .tp-pagehero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 72px); line-height: 1.04; letter-spacing: -0.02em; margin: 0; max-width: 18ch; color: #FFFFFF; text-wrap: pretty; text-shadow: 0 2px 30px rgba(0,0,0,0.35); }
 .tp-pagehero__subhead { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0; max-width: 44ch; text-wrap: pretty; }
 .tp-pagehero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
-.tp-pagehero__cta-btn { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; letter-spacing: 0.01em; color: #16483B; text-decoration: none; background: linear-gradient(120deg, #EEF3EE 0%, #C9DECF 45%, #A9C4B0 75%, #C9DECF 100%); background-size: 220% 100%; background-position: 0% 50%; padding: 15px 26px; border-radius: 10px; border: 1.5px solid rgba(169,196,176,0.6); transition: gap 250ms cubic-bezier(0.2,0.8,0.2,1), background-position 400ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 250ms cubic-bezier(0.2,0.8,0.2,1); }
-.tp-pagehero__cta-btn:hover { gap: 18px; background-position: 100% 50%; box-shadow: 0 8px 26px rgba(148,255,209,0.25); color: #16483B; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
 
@@ -419,8 +429,6 @@ a:hover { color: #0E332B; }
 .tp-svc-cta__inner { position: relative; z-index: 2; padding: 128px 40px; text-align: center; }
 .tp-svc-cta__heading { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.08; letter-spacing: -0.02em; color: #FFFFFF; margin: 0 auto 20px; max-width: 20ch; text-wrap: pretty; }
 .tp-svc-cta__subhead { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.82); max-width: 46ch; margin: 0 auto 36px; text-wrap: pretty; }
-.tp-svc-cta__btn { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: #16483B; text-decoration: none; background: linear-gradient(120deg, #EEF3EE 0%, #C9DECF 55%, #A9C4B0 100%); background-size: 200% 100%; border-radius: 10px; padding: 15px 30px; border: 1.5px solid rgba(169,196,176,0.6); transition: filter 220ms cubic-bezier(0.2,0.8,0.2,1); }
-.tp-svc-cta__btn:hover { filter: brightness(0.97); color: #16483B; }
 
 /* ===========================================================
    RESPONSIVE
@@ -464,6 +472,10 @@ a:hover { color: #0E332B; }
   .tp-hero__divider { display: none; }
   .tp-metric__value { font-size: 40px; }
   .tp-ticker { -webkit-mask-image: none; mask-image: none; width: 100%; background: rgba(255,255,255,0.08); backdrop-filter: blur(6px) saturate(1.05); -webkit-backdrop-filter: blur(6px) saturate(1.05); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 12px 0; }
+  /* Service-page ticker already sits inside .tp-pagehero__ticker's own
+     darkening band — stacking the glass panel on top of that reads as too
+     visible there, so it's removed for now (revisit later if desired). */
+  .tp-pagehero .tp-ticker { background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border: none; padding: 0; }
   .tp-services__grid, .tp-insights__grid, .tp-bento__grid { grid-template-columns: 1fr; }
   .tp-bento-card--wide { grid-column: span 1; }
   .tp-bento-card { min-height: 325px; padding: 24px; }
@@ -486,7 +498,7 @@ a:hover { color: #0E332B; }
   .tp-footer__legal { flex-direction: column; align-items: flex-start; gap: 14px; }
   .tp-pagehero__inner { padding: 100px 20px 48px; gap: 20px; }
   .tp-pagehero__actions { flex-direction: column; width: 100%; }
-  .tp-pagehero__cta-btn, .tp-pagehero__ghost-btn { width: 100%; justify-content: center; }
+  .tp-pagehero__actions .tp-pill-btn, .tp-pagehero__ghost-btn { width: 100%; justify-content: center; }
   .tp-pagehero__ticker-inner { flex-direction: column; align-items: stretch; gap: 14px; padding: 22px 20px; }
   .tp-pagehero__ticker-label { text-align: center; }
   .tp-problems__inner, .tp-engagement__inner, .tp-svc-articles__inner { padding: 56px 20px; }
