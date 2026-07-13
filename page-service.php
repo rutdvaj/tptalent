@@ -1,0 +1,132 @@
+<?php
+/**
+ * Template Name: Service Page
+ *
+ * Static gradient hero (not the homepage's shader) + Problems grid +
+ * Engagement Model (4 steps) + Articles cross-links + CTA band + shared
+ * footer. One template, content per page comes from tp_service_content()
+ * keyed by page slug (see inc/service-content.php) — swap to ACF later
+ * without touching this file's markup.
+ */
+get_header();
+
+$slug = get_post_field('post_name');
+$content = tp_service_content($slug);
+if (!$content) {
+    $content = [
+        'headline' => get_the_title(), 'subhead' => '', 'prob_heading' => '',
+        'problems' => [], 'steps' => [], 'cta_heading' => '', 'cta_subhead' => '',
+    ];
+}
+$hero_data = tp_get_section('tp_hero');
+$insights_cross = tp_get_insights_nav_items(2);
+?>
+
+<div class="tp-pagehero tp-nav-scope" data-screen-label="Service hero">
+  <?php get_template_part('template-parts/nav-subpage'); ?>
+
+  <div class="tp-pagehero__inner">
+    <h1 class="tp-pagehero__headline"><?php echo esc_html($content['headline']); ?></h1>
+    <p class="tp-pagehero__subhead"><?php echo esc_html($content['subhead']); ?></p>
+    <div class="tp-pagehero__actions">
+      <a href="#cta" class="tp-pagehero__cta-btn">Start a conversation <span aria-hidden="true">&#8594;</span></a>
+      <a href="#engagement" class="tp-pagehero__ghost-btn">How we work</a>
+    </div>
+  </div>
+
+  <div class="tp-pagehero__ticker">
+    <div class="tp-pagehero__ticker-inner">
+      <div class="tp-pagehero__ticker-label">Trusted by</div>
+      <div class="tp-ticker">
+        <div class="tp-ticker__track">
+          <?php
+          $logos = $hero_data['ticker_logos'];
+          $loop = array_merge($logos, $logos);
+          foreach ($loop as $logo) :
+              $src = tp_image_url($logo);
+              if (!$src) continue;
+          ?>
+            <img src="<?php echo esc_url($src); ?>" alt="Client logo" class="tp-ticker__logo" loading="lazy">
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="tp-problems" data-screen-label="Problems">
+  <div class="tp-container tp-problems__inner">
+    <div class="tp-problems__head">
+      <div class="tp-problems__head-copy">
+        <div class="tp-eyebrow">Where it breaks</div>
+        <h2 class="tp-h2"><?php echo esc_html($content['prob_heading']); ?></h2>
+      </div>
+      <div class="tp-problems__hint">hover a problem &#8594; see the fix</div>
+    </div>
+    <div class="tp-problems__grid">
+      <?php foreach ($content['problems'] as $i => $p) : ?>
+        <a href="#engagement" class="tp-problem-card" data-reveal>
+          <div class="tp-problem-card__top">
+            <div class="tp-problem-card__num"><?php echo esc_html(sprintf('%02d', $i + 1)); ?></div>
+            <div class="tp-problem-card__tag">see the fix <span aria-hidden="true">&#8595;</span></div>
+          </div>
+          <div class="tp-problem-card__heading"><?php echo esc_html($p['heading']); ?></div>
+          <p class="tp-problem-card__text"><?php echo esc_html($p['text']); ?></p>
+        </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<section id="engagement" class="tp-engagement" data-screen-label="Engagement model">
+  <div class="tp-container tp-engagement__inner">
+    <div class="tp-engagement__head">
+      <div class="tp-eyebrow tp-eyebrow--light">How we fix it</div>
+      <h2 class="tp-h2 tp-h2--light">Four steps, one accountable partner</h2>
+    </div>
+    <div class="tp-engagement__timeline">
+      <?php foreach ($content['steps'] as $s) : ?>
+        <div class="tp-engagement__step" data-reveal>
+          <span class="tp-engagement__node" aria-hidden="true"></span>
+          <div class="tp-engagement__num"><?php echo esc_html($s['num']); ?></div>
+          <div class="tp-engagement__copy">
+            <div class="tp-engagement__title"><?php echo esc_html($s['title']); ?></div>
+            <p class="tp-engagement__body"><?php echo esc_html($s['body']); ?></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<?php if ($insights_cross) : ?>
+<section class="tp-svc-articles" data-screen-label="Articles">
+  <div class="tp-container tp-svc-articles__inner">
+    <div class="tp-svc-articles__head">
+      <div class="tp-eyebrow">Our thinking</div>
+      <h2 class="tp-h2">Reading for the road ahead</h2>
+    </div>
+    <div class="tp-svc-articles__grid">
+      <?php foreach ($insights_cross as $post) : ?>
+        <a href="<?php echo esc_url($post['url']); ?>" class="tp-svc-article-card">
+          <div class="tp-svc-article-card__media" aria-hidden="true"></div>
+          <div class="tp-svc-article-card__body">
+            <div class="tp-svc-article-card__title"><?php echo esc_html($post['label']); ?></div>
+            <div class="tp-svc-article-card__read">Read <span aria-hidden="true">&#8594;</span></div>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<section id="cta" class="tp-svc-cta" data-screen-label="CTA">
+  <div class="tp-container tp-svc-cta__inner" data-reveal>
+    <h2 class="tp-svc-cta__heading"><?php echo esc_html($content['cta_heading']); ?></h2>
+    <p class="tp-svc-cta__subhead"><?php echo esc_html($content['cta_subhead']); ?></p>
+    <a href="mailto:business@tecnoprism.com" class="tp-svc-cta__btn">Start a conversation <span aria-hidden="true">&#8594;</span></a>
+  </div>
+</section>
+
+<?php get_footer(); ?>

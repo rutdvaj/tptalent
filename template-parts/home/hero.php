@@ -7,7 +7,7 @@ $brand = tp_get_section('tp_brand');
 $nav   = tp_get_section('tp_nav');
 $hero  = tp_get_section('tp_hero');
 ?>
-<div class="tp-hero" data-screen-label="Hero">
+<div class="tp-hero tp-nav-scope" data-screen-label="Hero">
 
   <shader-bg url="<?php echo esc_url(tp_shader_url()); ?>" class="tp-hero__shader" aria-hidden="true"></shader-bg>
   <div class="tp-hero__veil" aria-hidden="true"></div>
@@ -21,10 +21,27 @@ $hero  = tp_get_section('tp_hero');
       </span>
     </a>
     <div class="tp-nav__links">
-      <a href="<?php echo esc_url($nav['services_url']); ?>"><?php echo esc_html($nav['services_label']); ?></a>
+      <div class="tp-nav__dropdown">
+        <button type="button" class="tp-nav__dropdown-trigger"><?php echo esc_html($nav['services_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+        <div class="tp-nav__dropdown-panel">
+          <?php foreach (tp_get_services_nav_items() as $s) : ?>
+            <a href="<?php echo esc_url($s['url']); ?>"><?php echo esc_html($s['label']); ?></a>
+          <?php endforeach; ?>
+        </div>
+      </div>
       <a href="<?php echo esc_url($nav['industries_url']); ?>"><?php echo esc_html($nav['industries_label']); ?></a>
-      <a href="<?php echo esc_url($nav['insights_url']); ?>"><?php echo esc_html($nav['insights_label']); ?></a>
-      <a href="<?php echo esc_url($nav['contact_url']); ?>"><?php echo esc_html($nav['contact_label']); ?></a>
+      <div class="tp-nav__dropdown">
+        <button type="button" class="tp-nav__dropdown-trigger"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+        <div class="tp-nav__dropdown-panel">
+          <?php $insights_nav = tp_get_insights_nav_items(); ?>
+          <?php if ($insights_nav) : foreach ($insights_nav as $i) : ?>
+            <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['label']); ?></a>
+          <?php endforeach; else : ?>
+            <span class="tp-nav__dropdown-empty">No posts yet</span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <a href="<?php echo esc_url($nav['about_url']); ?>"><?php echo esc_html($nav['about_label']); ?></a>
     </div>
     <div class="tp-nav__cta-wrap">
       <a class="tp-nav__cta" href="<?php echo esc_url($nav['cta_url']); ?>"><?php echo esc_html($nav['cta_label']); ?></a>
@@ -37,10 +54,26 @@ $hero  = tp_get_section('tp_hero');
   </nav>
 
   <div class="tp-nav-mobile" id="tp-nav-mobile" aria-hidden="true">
-    <a href="<?php echo esc_url($nav['services_url']); ?>"><?php echo esc_html($nav['services_label']); ?></a>
+    <div class="tp-nav-mobile__group">
+      <button type="button" class="tp-nav-mobile__toggle" aria-expanded="false"><?php echo esc_html($nav['services_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <div class="tp-nav-mobile__submenu">
+        <?php foreach (tp_get_services_nav_items() as $s) : ?>
+          <a href="<?php echo esc_url($s['url']); ?>"><?php echo esc_html($s['label']); ?></a>
+        <?php endforeach; ?>
+      </div>
+    </div>
     <a href="<?php echo esc_url($nav['industries_url']); ?>"><?php echo esc_html($nav['industries_label']); ?></a>
-    <a href="<?php echo esc_url($nav['insights_url']); ?>"><?php echo esc_html($nav['insights_label']); ?></a>
-    <a href="<?php echo esc_url($nav['contact_url']); ?>"><?php echo esc_html($nav['contact_label']); ?></a>
+    <div class="tp-nav-mobile__group">
+      <button type="button" class="tp-nav-mobile__toggle" aria-expanded="false"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <div class="tp-nav-mobile__submenu">
+        <?php if ($insights_nav) : foreach ($insights_nav as $i) : ?>
+          <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['label']); ?></a>
+        <?php endforeach; else : ?>
+          <span class="tp-nav-mobile__empty">No posts yet</span>
+        <?php endif; ?>
+      </div>
+    </div>
+    <a href="<?php echo esc_url($nav['about_url']); ?>"><?php echo esc_html($nav['about_label']); ?></a>
     <a href="<?php echo esc_url($nav['cta_url']); ?>" class="tp-nav-mobile__cta"><?php echo esc_html($nav['cta_label']); ?></a>
   </div>
 

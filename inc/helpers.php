@@ -154,7 +154,7 @@ function tp_default($section) {
             'services_label' => 'Services', 'services_url' => '#services',
             'industries_label' => 'Industries', 'industries_url' => '#',
             'insights_label' => 'Insights', 'insights_url' => '#insights',
-            'contact_label' => 'Contact Us', 'contact_url' => '#',
+            'about_label' => 'About Us', 'about_url' => '#',
             'cta_label' => 'Find jobs', 'cta_url' => '#',
         ],
         'tp_hero' => [
@@ -303,4 +303,57 @@ function tp_image_url($row, $size = 'medium') {
         if ($url) return $url;
     }
     return !empty($row['fallback']) ? TP_THEME_URI . '/' . ltrim($row['fallback'], '/') : '';
+}
+
+/* ---------------------------------------------------------------------
+ * Nav data — Services dropdown + Insights dropdown (shared by the
+ * homepage nav and the subpage nav partial).
+ * ------------------------------------------------------------------- */
+
+/**
+ * Services are plain WP Pages for now (no CPT yet — see build notes).
+ * Hardcoded here since there's no reliable way to auto-detect "which
+ * pages are services" without a template/taxonomy convention; add a row
+ * here when a new service page ships. get_permalink() is looked up by
+ * slug so links stay correct even if the page's parent/path changes.
+ */
+function tp_get_services_nav_items() {
+    $slugs = [
+        'executive-search'   => 'Executive Search',
+        'virtual-assistance' => 'Virtual Assistance',
+        'payrolling-services' => 'Payrolling Services',
+    ];
+    $items = [];
+    foreach ($slugs as $slug => $label) {
+        $page = get_page_by_path($slug);
+        $items[] = [
+            'label' => $label,
+            'url'   => $page ? get_permalink($page) : home_url('/services/' . $slug . '/'),
+        ];
+    }
+    return $items;
+}
+
+/**
+ * Insights dropdown mirrors Services but is sourced live from the
+ * 'post' type — no per-post nav edits needed as new posts are published.
+ */
+function tp_get_insights_nav_items($limit = 5) {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $q = new WP_Query([
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => $limit,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'no_found_rows'  => true,
+    ]);
+    $items = [];
+    foreach ($q->posts as $p) {
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
+    }
+    wp_reset_postdata();
+    $cache = $items;
+    return $items;
 }

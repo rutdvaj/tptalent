@@ -90,10 +90,12 @@
     var panel = document.getElementById('tp-nav-mobile');
     if (!burger || !panel) return;
     // .tp-nav-mobile is a sibling of <nav>, not a descendant — the open/close
-    // state has to live on their shared ancestor (.tp-hero) so a single CSS
-    // selector (.tp-hero.is-nav-open ...) can reach both the panel and the
-    // burger icon.
-    var scope = burger.closest('.tp-hero');
+    // state has to live on their shared ancestor so a single CSS selector
+    // (.tp-nav-scope.is-nav-open ...) can reach both the panel and the
+    // burger icon. .tp-nav-scope is a plain marker class (no styling of its
+    // own) carried by both the homepage hero and the subpage hero wrapper,
+    // so this same handler works for either without duplication.
+    var scope = burger.closest('.tp-nav-scope');
 
     var close = function () {
       scope.classList.remove('is-nav-open');
@@ -118,6 +120,28 @@
     // Collapsing back to desktop width shouldn't leave the panel stuck open.
     window.addEventListener('resize', function () {
       if (window.innerWidth > 980) close();
+    });
+  }
+
+  /* -----------------------------------------------------------
+   * Mobile nav nested submenus (Services / Insights) — tap the group
+   * label to expand its sub-links in place, accordion-style. Shared by
+   * the homepage nav and the subpage nav partial (same class names).
+   * --------------------------------------------------------- */
+  function initMobileNavSubmenus() {
+    document.querySelectorAll('.tp-nav-mobile__toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var group = btn.closest('.tp-nav-mobile__group');
+        var open = group.classList.contains('is-open');
+        group.parentElement.querySelectorAll('.tp-nav-mobile__group').forEach(function (other) {
+          other.classList.remove('is-open');
+          other.querySelector('.tp-nav-mobile__toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!open) {
+          group.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
     });
   }
 
@@ -632,6 +656,7 @@
   function init() {
     initReveal();
     initMobileNav();
+    initMobileNavSubmenus();
     initAccordion();
     initKinetic();
     initRibbon();

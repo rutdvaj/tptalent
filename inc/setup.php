@@ -43,6 +43,39 @@ function tp_enqueue_assets() {
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
 
 /**
+ * One-time bootstrap: create the 3 service pages (if missing) with the
+ * "Service Page" template already assigned, so the nav dropdown links
+ * resolve instead of 404ing. Uses wp_insert_post() (WordPress's own API,
+ * not raw SQL) and is guarded by an option flag + a per-slug existence
+ * check, so it only ever inserts what's actually missing and never runs
+ * its work twice.
+ */
+function tp_bootstrap_service_pages() {
+    if (get_option('tp_service_pages_bootstrapped')) return;
+
+    $pages = [
+        'executive-search'   => 'Executive Search',
+        'virtual-assistance' => 'Virtual Assistance',
+        'payrolling-services' => 'Payrolling Services',
+    ];
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) continue;
+        $id = wp_insert_post([
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-service.php');
+        }
+    }
+    update_option('tp_service_pages_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_service_pages');
+
+/**
  * If no static front page is assigned yet, gently nudge the admin (front-page.php
  * only renders automatically once Settings > Reading is set to a static page).
  */
