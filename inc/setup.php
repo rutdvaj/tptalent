@@ -113,6 +113,34 @@ function tp_bootstrap_blog_posts() {
 add_action('init', 'tp_bootstrap_blog_posts');
 
 /**
+ * Creates a real "Home" page and points Settings > Reading at it, so the
+ * content meta-box / ACF system has an actual post to attach saved values
+ * to. front-page.php already rendered at the site root before this (WP
+ * treats the site root as the front page even in default "posts" mode),
+ * so this doesn't change what's displayed — it just gives the editing
+ * system somewhere real to save to instead of only ever seeing defaults.
+ */
+function tp_bootstrap_home_page() {
+    if (get_option('tp_home_page_bootstrapped')) return;
+
+    $home = get_page_by_path('home');
+    $home_id = $home ? $home->ID : wp_insert_post([
+        'post_title'   => 'Home',
+        'post_name'    => 'home',
+        'post_status'  => 'publish',
+        'post_type'    => 'page',
+        'post_content' => '',
+    ], true);
+
+    if (!is_wp_error($home_id) && $home_id) {
+        update_option('show_on_front', 'page');
+        update_option('page_on_front', $home_id);
+    }
+    update_option('tp_home_page_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_home_page');
+
+/**
  * If no static front page is assigned yet, gently nudge the admin (front-page.php
  * only renders automatically once Settings > Reading is set to a static page).
  */
