@@ -355,7 +355,7 @@ a:hover { color: #0E332B; }
    wave-field.js, ported from the design 1:1) — the CSS gradient below is
    just the fallback shown behind/before the WebGL canvas.
    =========================================================== */
-.tp-pagehero { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 100vh; background: radial-gradient(120% 90% at 50% -10%, var(--ink, #16483B) 0%, var(--ink-deep, #0E332B) 45%, #050B09 100%); }
+.tp-pagehero { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; background: radial-gradient(120% 90% at 50% -10%, var(--ink, #16483B) 0%, var(--ink-deep, #0E332B) 45%, #050B09 100%); }
 .tp-pagehero__wave { position: absolute; inset: 0; z-index: 0; opacity: 0.9; pointer-events: none; }
 .tp-pagehero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; box-sizing: border-box; flex: 1 1 auto; padding: 80px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 26px; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; }
 .tp-pagehero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 72px); line-height: 1.04; letter-spacing: -0.02em; margin: 0; max-width: 18ch; color: #FFFFFF; text-wrap: pretty; text-shadow: 0 2px 30px rgba(0,0,0,0.35); }
@@ -445,6 +445,8 @@ a:hover { color: #0E332B; }
   .tp-pagehero__inner { padding: 64px 24px; }
   .tp-engagement__timeline { padding-left: 48px; }
   .tp-engagement__node { left: -33px; }
+  /* "hover a problem" doesn't apply on touch — hidden below desktop */
+  .tp-problems__hint { display: none; }
 }
 @media (max-width: 640px) {
   .tp-services .tp-container, .tp-capabilities .tp-container, .tp-insights .tp-container, .tp-cta__inner, .tp-footer .tp-container, .tp-bento__inner { padding-left: 20px; padding-right: 20px; padding-top: 56px; padding-bottom: 56px; }
@@ -485,7 +487,8 @@ a:hover { color: #0E332B; }
   .tp-pagehero__inner { padding: 100px 20px 48px; gap: 20px; }
   .tp-pagehero__actions { flex-direction: column; width: 100%; }
   .tp-pagehero__cta-btn, .tp-pagehero__ghost-btn { width: 100%; justify-content: center; }
-  .tp-pagehero__ticker-inner { padding: 22px 20px; gap: 20px; }
+  .tp-pagehero__ticker-inner { flex-direction: column; align-items: stretch; gap: 14px; padding: 22px 20px; }
+  .tp-pagehero__ticker-label { text-align: center; }
   .tp-problems__inner, .tp-engagement__inner, .tp-svc-articles__inner { padding: 56px 20px; }
   .tp-problem-card { padding: 22px; min-height: auto; }
   .tp-engagement__timeline { padding-left: 36px; }
