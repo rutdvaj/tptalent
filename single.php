@@ -81,7 +81,6 @@ $related = tp_get_related_posts(get_the_ID(), 3);
     <div class="tp-svc-articles__grid">
       <?php foreach ($related as $r) : ?>
         <a href="<?php echo esc_url($r['url']); ?>" class="tp-svc-article-card">
-          <div class="tp-svc-article-card__media" aria-hidden="true"></div>
           <div class="tp-svc-article-card__body">
             <div class="tp-svc-article-card__title"><?php echo esc_html($r['label']); ?></div>
             <div class="tp-svc-article-card__read">Read <span aria-hidden="true">&#8594;</span></div>
