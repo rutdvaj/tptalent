@@ -146,6 +146,25 @@
   }
 
   /* -----------------------------------------------------------
+   * Service page "Engagement model" — the vertical timeline fill grows
+   * as the section scrolls through view, ahead of the step reveals.
+   * --------------------------------------------------------- */
+  function initEngagementFill() {
+    var fill = document.getElementById('tp-engagement-fill');
+    var sec = document.getElementById('engagement');
+    if (!fill || !sec) return;
+    var update = function () {
+      var r = sec.getBoundingClientRect(), vh = window.innerHeight;
+      var total = r.height + vh * 0.35;
+      var passed = Math.max(0, vh * 0.72 - r.top);
+      fill.style.height = Math.max(0, Math.min(100, (passed / total) * 100)) + '%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+
+  /* -----------------------------------------------------------
    * Kinetic testimonial roller ("Chosen by")
    * --------------------------------------------------------- */
   function initKinetic() {
@@ -657,6 +676,7 @@
     initReveal();
     initMobileNav();
     initMobileNavSubmenus();
+    initEngagementFill();
     initAccordion();
     initKinetic();
     initRibbon();

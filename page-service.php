@@ -86,7 +86,8 @@ $insights_cross = tp_get_insights_nav_items(2);
       <div class="tp-eyebrow tp-eyebrow--light">How we fix it</div>
       <h2 class="tp-h2 tp-h2--light">Four steps, one accountable partner</h2>
     </div>
-    <div class="tp-engagement__timeline">
+    <div class="tp-engagement__timeline" id="tp-engagement-timeline">
+      <div class="tp-engagement__fill" id="tp-engagement-fill" aria-hidden="true"></div>
       <?php foreach ($content['steps'] as $s) : ?>
         <div class="tp-engagement__step" data-reveal>
           <span class="tp-engagement__node" aria-hidden="true"></span>

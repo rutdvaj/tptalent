@@ -395,6 +395,7 @@ a:hover { color: #0E332B; }
 .tp-engagement__head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
 .tp-engagement__timeline { position: relative; padding-left: 64px; display: flex; flex-direction: column; }
 .tp-engagement__timeline::before { content: ''; position: absolute; left: 27px; top: 12px; bottom: 12px; width: 2px; background: rgba(255,255,255,0.16); }
+.tp-engagement__fill { position: absolute; left: 27px; top: 12px; width: 2px; height: 0%; background: linear-gradient(180deg, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 100%); box-shadow: 0 0 14px var(--p1, #94ffd1); transition: height 130ms linear; }
 .tp-engagement__step { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 40px; row-gap: 6px; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
 .tp-engagement__node { position: absolute; left: -45px; top: 44px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink-deep, #0E332B); border: 2px solid var(--p1, #94ffd1); animation: nodePulse 2.8s ease-in-out infinite; }
 @keyframes nodePulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(148,255,209,0.35); } 50% { box-shadow: 0 0 0 6px rgba(148,255,209,0); } }
