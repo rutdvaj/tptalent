@@ -70,7 +70,13 @@ a:hover { color: #0E332B; }
 .tp-hero__shader { display: block; position: absolute; inset: 0; z-index: 0 !important; }
 .tp-hero__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.35) 100%); }
 
-.tp-nav { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; padding: 24px 48px 0 48px; }
+/* z-index must beat .tp-hero__inner's (2) — equal z-index siblings stack
+   by DOM order, and .tp-hero__inner comes after <nav> in the markup, so
+   it was painting over the dropdown panel where the two visually
+   overlap (panel opens downward into the space .tp-hero__inner starts
+   in). The panel's own z-index:40 can't fix this alone since it's
+   trapped inside .tp-nav's own stacking context. */
+.tp-nav { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; padding: 24px 48px 0 48px; }
 .tp-nav__brand { display: flex; align-items: stretch; gap: 14px; justify-self: start; padding: 12px 20px 12px 16px; border: 1.5px solid rgba(167,223,194,0.9); border-radius: 12px; background: rgba(230,248,239,0.6); backdrop-filter: blur(8px); }
 .tp-nav__bar { width: 5px; border-radius: 3px; background: linear-gradient(180deg, #A7DFC2 0%, #4F9F8A 45%, #16483B 100%); }
 .tp-nav__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
