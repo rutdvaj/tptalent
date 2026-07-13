@@ -42,9 +42,15 @@ $related = tp_get_related_posts(get_the_ID(), 3);
 </div>
 
 <div class="tp-article-cover-wrap">
-  <div class="tp-article-cover">
-    <span>cover image &middot; drop asset here</span>
-  </div>
+  <?php if (has_post_thumbnail()) : ?>
+    <div class="tp-article-cover tp-article-cover--image">
+      <?php the_post_thumbnail('large'); ?>
+    </div>
+  <?php else : ?>
+    <div class="tp-article-cover">
+      <span>cover image &middot; drop asset here</span>
+    </div>
+  <?php endif; ?>
 </div>
 
 <div class="tp-article-body">
