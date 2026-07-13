@@ -1,0 +1,12 @@
+/*
+Theme Name: Tecnoprism Talent
+Theme URI: https://tecnoprism.com
+Author: Tecnoprism
+Description: Custom one-page marketing theme for Tecnoprism Talent — shader-gradient hero, services, case study, testimonial, global delivery map and insights, all editable from the WordPress admin.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+Text Domain: tecnoprism-talent
+*/
+
+html, body { margin: 0; padding: 0; background: #FFFFFF; }

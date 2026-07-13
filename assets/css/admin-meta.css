@@ -1,0 +1,19 @@
+.tp-fields .tp-field { margin: 0 0 14px; }
+.tp-fields .tp-field label { display: block; font-weight: 600; margin-bottom: 4px; }
+.tp-fields textarea { min-height: 60px; }
+
+.tp-repeater { margin-bottom: 22px; border-top: 1px solid #dcdcde; padding-top: 14px; }
+.tp-repeater__title { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #50575e; }
+.tp-repeater__row { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border: 1px solid #e2e4e7; border-radius: 4px; margin-bottom: 8px; background: #fbfbfc; }
+.tp-repeater__row-fields { display: flex; flex-wrap: wrap; gap: 10px; flex: 1; }
+.tp-repeater__cell { display: flex; flex-direction: column; gap: 4px; min-width: 140px; flex: 1 1 160px; }
+.tp-repeater__cell label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: #6b6b6b; }
+.tp-repeater__cell--textarea { flex-basis: 100%; }
+.tp-repeater__cell input[type="text"],
+.tp-repeater__cell input[type="checkbox"] { margin: 0; }
+.tp-repeater__remove { color: #a00; font-size: 20px; line-height: 1; padding: 4px 8px; text-decoration: none; }
+.tp-repeater__remove:hover { color: #dc3232; }
+.tp-repeater__template { display: none; }
+
+.tp-image-field { display: flex; align-items: center; gap: 8px; }
+.tp-image-preview { width: 46px; height: 46px; object-fit: contain; background: #f0f0f1; border: 1px solid #dcdcde; border-radius: 4px; }
