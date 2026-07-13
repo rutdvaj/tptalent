@@ -128,6 +128,35 @@
    * label to expand its sub-links in place, accordion-style. Shared by
    * the homepage nav and the subpage nav partial (same class names).
    * --------------------------------------------------------- */
+
+  /* -----------------------------------------------------------
+   * Desktop nav dropdowns (Services / Insights) — CSS :hover already
+   * opens these, but hover can be unreliable in some browser/OS setups.
+   * This adds a click toggle as a robust fallback so the dropdown is
+   * always reachable even when hover doesn't fire.
+   * --------------------------------------------------------- */
+  function initDesktopDropdowns() {
+    var dropdowns = document.querySelectorAll('.tp-nav__dropdown');
+    if (!dropdowns.length) return;
+    var closeAll = function () {
+      dropdowns.forEach(function (dd) { dd.classList.remove('is-open'); });
+    };
+    dropdowns.forEach(function (dd) {
+      var trigger = dd.querySelector('.tp-nav__dropdown-trigger');
+      if (!trigger) return;
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = dd.classList.contains('is-open');
+        closeAll();
+        if (!open) dd.classList.add('is-open');
+      });
+    });
+    document.addEventListener('click', closeAll);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAll();
+    });
+  }
+
   function initMobileNavSubmenus() {
     document.querySelectorAll('.tp-nav-mobile__toggle').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -705,6 +734,7 @@
   function init() {
     initReveal();
     initMobileNav();
+    initDesktopDropdowns();
     initMobileNavSubmenus();
     initEngagementFill();
     initArticleProgress();

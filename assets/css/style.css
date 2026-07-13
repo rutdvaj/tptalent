@@ -83,11 +83,12 @@ a:hover { color: #0E332B; }
    .tp-nav__dropdown's hoverable box, breaking hover before the mouse
    reaches the panel. The 10px of breathing room is faked with padding-top
    on the panel itself instead, so the hit area stays unbroken. */
-.tp-nav__dropdown-panel { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 220px; background: rgba(255,255,255,0.98); border: 1px solid rgba(167,223,194,0.9); border-radius: 12px; padding: 18px 8px 8px; margin-top: 0; box-shadow: 0 18px 44px rgba(10,24,20,0.18); z-index: 40; }
-.tp-nav__dropdown-panel a, .tp-nav__dropdown-empty { display: block; font-size: 15px; font-weight: 500; color: #141C2B; padding: 10px 12px; border-radius: 8px; white-space: nowrap; transition: background 150ms, color 150ms; }
+.tp-nav__dropdown-panel { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 280px; background: rgba(255,255,255,0.98); border: 1px solid rgba(167,223,194,0.9); border-radius: 12px; padding: 18px 8px 8px; margin-top: 0; box-shadow: 0 18px 44px rgba(10,24,20,0.18); z-index: 40; }
+.tp-nav__dropdown-panel a, .tp-nav__dropdown-empty { display: block; font-size: 15px; font-weight: 500; line-height: 1.4; color: #141C2B; padding: 10px 12px; border-radius: 8px; white-space: normal; transition: background 150ms, color 150ms; }
 .tp-nav__dropdown-panel a:hover { background: rgba(200,238,216,0.7); color: #16483B; }
 .tp-nav__dropdown-empty { color: #8A93A3; cursor: default; }
-.tp-nav__dropdown:hover .tp-nav__dropdown-panel, .tp-nav__dropdown:focus-within .tp-nav__dropdown-panel { display: block; }
+.tp-nav__dropdown:hover .tp-nav__dropdown-panel, .tp-nav__dropdown:focus-within .tp-nav__dropdown-panel, .tp-nav__dropdown.is-open .tp-nav__dropdown-panel { display: block; }
+.tp-nav__dropdown.is-open .tp-nav__caret { transform: rotate(180deg); }
 .tp-nav__dropdown:hover .tp-nav__caret, .tp-nav__dropdown:focus-within .tp-nav__caret { transform: rotate(180deg); }
 
 /* ---- mobile nav (burger + dropdown) — inert on desktop, enabled at <=980px ---- */
