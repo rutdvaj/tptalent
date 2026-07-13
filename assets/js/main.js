@@ -130,10 +130,13 @@
    * --------------------------------------------------------- */
 
   /* -----------------------------------------------------------
-   * Desktop nav dropdowns (Services / Insights) — CSS :hover already
-   * opens these, but hover can be unreliable in some browser/OS setups.
-   * This adds a click toggle as a robust fallback so the dropdown is
-   * always reachable even when hover doesn't fire.
+   * Desktop nav dropdowns (Services / Insights) — fully JS-controlled
+   * (open/close only ever toggles the .is-open class). Deliberately NOT
+   * using raw CSS :hover to open these: it was closing the panel mid-
+   * click if the mouse position flickered out of the hover zone for
+   * even a frame while moving toward a link, silently eating the
+   * navigation. mouseenter/mouseleave here use a short close delay so
+   * moving from the trigger down into the panel doesn't lose "hover".
    * --------------------------------------------------------- */
   function initDesktopDropdowns() {
     var dropdowns = document.querySelectorAll('.tp-nav__dropdown');
@@ -144,12 +147,21 @@
     dropdowns.forEach(function (dd) {
       var trigger = dd.querySelector('.tp-nav__dropdown-trigger');
       if (!trigger) return;
+      var closeTimer = null;
+      var cancelClose = function () { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } };
+      var scheduleClose = function () { cancelClose(); closeTimer = setTimeout(function () { dd.classList.remove('is-open'); }, 220); };
+
       trigger.addEventListener('click', function (e) {
         e.stopPropagation();
         var open = dd.classList.contains('is-open');
         closeAll();
         if (!open) dd.classList.add('is-open');
       });
+      dd.addEventListener('mouseenter', function () {
+        cancelClose();
+        dd.classList.add('is-open');
+      });
+      dd.addEventListener('mouseleave', scheduleClose);
     });
     // Close on outside click only — closing on every click was also
     // firing when the click landed on a link *inside* the panel, hiding

@@ -87,7 +87,11 @@ a:hover { color: #0E332B; }
 .tp-nav__dropdown-panel a, .tp-nav__dropdown-empty { display: block; font-size: 15px; font-weight: 500; line-height: 1.4; color: #141C2B; padding: 10px 12px; border-radius: 8px; white-space: normal; transition: background 150ms, color 150ms; }
 .tp-nav__dropdown-panel a:hover { background: rgba(200,238,216,0.7); color: #16483B; }
 .tp-nav__dropdown-empty { color: #8A93A3; cursor: default; }
-.tp-nav__dropdown:hover .tp-nav__dropdown-panel, .tp-nav__dropdown:focus-within .tp-nav__dropdown-panel, .tp-nav__dropdown.is-open .tp-nav__dropdown-panel { display: block; }
+/* JS-controlled only (.is-open) — raw CSS :hover here was closing the
+   panel mid-click if the mouse position flickered out of the hover
+   zone for even a frame while moving toward a link, eating the
+   navigation. :focus-within kept for keyboard/tab access. */
+.tp-nav__dropdown:focus-within .tp-nav__dropdown-panel, .tp-nav__dropdown.is-open .tp-nav__dropdown-panel { display: block; }
 .tp-nav__dropdown.is-open .tp-nav__caret { transform: rotate(180deg); }
 .tp-nav__dropdown:hover .tp-nav__caret, .tp-nav__dropdown:focus-within .tp-nav__caret { transform: rotate(180deg); }
 
