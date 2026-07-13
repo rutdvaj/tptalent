@@ -85,3 +85,42 @@ function tp_bootstrap_acf_content() {
     update_option('tp_acf_content_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_acf_content');
+
+/**
+ * One-time: register the real report PDF (copied into uploads/2026/07/)
+ * as a proper Media Library attachment, then point the Bento Grid's CTA
+ * card at it with a real download instead of the placeholder "#" link.
+ * Safe to leave running every request — the option flag makes the actual
+ * work run exactly once.
+ */
+function tp_bootstrap_report_pdf() {
+    if (get_option('tp_report_pdf_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $file = WP_CONTENT_DIR . '/uploads/2026/07/tecnoprism-global-consulting-services.pdf';
+    if (!file_exists($file)) return;
+
+    $file_url = WP_CONTENT_URL . '/uploads/2026/07/tecnoprism-global-consulting-services.pdf';
+    $existing = get_page_by_title('Tecnoprism Global Consulting Services', OBJECT, 'attachment');
+    $attachment_id = $existing ? $existing->ID : null;
+
+    if (!$attachment_id) {
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+        $attachment_id = wp_insert_attachment([
+            'post_title'     => 'Tecnoprism Global Consulting Services',
+            'post_mime_type' => 'application/pdf',
+            'post_status'    => 'inherit',
+        ], $file);
+        if (!is_wp_error($attachment_id) && $attachment_id) {
+            wp_update_attachment_metadata($attachment_id, wp_generate_attachment_metadata($attachment_id, $file));
+        }
+    }
+
+    update_field('cta_label', 'Download report', $id);
+    update_field('cta_url', $file_url, $id);
+
+    update_option('tp_report_pdf_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_report_pdf');

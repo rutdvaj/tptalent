@@ -69,7 +69,7 @@ $monthsCount = max(1, (int) $c['months_count']);
         <span class="tp-bento-card__cube tp-bento-card__cube--a" aria-hidden="true"></span>
         <span class="tp-bento-card__cube tp-bento-card__cube--b" aria-hidden="true"></span>
         <div class="tp-bento-card__cta-text"><?php echo esc_html($c['cta_card_text']); ?></div>
-        <a href="<?php echo esc_url($c['cta_url']); ?>" class="tp-pill-btn tp-pill-btn--dark" data-hover-icon>
+        <a href="<?php echo esc_url($c['cta_url']); ?>" download class="tp-pill-btn tp-pill-btn--dark" data-hover-icon>
           <span class="tp-pill-btn__icon"><span class="tp-pill-btn__arrow">→</span></span>
           <?php echo esc_html($c['cta_label']); ?>
         </a>
