@@ -141,6 +141,19 @@ function tp_bootstrap_home_page() {
 add_action('init', 'tp_bootstrap_home_page');
 
 /**
+ * One-time: site title (Settings > General > Site Title) was left at
+ * Local's auto-generated default ("Tptest") — this shows in the browser
+ * tab. Guarded so it only ever runs once and won't overwrite a manual
+ * edit made afterward in Settings.
+ */
+function tp_bootstrap_site_title() {
+    if (get_option('tp_site_title_bootstrapped')) return;
+    update_option('blogname', 'TecnoPrismTalent');
+    update_option('tp_site_title_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_site_title');
+
+/**
  * If no static front page is assigned yet, gently nudge the admin (front-page.php
  * only renders automatically once Settings > Reading is set to a static page).
  */
