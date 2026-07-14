@@ -208,3 +208,32 @@ function tp_bootstrap_global_regions_v2() {
     update_option('tp_global_regions_v2_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_global_regions_v2');
+
+/**
+ * One-time: the 8 client logo master files on disk were replaced with
+ * auto-trimmed versions (removed a large amount of dead transparent
+ * padding baked into the originals — that's why some logos, e.g.
+ * Vanderlande/Tech Mahindra, rendered near-invisible even at a decent
+ * ticker size: most of their square canvas was empty space). WordPress
+ * doesn't auto-regenerate its cached thumbnail sizes just because the
+ * original file changed on disk, so this explicitly re-runs
+ * wp_generate_attachment_metadata() against the new files for each of
+ * the 8 logo attachments, refreshing every registered thumbnail size.
+ */
+function tp_bootstrap_ticker_logos_v3_retrim() {
+    if (get_option('tp_ticker_logos_v3_retrim_bootstrapped')) return;
+
+    $titles = ['Automation Anywhere', 'Deloitte', 'HCL Technologies', 'Infosys', 'Tech Mahindra', 'Vanderlande', 'Wipro', 'Zensar'];
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+
+    foreach ($titles as $title) {
+        $att = get_page_by_title($title, OBJECT, 'attachment');
+        if (!$att) continue;
+        $file = get_attached_file($att->ID);
+        if (!$file || !file_exists($file)) continue;
+        wp_update_attachment_metadata($att->ID, wp_generate_attachment_metadata($att->ID, $file));
+    }
+
+    update_option('tp_ticker_logos_v3_retrim_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_ticker_logos_v3_retrim');
