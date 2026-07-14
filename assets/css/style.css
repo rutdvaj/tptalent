@@ -197,8 +197,12 @@ a:hover { color: #0E332B; }
 .tp-hero__divider { align-self: stretch; width: 1px; background: rgba(79,159,138,0.35); flex: 0 0 auto; }
 
 .tp-ticker { flex: 1 1 auto; min-width: 0; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.tp-ticker__track { display: flex; gap: 40px; width: max-content; animation: tickerScroll 28s linear infinite; }
-.tp-ticker__logo { height: 62px; width: auto; flex: 0 0 auto; object-fit: contain; }
+.tp-ticker__track { display: flex; gap: 56px; width: max-content; animation: tickerScroll 28s linear infinite; }
+/* Fixed box (not just a fixed height) so every logo scales to fit the
+   same footprint via object-fit, regardless of the source image's own
+   aspect ratio — otherwise a wide logo and a near-square one render at
+   very different visual sizes even with height alone pinned. */
+.tp-ticker__logo { height: 62px; width: 130px; flex: 0 0 auto; object-fit: contain; }
 
 /* ===========================================================
    SERVICES + shared card component (also used by Insights)
@@ -619,7 +623,7 @@ a:hover { color: #0E332B; }
   .tp-metric__value { font-size: 32px; }
   .tp-kinetic__name { font-size: 34px; }
   .tp-kinetic__namewrap { height: 40px; }
-  .tp-ticker__logo { height: 46px; }
+  .tp-ticker__logo { height: 46px; width: 98px; }
 }
 
 /* ===========================================================
