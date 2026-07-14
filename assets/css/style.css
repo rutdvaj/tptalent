@@ -588,7 +588,7 @@ a:hover { color: #0E332B; }
      wide (a large chunk of real devices) were still getting the full
      130x62 desktop box, rendering visibly oversized/"broader" than the
      rest of the mobile layout. */
-  .tp-ticker__logo { height: 30px; width: 64px; }
+  .tp-ticker__logo { height: 54px; width: 115px; }
   .tp-ticker__track { gap: 32px; }
   /* Service-page ticker already sits inside .tp-pagehero__ticker's own
      darkening band — stacking the glass panel on top of that reads as too
