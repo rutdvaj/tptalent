@@ -124,3 +124,63 @@ function tp_bootstrap_report_pdf() {
     update_option('tp_report_pdf_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_report_pdf');
+
+/**
+ * One-time: replace the "Client logo ticker" (tp_hero.ticker_logos) with
+ * a new curated set of real client logos (copied into uploads/2026/07/),
+ * registering each as a proper Media Library attachment first. This is
+ * a full replace of the saved repeater value, not an append — whatever
+ * was there before (default fallbacks or earlier manual edits) is
+ * discarded in favor of this list. Guarded so it only ever runs once;
+ * afterward the logos are just normal repeater rows editable in
+ * wp-admin like any other.
+ */
+function tp_bootstrap_ticker_logos_v2() {
+    if (get_option('tp_ticker_logos_v2_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $files = [
+        'automation_anywhere_logo' => 'Automation Anywhere',
+        'deloitte_logo'            => 'Deloitte',
+        'hcl_technologies_logo'    => 'HCL Technologies',
+        'infosys_logo'             => 'Infosys',
+        'tech_mahindra_logo'       => 'Tech Mahindra',
+        'vanderlande_logo'         => 'Vanderlande',
+        'wipro_logo'               => 'Wipro',
+        'zensar_logo'              => 'Zensar',
+    ];
+
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    $new_logos = [];
+    foreach ($files as $slug => $title) {
+        $file = WP_CONTENT_DIR . "/uploads/2026/07/{$slug}.png";
+        if (!file_exists($file)) continue;
+
+        $existing = get_page_by_title($title, OBJECT, 'attachment');
+        $attachment_id = $existing ? $existing->ID : null;
+        if (!$attachment_id) {
+            $attachment_id = wp_insert_attachment([
+                'post_title'     => $title,
+                'post_mime_type' => 'image/png',
+                'post_status'    => 'inherit',
+            ], $file);
+            if (!is_wp_error($attachment_id) && $attachment_id) {
+                wp_update_attachment_metadata($attachment_id, wp_generate_attachment_metadata($attachment_id, $file));
+            }
+        }
+        if ($attachment_id && !is_wp_error($attachment_id)) {
+            $new_logos[] = ['id' => $attachment_id, 'fallback' => ''];
+        }
+    }
+
+    if ($new_logos) {
+        $saved = get_post_meta($id, 'tp_hero', true);
+        $saved = is_array($saved) ? $saved : tp_default('tp_hero');
+        $saved['ticker_logos'] = $new_logos;
+        update_post_meta($id, 'tp_hero', $saved);
+    }
+
+    update_option('tp_ticker_logos_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_ticker_logos_v2');
