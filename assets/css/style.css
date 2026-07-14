@@ -202,7 +202,7 @@ a:hover { color: #0E332B; }
    same footprint via object-fit, regardless of the source image's own
    aspect ratio — otherwise a wide logo and a near-square one render at
    very different visual sizes even with height alone pinned. */
-.tp-ticker__logo { height: 84px; width: 176px; flex: 0 0 auto; object-fit: contain; }
+.tp-ticker__logo { height: 59px; width: 123px; flex: 0 0 auto; object-fit: contain; }
 
 /* ===========================================================
    SERVICES + shared card component (also used by Insights)
@@ -588,7 +588,7 @@ a:hover { color: #0E332B; }
      wide (a large chunk of real devices) were still getting the full
      130x62 desktop box, rendering visibly oversized/"broader" than the
      rest of the mobile layout. */
-  .tp-ticker__logo { height: 54px; width: 115px; }
+  .tp-ticker__logo { height: 38px; width: 81px; }
   .tp-ticker__track { gap: 48px; }
   /* Service-page ticker already sits inside .tp-pagehero__ticker's own
      darkening band — stacking the glass panel on top of that reads as too
