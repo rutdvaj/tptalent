@@ -184,3 +184,27 @@ function tp_bootstrap_ticker_logos_v2() {
     update_option('tp_ticker_logos_v2_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_ticker_logos_v2');
+
+/**
+ * One-time: the Home page already has explicit saved meta for
+ * tp_global (baked in the moment the page was ever saved in wp-admin,
+ * since the meta-box form posts back every section's current value on
+ * Update — not just the ones actually edited). That saved copy was
+ * silently overriding the new regions/countries added to tp_default()
+ * in code. This directly replaces the saved 'regions' array with the
+ * expanded one, leaving every other tp_global field (locations, map
+ * copy, etc.) exactly as already saved/untouched.
+ */
+function tp_bootstrap_global_regions_v2() {
+    if (get_option('tp_global_regions_v2_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_global', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_global');
+    $saved['regions'] = tp_default('tp_global')['regions'];
+    update_post_meta($id, 'tp_global', $saved);
+
+    update_option('tp_global_regions_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_global_regions_v2');

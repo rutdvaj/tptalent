@@ -18,7 +18,11 @@ $regions = is_array($g['regions']) ? $g['regions'] : [];
       <?php foreach ($regions as $r) : ?>
         <div class="tp-global__region">
           <div class="tp-global__region-label"><?php echo esc_html($r['label']); ?></div>
-          <div class="tp-global__region-value"><?php echo esc_html($r['value']); ?></div>
+          <div class="tp-global__region-chips">
+            <?php foreach (array_filter(array_map('trim', explode('·', $r['value']))) as $country) : ?>
+              <span class="tp-global__chip"><?php echo esc_html($country); ?></span>
+            <?php endforeach; ?>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>

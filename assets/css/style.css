@@ -197,12 +197,12 @@ a:hover { color: #0E332B; }
 .tp-hero__divider { align-self: stretch; width: 1px; background: rgba(79,159,138,0.35); flex: 0 0 auto; }
 
 .tp-ticker { flex: 1 1 auto; min-width: 0; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.tp-ticker__track { display: flex; gap: 72px; width: max-content; animation: tickerScroll 44s linear infinite; }
+.tp-ticker__track { display: flex; gap: 88px; width: max-content; animation: tickerScroll 44s linear infinite; }
 /* Fixed box (not just a fixed height) so every logo scales to fit the
    same footprint via object-fit, regardless of the source image's own
    aspect ratio — otherwise a wide logo and a near-square one render at
    very different visual sizes even with height alone pinned. */
-.tp-ticker__logo { height: 62px; width: 130px; flex: 0 0 auto; object-fit: contain; }
+.tp-ticker__logo { height: 84px; width: 176px; flex: 0 0 auto; object-fit: contain; }
 
 /* ===========================================================
    SERVICES + shared card component (also used by Insights)
@@ -342,13 +342,20 @@ a:hover { color: #0E332B; }
    GLOBAL DELIVERY / MAP
    =========================================================== */
 .tp-global { background: var(--map-bg, #081711); overflow: hidden; }
-.tp-global .tp-container { max-width: 1280px; padding: 72px 40px 0; }
-.tp-global__head { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: center; }
+/* Widened from 1280px — the regions panel now carries a lot more
+   countries (chips), so it needs more room; map size/behavior below is
+   untouched, it just sits inside a wider section now. */
+.tp-global .tp-container { max-width: 1440px; padding: 72px 40px 0; }
+.tp-global__head { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
 .tp-global__copy { display: flex; flex-direction: column; gap: 20px; }
 .tp-global__lede { font-size: 16.5px; line-height: 1.6; color: rgba(255,255,255,0.68); margin: 0; max-width: 42ch; text-wrap: pretty; }
 .tp-global__regions { display: flex; flex-direction: column; gap: 24px; border-left: 1px solid rgba(255,255,255,0.16); padding-left: 40px; }
 .tp-global__region-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--soft, #A9C4B0); }
-.tp-global__region-value { font-size: 17px; font-weight: 600; color: #FFFFFF; margin-top: 7px; }
+/* Chips instead of one flowing text line — some regions (APAC) now
+   list a dozen+ countries, which would overflow/wrap badly as plain
+   text. Wraps naturally to any number of countries at any width. */
+.tp-global__region-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.tp-global__chip { font-size: 13px; font-weight: 500; color: #FFFFFF; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 6px 13px; white-space: nowrap; }
 
 .tp-global__map-wrap { position: relative; width: 100%; height: 640px; margin-top: 56px; margin-bottom: 88px; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%); }
 .tp-global__map { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -581,7 +588,7 @@ a:hover { color: #0E332B; }
      wide (a large chunk of real devices) were still getting the full
      130x62 desktop box, rendering visibly oversized/"broader" than the
      rest of the mobile layout. */
-  .tp-ticker__logo { height: 46px; width: 98px; }
+  .tp-ticker__logo { height: 30px; width: 64px; }
   .tp-ticker__track { gap: 32px; }
   /* Service-page ticker already sits inside .tp-pagehero__ticker's own
      darkening band — stacking the glass panel on top of that reads as too
