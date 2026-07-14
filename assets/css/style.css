@@ -35,6 +35,16 @@ a:hover { color: #0E332B; }
 [data-hovercard]:hover [data-cardnum] { color: var(--ink, #16483B) !important; }
 #services [data-hovercard] [data-cardtitle] { background-image: linear-gradient(90deg, var(--mid, #3E7159) 0%, var(--ink, #16483B) 70%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #services [data-hovercard]:hover [data-cardtitle] { background-image: none; -webkit-text-fill-color: var(--ink-deep, #0E332B); }
+/* Services-only hover fill: a one-time rising reveal (not the endless
+   diagonal sweep the generic [data-hovercard] rule above uses, which
+   reads too close to the hero's animated shader) — same Sea Mint
+   palette, holds static once risen. Tablet/desktop only, per request;
+   mobile keeps the original global hover behavior (moot anyway since
+   there's no hover on touch). */
+@media (min-width: 640px) {
+  #services [data-hovercard] [data-fill] { background-image: none; background-color: transparent; opacity: 0; transform: translateY(22px); transition: opacity 550ms cubic-bezier(0.16,1,0.3,1), transform 550ms cubic-bezier(0.16,1,0.3,1); }
+  #services [data-hovercard]:hover [data-fill] { opacity: 0.94; transform: translateY(0); animation: none; background-image: linear-gradient(165deg, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 55%, var(--p3, #ffffff) 100%); }
+}
 
 /* ---- shared: eyebrow / h2 / pill+solid buttons ---- */
 .tp-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid, #3E7159); }
@@ -191,7 +201,14 @@ a:hover { color: #0E332B; }
    SERVICES + shared card component (also used by Insights)
    =========================================================== */
 .tp-services { background: linear-gradient(180deg, var(--wash-b, #EEF3EE) 0%, #FFFFFF 100%); }
-.tp-services .tp-container { padding: 112px 40px; }
+/* +10% wider than the site's normal 1240px container (desktop/tablet
+   only — see the mobile override below) so each of the 3 equal-width
+   grid columns grows proportionally, i.e. the cards themselves get 10%
+   wider without changing the column count. */
+.tp-services .tp-container { padding: 112px 40px; max-width: 1240px; }
+@media (min-width: 640px) {
+  .tp-services .tp-container { max-width: 1364px; }
+}
 .tp-services__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 .tp-services__intro { display: flex; flex-direction: column; gap: 16px; padding: 8px 32px 8px 0; }
 .tp-services__lede { font-size: 16px; line-height: 1.55; color: #5A6478; margin: 0; max-width: 34ch; }
@@ -202,6 +219,7 @@ a:hover { color: #0E332B; }
 .tp-card__head { display: flex; flex-direction: column; gap: 12px; }
 .tp-card__badge-row { display: flex; align-items: center; gap: 12px; }
 .tp-card__glyph { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 16px; color: var(--ink, #16483B); border: 1px solid rgba(255,255,255,0.6); }
+.tp-card__glyph svg { width: 20px; height: 20px; flex: 0 0 auto; }
 .tp-card__glyph--a { background: linear-gradient(135deg, var(--p1), var(--p2)); }
 .tp-card__glyph--b { background: linear-gradient(135deg, var(--p2), var(--p1)); }
 .tp-card__num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--soft, #A9C4B0); }
