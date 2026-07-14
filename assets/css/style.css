@@ -197,7 +197,7 @@ a:hover { color: #0E332B; }
 .tp-hero__divider { align-self: stretch; width: 1px; background: rgba(79,159,138,0.35); flex: 0 0 auto; }
 
 .tp-ticker { flex: 1 1 auto; min-width: 0; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.tp-ticker__track { display: flex; gap: 88px; width: max-content; animation: tickerScroll 44s linear infinite; }
+.tp-ticker__track { display: flex; gap: 132px; width: max-content; animation: tickerScroll 44s linear infinite; }
 /* Fixed box (not just a fixed height) so every logo scales to fit the
    same footprint via object-fit, regardless of the source image's own
    aspect ratio — otherwise a wide logo and a near-square one render at
@@ -589,7 +589,7 @@ a:hover { color: #0E332B; }
      130x62 desktop box, rendering visibly oversized/"broader" than the
      rest of the mobile layout. */
   .tp-ticker__logo { height: 54px; width: 115px; }
-  .tp-ticker__track { gap: 32px; }
+  .tp-ticker__track { gap: 48px; }
   /* Service-page ticker already sits inside .tp-pagehero__ticker's own
      darkening band — stacking the glass panel on top of that reads as too
      visible there, so it's removed for now (revisit later if desired). */
