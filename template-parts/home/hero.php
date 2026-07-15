@@ -90,18 +90,7 @@ $hero  = tp_get_section('tp_hero');
     </div>
 
     <div class="tp-hero__stats">
-      <div class="tp-hero__metrics">
-        <div class="tp-metric">
-          <div class="tp-metric__value"><?php echo esc_html($hero['metric1_value']); ?></div>
-          <div class="tp-metric__label"><?php echo esc_html($hero['metric1_label']); ?></div>
-        </div>
-        <div class="tp-metric">
-          <div class="tp-metric__value"><?php echo esc_html($hero['metric2_value']); ?></div>
-          <div class="tp-metric__label"><?php echo esc_html($hero['metric2_label']); ?></div>
-        </div>
-      </div>
-      <div class="tp-hero__divider" aria-hidden="true"></div>
-      <div class="tp-ticker">
+      <div class="tp-ticker tp-ticker--full">
         <div class="tp-ticker__track">
           <?php
           $logos = $hero['ticker_logos'];

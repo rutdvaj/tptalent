@@ -197,12 +197,38 @@ a:hover { color: #0E332B; }
 .tp-hero__divider { align-self: stretch; width: 1px; background: rgba(79,159,138,0.35); flex: 0 0 auto; }
 
 .tp-ticker { flex: 1 1 auto; min-width: 0; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.tp-ticker__track { display: flex; gap: 132px; width: max-content; animation: tickerScroll 44s linear infinite; }
+/* Sole occupant of .tp-hero__stats now that the metrics+divider are
+   gone — flex:1 1 auto already expands it to fill the row, this just
+   makes that explicit. */
+.tp-ticker--full { width: 100%; }
+.tp-ticker__track { display: flex; gap: 132px; width: max-content; animation: tickerScroll 90s linear infinite; }
 /* Fixed box (not just a fixed height) so every logo scales to fit the
    same footprint via object-fit, regardless of the source image's own
    aspect ratio — otherwise a wide logo and a near-square one render at
    very different visual sizes even with height alone pinned. */
 .tp-ticker__logo { height: 59px; width: 123px; flex: 0 0 auto; object-fit: contain; }
+
+/* ===========================================================
+   NUMBERS — dark band + performance bars (design variant "1b/2b"),
+   sits directly after the hero.
+   =========================================================== */
+.tp-numbers { position: relative; overflow: hidden; background: radial-gradient(120% 130% at 75% 20%, var(--mid, #3E7159) -25%, var(--ink, #16483B) 32%, var(--ink-deep, #0E332B) 68%, #08120F 100%); }
+.tp-numbers__glow { position: absolute; left: -8%; right: -8%; bottom: -35%; height: 60%; filter: blur(48px); opacity: 0.5; background: radial-gradient(120% 100% at 50% 100%, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 45%, transparent 78%); animation: riseDrift 12s ease-in-out infinite alternate; pointer-events: none; }
+.tp-numbers__inner { position: relative; z-index: 2; padding: 104px 40px; }
+.tp-numbers__heading { margin: 14px 0 72px; max-width: 22ch; font-weight: 400; font-size: clamp(34px, 4vw, 52px); line-height: 1.05; }
+.tp-numbers__body { display: grid; grid-template-columns: 1.1fr 1px 1fr; gap: 56px; align-items: start; }
+.tp-numbers__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 56px 48px; }
+.tp-numbers__stat-value { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 68px; line-height: 1; color: #FFFFFF; }
+.tp-numbers__stat-unit { font-size: 40px; margin-left: 4px; }
+.tp-numbers__stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft, #A9C4B0); margin-top: 14px; }
+.tp-numbers__rule { background: rgba(167,223,194,0.25); align-self: stretch; }
+.tp-numbers__perf { display: flex; flex-direction: column; gap: 30px; padding-top: 6px; }
+.tp-numbers__perf-label { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--soft, #A9C4B0); }
+.tp-numbers__bar-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.tp-numbers__bar-label { font-size: 15px; font-weight: 600; color: #EAF5EE; }
+.tp-numbers__bar-pct { font-family: 'Newsreader', Georgia, serif; font-size: 28px; font-weight: 500; color: #FFFFFF; }
+.tp-numbers__bar-track { height: 5px; border-radius: 3px; background: rgba(167,223,194,0.18); overflow: hidden; }
+.tp-numbers__bar-fill { height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, var(--mid, #3E7159), var(--soft, #A9C4B0)); }
 
 /* ===========================================================
    SERVICES + shared card component (also used by Insights)
@@ -557,6 +583,10 @@ a:hover { color: #0E332B; }
   .tp-bento-card--wide { grid-column: span 2; }
   .tp-capabilities__grid, .tp-global__head { grid-template-columns: 1fr; }
   .tp-global__regions { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.16); padding-top: 24px; }
+  .tp-numbers__body { grid-template-columns: 1fr; gap: 40px; }
+  .tp-numbers__rule { display: none; }
+  .tp-numbers__inner { padding: 72px 24px; }
+  .tp-numbers__heading { margin-bottom: 48px; }
   .tp-footer__top { grid-template-columns: 1fr 1fr; }
   .tp-pagehero__inner { padding: 64px 24px; }
   .tp-engagement__timeline { padding-left: 48px; }
@@ -614,6 +644,11 @@ a:hover { color: #0E332B; }
   .tp-cta__inner { padding-top: 84px; padding-bottom: 84px; }
   .tp-footer__top { grid-template-columns: 1fr; }
   .tp-footer__legal { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .tp-numbers__inner { padding: 56px 20px; }
+  .tp-numbers__heading { font-size: 28px; margin-bottom: 36px; }
+  .tp-numbers__stats { gap: 32px 20px; }
+  .tp-numbers__stat-value { font-size: 42px; }
+  .tp-numbers__stat-unit { font-size: 24px; }
   .tp-pagehero__inner { padding: 100px 20px 48px; gap: 20px; }
   .tp-pagehero__actions { flex-direction: column; width: 100%; }
   .tp-pagehero__actions .tp-pill-btn, .tp-pagehero__ghost-btn { width: 100%; justify-content: center; }

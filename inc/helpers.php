@@ -173,6 +173,25 @@ function tp_default($section) {
                 return ['id' => 0, 'fallback' => "assets/images/logos/image-$n.webp"];
             }, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]),
         ],
+        // "Numbers" section — dark band + performance bars (variant 1b/2b
+        // from the design handoff), placed directly after the hero.
+        'tp_numbers' => [
+            'eyebrow' => 'The record',
+            'heading' => "Numbers we're held to, not numbers we hide behind",
+            'stats' => [
+                ['value' => 10, 'prefix' => '$', 'suffix' => 'M+', 'unit' => '', 'label' => 'Annual client cost savings'],
+                ['value' => 3700, 'prefix' => '', 'suffix' => '+', 'unit' => '', 'label' => 'Successful engagements'],
+                ['value' => 21, 'prefix' => '', 'suffix' => '', 'unit' => '', 'label' => 'Countries supported'],
+                ['value' => 20, 'prefix' => '', 'suffix' => '', 'unit' => 'yrs', 'label' => 'In IT consulting & services'],
+            ],
+            'perf_label' => 'Performance by percentage',
+            'perf' => [
+                ['label' => 'Offer to start', 'pct' => 97],
+                ['label' => 'Coverage', 'pct' => 96],
+                ['label' => 'Interview to offer', 'pct' => 26],
+                ['label' => 'Fill ratio', 'pct' => 18],
+            ],
+        ],
         'tp_services' => [
             'eyebrow' => 'What we do',
             'heading' => 'Five ways we build your workforce',

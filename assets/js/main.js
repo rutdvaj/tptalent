@@ -137,6 +137,48 @@
    * could register. Only two things can close it now: clicking the
    * trigger again, or clicking truly outside the dropdown.
    * --------------------------------------------------------- */
+
+  /* -----------------------------------------------------------
+   * Numbers section — count-up stats + animated bar fills, both
+   * triggered once each element scrolls into view. Ported from the
+   * design's own count-up/bar-fill logic.
+   * --------------------------------------------------------- */
+  function initNumbersAnimation() {
+    var els = document.querySelectorAll('.tp-numbers [data-count], .tp-numbers [data-bar]');
+    if (!els.length) return;
+    var DUR = 3000;
+    var animate = function (el) {
+      if (el.hasAttribute('data-bar')) {
+        var barTarget = parseFloat(el.getAttribute('data-bar'));
+        el.style.transition = 'width ' + DUR + 'ms cubic-bezier(0.22, 1, 0.36, 1)';
+        requestAnimationFrame(function () { requestAnimationFrame(function () { el.style.width = barTarget + '%'; }); });
+        return;
+      }
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (isNaN(target)) return;
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      var t0 = performance.now();
+      var step = function (now) {
+        var p = Math.min(1, (now - t0) / DUR);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + Math.round(target * eased).toLocaleString('en-US') + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      el.textContent = prefix + '0' + suffix;
+      requestAnimationFrame(step);
+    };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || entry.target._tpAnimated) return;
+        entry.target._tpAnimated = true;
+        io.unobserve(entry.target);
+        animate(entry.target);
+      });
+    }, { threshold: 0.25 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
   function initDesktopDropdowns() {
     var dropdowns = document.querySelectorAll('.tp-nav__dropdown');
     if (!dropdowns.length) return;
@@ -740,6 +782,7 @@
     initReveal();
     initMobileNav();
     initDesktopDropdowns();
+    initNumbersAnimation();
     initMobileNavSubmenus();
     initEngagementFill();
     initArticleProgress();
