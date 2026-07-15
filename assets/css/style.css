@@ -190,7 +190,7 @@ a:hover { color: #0E332B; }
 }
 .tp-hero__actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
-.tp-hero__stats { margin-top: auto; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; text-align: left; padding-top: 36px; border-top: 1px solid rgba(79,159,138,0.35); }
+.tp-hero__stats { margin-top: auto; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; text-align: left; padding-top: 36px; }
 .tp-hero__metrics { display: flex; gap: 56px; flex: 0 0 auto; }
 .tp-metric__value { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 56px; line-height: 1; color: #16483B; letter-spacing: -0.01em; }
 .tp-metric__label { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #33544A; margin-top: 12px; }
@@ -212,7 +212,7 @@ a:hover { color: #0E332B; }
    NUMBERS — dark band + performance bars (design variant "1b/2b"),
    sits directly after the hero.
    =========================================================== */
-.tp-numbers { position: relative; overflow: hidden; background: radial-gradient(120% 130% at 75% 20%, var(--mid, #3E7159) -25%, var(--ink, #16483B) 32%, var(--ink-deep, #0E332B) 68%, #08120F 100%); }
+.tp-numbers { position: relative; overflow: hidden; background: #265847; }
 .tp-numbers__glow { position: absolute; left: -8%; right: -8%; bottom: -35%; height: 60%; filter: blur(48px); opacity: 0.5; background: radial-gradient(120% 100% at 50% 100%, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 45%, transparent 78%); animation: riseDrift 12s ease-in-out infinite alternate; pointer-events: none; }
 .tp-numbers__inner { position: relative; z-index: 2; padding: 104px 40px; }
 .tp-numbers__heading { margin: 14px 0 72px; max-width: 22ch; font-weight: 400; font-size: clamp(34px, 4vw, 52px); line-height: 1.05; }
