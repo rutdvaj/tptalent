@@ -87,6 +87,27 @@ function tp_bootstrap_acf_content() {
 add_action('wp_loaded', 'tp_bootstrap_acf_content');
 
 /**
+ * One-time: replace the client kinetic headline rotator's "name" values
+ * with anonymized company-type labels (e.g. "A Big 4 company") instead of
+ * direct client names — per client request not to name specific companies
+ * in that rotator. Full replace of the saved ACF rotator rows.
+ */
+function tp_bootstrap_testimonial_rotator_v2() {
+    if (get_option('tp_testimonial_rotator_v2_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $rotator = tp_default('tp_testimonial')['rotator'];
+    foreach ($rotator as $i => $client) {
+        update_field('rotator_' . ($i + 1), $client, $id);
+    }
+
+    update_option('tp_testimonial_rotator_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_testimonial_rotator_v2');
+
+/**
  * One-time: register the real report PDF (copied into uploads/2026/07/)
  * as a proper Media Library attachment, then point the Bento Grid's CTA
  * card at it with a real download instead of the placeholder "#" link.

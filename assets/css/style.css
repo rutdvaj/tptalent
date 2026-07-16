@@ -183,8 +183,8 @@ a:hover { color: #0E332B; }
 .tp-pagehero .tp-nav-mobile__submenu a:hover { color: #16483B; }
 
 .tp-hero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; padding: 128px 40px 28px; text-align: center; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
-.tp-hero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(52px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto 28px; max-width: 17ch; color: var(--ink, #16483B); text-wrap: pretty; }
-.tp-hero__subhead { font-size: 20px; line-height: 1.55; color: var(--ink, #16483B); max-width: 46ch; margin: 0 auto 40px; text-wrap: pretty; }
+.tp-hero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(52px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto 28px; max-width: 17ch; color: #144622; text-wrap: pretty; }
+.tp-hero__subhead { font-size: 20px; line-height: 1.55; color: #144622; max-width: 46ch; margin: 0 auto 40px; text-wrap: pretty; }
 @media (min-width: 980px) {
   .tp-hero__subhead { font-size: 23px; }
 }
@@ -679,14 +679,14 @@ a:hover { color: #0E332B; }
    =========================================================== */
 @media (min-width: 981px) {
   .tp-bento { min-height: 100vh; display: flex; flex-direction: column; }
-  .tp-bento .tp-bento__inner { max-width: 1320px; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
-  .tp-bento__grid { gap: 22px; }
-  .tp-bento-card { min-height: 260px; padding: 28px; }
-  .tp-bento-card--wide { min-height: 300px; }
-  .tp-bento-card__stat { font-size: 60px; }
-  .tp-bento-card__stat--white { font-size: 48px; }
-  .tp-bento-card__title { font-size: 21px; }
-  .tp-bento-card__body { font-size: 15.5px; }
-  .tp-bento-card__cta-text { font-size: 25px; }
-  .tp-bento-card--cta .tp-pill-btn { font-size: 15px; }
+  .tp-bento .tp-bento__inner { max-width: 1520px; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  .tp-bento__grid { gap: 25px; }
+  .tp-bento-card { min-height: 300px; padding: 32px; }
+  .tp-bento-card--wide { min-height: 345px; }
+  .tp-bento-card__stat { font-size: 69px; }
+  .tp-bento-card__stat--white { font-size: 55px; }
+  .tp-bento-card__title { font-size: 24px; }
+  .tp-bento-card__body { font-size: 18px; }
+  .tp-bento-card__cta-text { font-size: 29px; }
+  .tp-bento-card--cta .tp-pill-btn { font-size: 17px; }
 }
