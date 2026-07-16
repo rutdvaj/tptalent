@@ -207,6 +207,12 @@ a:hover { color: #0E332B; }
    aspect ratio — otherwise a wide logo and a near-square one render at
    very different visual sizes even with height alone pinned. */
 .tp-ticker__logo { height: 59px; width: 123px; flex: 0 0 auto; object-fit: contain; }
+/* Tablet tier — was falling through to the full desktop-sized box
+   (59x123) with no logo of its own, reading oversized on tablet screens. */
+@media (max-width: 980px) {
+  .tp-ticker__logo { height: 46px; width: 96px; }
+  .tp-ticker__track { gap: 96px; }
+}
 
 /* ===========================================================
    NUMBERS — dark band + performance bars (design variant "1b/2b"),
@@ -674,6 +680,8 @@ a:hover { color: #0E332B; }
   .tp-metric__value { font-size: 32px; }
   .tp-kinetic__name { font-size: 34px; }
   .tp-kinetic__namewrap { height: 40px; }
+  .tp-ticker__logo { height: 30px; width: 64px; }
+  .tp-ticker__track { gap: 32px; }
 }
 
 /* ===========================================================

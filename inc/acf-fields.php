@@ -152,6 +152,26 @@ function tp_bootstrap_case_study_v2() {
 add_action('wp_loaded', 'tp_bootstrap_case_study_v2');
 
 /**
+ * One-time: shorten the sourcing card body to a single crisp sentence
+ * (was reading too long/dense), and swap the CTA card's PDF download for
+ * a "see our services" link — the download option was removed for now.
+ */
+function tp_bootstrap_case_study_v3() {
+    if (get_option('tp_case_study_v3_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $cs = tp_default('tp_case_study');
+    foreach (['sourcing_body', 'cta_card_text', 'cta_label'] as $k) {
+        update_field($k, $cs[$k], $id);
+    }
+
+    update_option('tp_case_study_v3_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_case_study_v3');
+
+/**
  * One-time: register the real report PDF (copied into uploads/2026/07/)
  * as a proper Media Library attachment, then point the Bento Grid's CTA
  * card at it with a real download instead of the placeholder "#" link.
