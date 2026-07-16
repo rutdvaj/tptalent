@@ -679,16 +679,14 @@ a:hover { color: #0E332B; }
    =========================================================== */
 @media (min-width: 981px) {
   .tp-bento { min-height: 100vh; display: flex; flex-direction: column; }
-  .tp-bento .tp-bento__inner { max-width: 1600px; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
-  .tp-bento__grid { gap: 28px; }
-  .tp-bento-card { min-height: 340px; padding: 34px; }
-  .tp-bento-card--wide { min-height: 400px; }
-  .tp-bento-card__stat { font-size: 80px; font-weight: 600; }
-  .tp-bento-card__stat--white { font-size: 64px; }
-  .tp-bento-card__title { font-size: 26px; }
-  .tp-bento-card__body { font-size: 18px; font-weight: 500; }
-  .tp-bento-card__caption { font-size: 13px; }
-  .tp-bento-card__cta-text { font-size: 32px; font-weight: 500; }
-  .tp-bento-card--cta .tp-pill-btn { font-size: 17px; }
-  .tp-role-chip { font-size: 13px; }
+  .tp-bento .tp-bento__inner { max-width: 1320px; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  .tp-bento__grid { gap: 22px; }
+  .tp-bento-card { min-height: 260px; padding: 28px; }
+  .tp-bento-card--wide { min-height: 300px; }
+  .tp-bento-card__stat { font-size: 60px; }
+  .tp-bento-card__stat--white { font-size: 48px; }
+  .tp-bento-card__title { font-size: 21px; }
+  .tp-bento-card__body { font-size: 15.5px; }
+  .tp-bento-card__cta-text { font-size: 25px; }
+  .tp-bento-card--cta .tp-pill-btn { font-size: 15px; }
 }
