@@ -65,6 +65,11 @@ $monthsCount = max(1, (int) $c['months_count']);
                 <stop offset="100%" class="tp-donut__stop-b" />
               </linearGradient>
             </defs>
+            <!-- Dim concentric guide rings — radial-chart backdrop -->
+            <circle class="tp-donut__guide" cx="60" cy="60" r="40"></circle>
+            <circle class="tp-donut__guide" cx="60" cy="60" r="30"></circle>
+            <circle class="tp-donut__guide" cx="60" cy="60" r="20"></circle>
+            <!-- Data ring -->
             <circle class="tp-donut__track" cx="60" cy="60" r="50"></circle>
             <circle class="tp-donut__fill" data-donut-fill data-pct="<?php echo esc_attr((int) $c['retention_value']); ?>" r="50" cx="60" cy="60"></circle>
           </svg>

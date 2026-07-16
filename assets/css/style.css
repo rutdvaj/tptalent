@@ -315,6 +315,7 @@ a:hover { color: #0E332B; }
 
 .tp-bento-card__chart { position: absolute; top: 26px; right: 26px; width: 84px; height: 84px; }
 .tp-donut { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tp-donut__guide { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 1.5; }
 .tp-donut__track { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 11; }
 .tp-donut__fill { fill: none; stroke: url(#tpDonutGrad); stroke-width: 11; stroke-linecap: round; stroke-dasharray: 314.159; stroke-dashoffset: 314.159; }
 .tp-donut__stop-a { stop-color: var(--p1, #94ffd1); }
