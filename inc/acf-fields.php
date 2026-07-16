@@ -108,6 +108,50 @@ function tp_bootstrap_testimonial_rotator_v2() {
 add_action('wp_loaded', 'tp_bootstrap_testimonial_rotator_v2');
 
 /**
+ * One-time: drop the leading "A "/"An " article from the rotator's
+ * company-type labels (e.g. "A Big 4 company" -> "Big 4 company") — the
+ * client asked to just state the type of company. Same tp_default()
+ * source as v2, just re-run against the now-article-free defaults.
+ */
+function tp_bootstrap_testimonial_rotator_v3() {
+    if (get_option('tp_testimonial_rotator_v3_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $rotator = tp_default('tp_testimonial')['rotator'];
+    foreach ($rotator as $i => $client) {
+        update_field('rotator_' . ($i + 1), $client, $id);
+    }
+
+    update_option('tp_testimonial_rotator_v3_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_testimonial_rotator_v3');
+
+/**
+ * One-time: replace the placeholder Case Study bento content with a real
+ * case study from the client's provided case-studies document (Case
+ * Study 7: "Global Engineering Capability Center" — Manufacturing / GCC
+ * Staffing, 11-month build, 97% SLA compliance, 94% employee retention).
+ * Full replace of the saved ACF case-study fields; the CTA label/url are
+ * left untouched since they already point at the real uploaded PDF.
+ */
+function tp_bootstrap_case_study_v2() {
+    if (get_option('tp_case_study_v2_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $cs = tp_default('tp_case_study');
+    foreach (['eyebrow', 'heading', 'sourcing_title', 'sourcing_body', 'fill_rate_value', 'fill_rate_label', 'months_count', 'months_value', 'months_label', 'retention_value', 'retention_label', 'cta_card_text'] as $k) {
+        update_field($k, $cs[$k], $id);
+    }
+
+    update_option('tp_case_study_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_case_study_v2');
+
+/**
  * One-time: register the real report PDF (copied into uploads/2026/07/)
  * as a proper Media Library attachment, then point the Bento Grid's CTA
  * card at it with a real download instead of the placeholder "#" link.

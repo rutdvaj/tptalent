@@ -307,10 +307,13 @@ a:hover { color: #0E332B; }
 .tp-bento-card__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--p1); animation: bentoDot 3.6s ease-in-out infinite; display: block; }
 .tp-bento-card__dot-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.75); }
 
-.tp-bento-card__rings { position: absolute; top: 30px; right: 28px; width: 84px; height: 84px; }
-.tp-bento-card__ring { position: absolute; border-radius: 50%; animation: bentoDot 3s ease-in-out infinite; }
-.tp-bento-card__ring--outer { top: 0; right: 0; width: 84px; height: 84px; border: 2px solid var(--p2); opacity: 0.5; }
-.tp-bento-card__ring--inner { top: 14px; right: 14px; width: 56px; height: 56px; border: 2px solid var(--p1); opacity: 0.8; animation-delay: .6s; }
+.tp-bento-card__chart { position: absolute; top: 26px; right: 26px; width: 84px; height: 84px; }
+.tp-donut { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tp-donut__track { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 11; }
+.tp-donut__fill { fill: none; stroke: url(#tpDonutGrad); stroke-width: 11; stroke-linecap: round; stroke-dasharray: 314.159; stroke-dashoffset: 314.159; }
+.tp-donut__stop-a { stop-color: var(--p1, #94ffd1); }
+.tp-donut__stop-b { stop-color: var(--p2, #6bf5ff); }
+.tp-donut__label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; color: #FFFFFF; }
 
 .tp-bento-card__cube { position: absolute; border-radius: 6px; animation: cubeFloat 8s ease-in-out infinite alternate; }
 .tp-bento-card__cube--a { top: 24px; left: 28px; width: 26px; height: 26px; background: var(--p1); opacity: 0.7; }

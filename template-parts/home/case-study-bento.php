@@ -57,9 +57,18 @@ $monthsCount = max(1, (int) $c['months_count']);
       </div>
 
       <div class="tp-bento-card" data-reveal>
-        <div class="tp-bento-card__rings" aria-hidden="true">
-          <span class="tp-bento-card__ring tp-bento-card__ring--outer"></span>
-          <span class="tp-bento-card__ring tp-bento-card__ring--inner"></span>
+        <div class="tp-bento-card__chart" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="tp-donut">
+            <defs>
+              <linearGradient id="tpDonutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" class="tp-donut__stop-a" />
+                <stop offset="100%" class="tp-donut__stop-b" />
+              </linearGradient>
+            </defs>
+            <circle class="tp-donut__track" cx="60" cy="60" r="50"></circle>
+            <circle class="tp-donut__fill" data-donut-fill data-pct="<?php echo esc_attr((int) $c['retention_value']); ?>" r="50" cx="60" cy="60"></circle>
+          </svg>
+          <div class="tp-donut__label" data-donut-label>0%</div>
         </div>
         <div class="tp-bento-card__stat tp-bento-card__stat--white"><?php echo esc_html($c['retention_value']); ?></div>
         <div class="tp-bento-card__caption"><?php echo esc_html($c['retention_label']); ?></div>
