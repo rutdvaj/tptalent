@@ -614,15 +614,14 @@ a:hover { color: #0E332B; }
   .tp-nav__name { font-size: 15px; }
   .tp-nav__sub { font-size: 11px; letter-spacing: 0.4em; }
   /* Headline/subhead/buttons stay grouped, nudged further down toward
-     screen center via extra top padding; the ticker is pushed further
-     up off the bottom edge (bigger auto-margin-driven gap) instead of
-     hugging it tight. */
+     screen center via extra top padding; the ticker sits right near
+     the bottom edge with a small fixed margin — close but not flush. */
   .tp-hero__inner { padding: 130px 24px 0; display: flex; flex-direction: column; justify-content: center; }
   .tp-hero__headline { font-size: 44px; font-weight: 600; margin: 0 auto 12px; }
   .tp-hero__subhead { font-size: 15px; font-weight: 600; margin-bottom: 29px; }
   .tp-hero__actions { flex-direction: column; align-items: center; gap: 12px; margin-top: 0; margin-bottom: 0; }
   .tp-hero__actions .tp-pill-btn, .tp-hero__actions .tp-solid-btn { justify-content: center; font-size: 14px; width: auto; min-width: 190px; padding-top: 13px; padding-bottom: 13px; }
-  .tp-hero__stats { margin-top: auto; margin-bottom: 20dvh; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+  .tp-hero__stats { margin-top: auto; margin-bottom: 12px; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
   .tp-hero__metrics { justify-content: center; gap: 40px; }
   .tp-hero__divider { display: none; }
   .tp-metric__value { font-size: 40px; }
