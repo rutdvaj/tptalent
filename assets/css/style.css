@@ -613,16 +613,16 @@ a:hover { color: #0E332B; }
   .tp-nav__bar { width: 4px; }
   .tp-nav__name { font-size: 15px; }
   .tp-nav__sub { font-size: 11px; letter-spacing: 0.4em; }
-  /* Headline/subhead/buttons stay grouped near the top; the ticker is
-     pushed to hug the bottom edge (small fixed margin) via its own
-     auto top-margin, so the two groups read as top- and bottom-
-     anchored instead of one centered block. */
-  .tp-hero__inner { padding: 84px 24px 0; display: flex; flex-direction: column; justify-content: center; }
+  /* Headline/subhead/buttons stay grouped, nudged further down toward
+     screen center via extra top padding; the ticker is pushed further
+     up off the bottom edge (bigger auto-margin-driven gap) instead of
+     hugging it tight. */
+  .tp-hero__inner { padding: 130px 24px 0; display: flex; flex-direction: column; justify-content: center; }
   .tp-hero__headline { font-size: 44px; font-weight: 600; margin: 0 auto 12px; }
   .tp-hero__subhead { font-size: 15px; font-weight: 600; margin-bottom: 29px; }
   .tp-hero__actions { flex-direction: column; align-items: center; gap: 12px; margin-top: 0; margin-bottom: 0; }
   .tp-hero__actions .tp-pill-btn, .tp-hero__actions .tp-solid-btn { justify-content: center; font-size: 14px; width: auto; min-width: 190px; padding-top: 13px; padding-bottom: 13px; }
-  .tp-hero__stats { margin-top: auto; margin-bottom: 16px; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+  .tp-hero__stats { margin-top: auto; margin-bottom: 20dvh; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
   .tp-hero__metrics { justify-content: center; gap: 40px; }
   .tp-hero__divider { display: none; }
   .tp-metric__value { font-size: 40px; }
@@ -631,8 +631,8 @@ a:hover { color: #0E332B; }
      wide (a large chunk of real devices) were still getting the full
      130x62 desktop box, rendering visibly oversized/"broader" than the
      rest of the mobile layout. */
-  .tp-ticker__logo { height: 49px; width: 105px; }
-  .tp-ticker__track { gap: 67px; }
+  .tp-ticker__logo { height: 64px; width: 137px; }
+  .tp-ticker__track { gap: 87px; }
   /* Service-page ticker already sits inside .tp-pagehero__ticker's own
      darkening band — stacking the glass panel on top of that reads as too
      visible there, so it's removed for now (revisit later if desired). */
@@ -684,8 +684,8 @@ a:hover { color: #0E332B; }
   .tp-metric__value { font-size: 32px; }
   .tp-kinetic__name { font-size: 34px; }
   .tp-kinetic__namewrap { height: 40px; }
-  .tp-ticker__logo { height: 39px; width: 83px; }
-  .tp-ticker__track { gap: 45px; }
+  .tp-ticker__logo { height: 51px; width: 108px; }
+  .tp-ticker__track { gap: 59px; }
 }
 
 /* ===========================================================
