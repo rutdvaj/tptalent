@@ -616,7 +616,7 @@ a:hover { color: #0E332B; }
   /* Headline/subhead/buttons stay grouped, nudged further down toward
      screen center via extra top padding; the ticker sits right near
      the bottom edge with a small fixed margin — close but not flush. */
-  .tp-hero__inner { padding: 130px 24px 0; display: flex; flex-direction: column; justify-content: center; }
+  .tp-hero__inner { padding: 135px 24px 0; display: flex; flex-direction: column; justify-content: center; }
   .tp-hero__headline { font-size: 44px; font-weight: 600; margin: 0 auto 12px; }
   .tp-hero__subhead { font-size: 15px; font-weight: 600; margin-bottom: 29px; }
   .tp-hero__actions { flex-direction: column; align-items: center; gap: 12px; margin-top: 0; margin-bottom: 0; }
