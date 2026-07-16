@@ -179,37 +179,6 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  function initBentoDonut() {
-    var fill = document.querySelector('[data-donut-fill]');
-    if (!fill) return;
-    var label = document.querySelector('[data-donut-label]');
-    var pct = parseFloat(fill.getAttribute('data-pct'));
-    if (isNaN(pct)) return;
-    var circumference = 2 * Math.PI * parseFloat(fill.getAttribute('r'));
-    var DUR = 1400;
-    var run = function () {
-      var t0 = performance.now();
-      var step = function (now) {
-        var p = Math.min(1, (now - t0) / DUR);
-        var eased = 1 - Math.pow(1 - p, 3);
-        fill.style.strokeDashoffset = String(circumference * (1 - pct * eased / 100));
-        if (label) label.textContent = Math.round(pct * eased) + '%';
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    var card = fill.closest('.tp-bento-card');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting || entry.target._tpAnimated) return;
-        entry.target._tpAnimated = true;
-        io.unobserve(entry.target);
-        run();
-      });
-    }, { threshold: 0.35 });
-    io.observe(card || fill);
-  }
-
   function initDesktopDropdowns() {
     var dropdowns = document.querySelectorAll('.tp-nav__dropdown');
     if (!dropdowns.length) return;
@@ -814,7 +783,6 @@
     initMobileNav();
     initDesktopDropdowns();
     initNumbersAnimation();
-    initBentoDonut();
     initMobileNavSubmenus();
     initEngagementFill();
     initArticleProgress();
