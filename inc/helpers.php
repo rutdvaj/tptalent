@@ -248,10 +248,9 @@ function tp_default($section) {
             'heading' => "Global expertise,<br>local collaboration",
             'intro' => 'Onshore leadership, offshore scale. Ten delivery locations across three regions keep work moving around the clock.',
             'regions' => [
-                ['label' => 'Americas', 'value' => 'USA · Canada · Brazil · Colombia · Chile · Argentina'],
-                ['label' => 'MENA', 'value' => 'Dubai · Abu Dhabi · Oman · Kuwait · Saudi Arabia · Qatar · Bahrain'],
-                ['label' => 'APAC', 'value' => 'India · Singapore · Malaysia · Australia · New Zealand · Hong Kong · Indonesia · Thailand · Philippines · Vietnam · Taiwan · Japan · South Korea'],
-                ['label' => 'Africa', 'value' => 'Egypt · South Africa · Kenya · Nigeria · Mauritius'],
+                ['label' => 'Americas', 'value' => 'USA · Canada · Brazil · Colombia'],
+                ['label' => 'EMEA · Middle East', 'value' => 'Dubai · Abu Dhabi · Oman · Kuwait'],
+                ['label' => 'APAC', 'value' => 'India · Singapore'],
             ],
             // Fixed at 8 markers — the beam sequence below references these by
             // position, so rows can be edited in place but not added/removed.

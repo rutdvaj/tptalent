@@ -231,6 +231,27 @@ function tp_bootstrap_global_regions_v2() {
 add_action('wp_loaded', 'tp_bootstrap_global_regions_v2');
 
 /**
+ * One-time: revert the "Where we operate" regions back to the original
+ * 3-region / 10-country set — the v2 expansion (4 regions, 31 countries)
+ * was rolled back per client request. Same shadowing issue as v2: the
+ * Home page has explicit saved tp_global meta, so the code default
+ * change alone wouldn't show up without overwriting it directly here.
+ */
+function tp_bootstrap_global_regions_v3_revert() {
+    if (get_option('tp_global_regions_v3_reverted')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_global', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_global');
+    $saved['regions'] = tp_default('tp_global')['regions'];
+    update_post_meta($id, 'tp_global', $saved);
+
+    update_option('tp_global_regions_v3_reverted', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_global_regions_v3_revert');
+
+/**
  * One-time: the 8 client logo master files on disk were replaced with
  * auto-trimmed versions (removed a large amount of dead transparent
  * padding baked into the originals — that's why some logos, e.g.
