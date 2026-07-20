@@ -15,13 +15,28 @@ $regions = is_array($g['regions']) ? $g['regions'] : [];
       <p class="tp-global__lede"><?php echo esc_html($g['intro']); ?></p>
     </div>
     <div class="tp-global__regions">
-      <?php foreach ($regions as $r) : ?>
+      <?php
+      $chip_limit = 6;
+      foreach ($regions as $r) :
+          $chips = is_array($r['chips'] ?? null) ? $r['chips'] : [];
+          $visible = array_slice($chips, 0, $chip_limit);
+          $hidden = array_slice($chips, $chip_limit);
+      ?>
         <div class="tp-global__region">
           <div class="tp-global__region-label"><?php echo esc_html($r['label']); ?></div>
+          <?php if (!empty($r['anchor'])) : ?>
+            <div class="tp-global__region-anchor"><?php echo esc_html($r['anchor']); ?></div>
+          <?php endif; ?>
           <div class="tp-global__region-chips">
-            <?php foreach (array_filter(array_map('trim', explode('·', $r['value']))) as $country) : ?>
+            <?php foreach ($visible as $country) : ?>
               <span class="tp-global__chip"><?php echo esc_html($country); ?></span>
             <?php endforeach; ?>
+            <?php foreach ($hidden as $country) : ?>
+              <span class="tp-global__chip tp-global__chip--hidden"><?php echo esc_html($country); ?></span>
+            <?php endforeach; ?>
+            <?php if ($hidden) : ?>
+              <button type="button" class="tp-global__chip tp-global__chip--more" data-more-toggle>+<?php echo count($hidden); ?> more</button>
+            <?php endif; ?>
           </div>
         </div>
       <?php endforeach; ?>

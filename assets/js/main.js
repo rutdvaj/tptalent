@@ -385,6 +385,19 @@
     loop();
   }
 
+  /* "+N more" chip in each region expands the hidden country chips
+     in place and hides itself — no page reload, no layout jump beyond
+     the natural flex-wrap reflow. */
+  function initGlobalRegionChips() {
+    var toggles = document.querySelectorAll('[data-more-toggle]');
+    toggles.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var region = btn.closest('.tp-global__region');
+        if (region) region.classList.add('is-expanded');
+      });
+    });
+  }
+
   /* -----------------------------------------------------------
    * Global delivery — dotted world map + sequenced comet beams.
    * Beam chain: India -> USA & Singapore, then USA -> Canada & Colombia,
@@ -790,6 +803,7 @@
     initKinetic();
     initRibbon();
     initMap();
+    initGlobalRegionChips();
     initCtaGlow();
     initBentoFx();
   }

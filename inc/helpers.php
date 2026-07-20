@@ -250,11 +250,14 @@ function tp_default($section) {
         'tp_global' => [
             'eyebrow' => 'Where we operate',
             'heading' => "Global expertise,<br>local collaboration",
-            'intro' => 'Onshore leadership, offshore scale. Ten delivery locations across three regions keep work moving around the clock.',
+            'intro' => 'Anchor delivery centers in each region, backed by presence in 25+ markets.',
+            // "Anchors + quiet chips" layout (design handoff option 1b/2b):
+            // anchor cities stay bold, secondary markets become outlined
+            // chips with a "+N more" cap that expands in place on click.
             'regions' => [
-                ['label' => 'Americas', 'value' => 'USA · Canada · Brazil · Colombia'],
-                ['label' => 'EMEA · Middle East', 'value' => 'Dubai · Abu Dhabi · Oman · Kuwait'],
-                ['label' => 'APAC', 'value' => 'India · Singapore'],
+                ['label' => 'APAC', 'anchor' => 'India · Singapore · Australia', 'chips' => ['Malaysia', 'Indonesia', 'Philippines', 'Vietnam', 'Thailand', 'Japan', 'South Korea']],
+                ['label' => 'MENA & Africa', 'anchor' => 'Dubai · Abu Dhabi · Saudi Arabia', 'chips' => ['Qatar', 'Oman', 'Kuwait', 'Bahrain', 'Egypt', 'South Africa', 'Kenya', 'Nigeria', 'Mauritius']],
+                ['label' => 'Americas', 'anchor' => 'USA · Canada · Brazil', 'chips' => ['Colombia', 'Chile', 'Argentina', 'Mexico', 'Peru']],
             ],
             // Fixed at 8 markers — the beam sequence below references these by
             // position, so rows can be edited in place but not added/removed.

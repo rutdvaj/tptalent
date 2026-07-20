@@ -316,6 +316,30 @@ function tp_bootstrap_global_regions_v3_revert() {
 add_action('wp_loaded', 'tp_bootstrap_global_regions_v3_revert');
 
 /**
+ * One-time: switch "Where we operate" to the "Anchors + quiet chips"
+ * layout (design handoff option 1b/2b) — regions now carry an `anchor`
+ * (bold intro cities) plus a `chips` array instead of a flat `value`
+ * string, and MENA/Africa are combined into one region. Same shadowing
+ * issue as v2/v3: overwrite the saved meta directly, not just the code
+ * default, since the Home page already has explicit saved tp_global meta.
+ */
+function tp_bootstrap_global_regions_v4_anchors() {
+    if (get_option('tp_global_regions_v4_anchors_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_global', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_global');
+    $defaults = tp_default('tp_global');
+    $saved['regions'] = $defaults['regions'];
+    $saved['intro'] = $defaults['intro'];
+    update_post_meta($id, 'tp_global', $saved);
+
+    update_option('tp_global_regions_v4_anchors_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_global_regions_v4_anchors');
+
+/**
  * One-time: the 8 client logo master files on disk were replaced with
  * auto-trimmed versions (removed a large amount of dead transparent
  * padding baked into the originals — that's why some logos, e.g.

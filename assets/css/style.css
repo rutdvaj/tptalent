@@ -392,11 +392,16 @@ a:hover { color: #0E332B; }
 .tp-global__lede { font-size: 16.5px; line-height: 1.6; color: rgba(255,255,255,0.68); margin: 0; max-width: 42ch; text-wrap: pretty; }
 .tp-global__regions { display: flex; flex-direction: column; gap: 24px; border-left: 1px solid rgba(255,255,255,0.16); padding-left: 40px; }
 .tp-global__region-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--soft, #A9C4B0); }
-/* Chips instead of one flowing text line — some regions (APAC) now
-   list a dozen+ countries, which would overflow/wrap badly as plain
-   text. Wraps naturally to any number of countries at any width. */
+/* Anchor cities (bold headline row) + quiet outlined chips for the
+   secondary markets — design handoff option 1b/2b. */
+.tp-global__region-anchor { font-size: 20px; font-weight: 600; color: #FFFFFF; margin-top: 6px; }
 .tp-global__region-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .tp-global__chip { font-size: 13px; font-weight: 500; color: #FFFFFF; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 6px 13px; white-space: nowrap; }
+.tp-global__chip--hidden { display: none; }
+.tp-global__region.is-expanded .tp-global__chip--hidden { display: inline-flex; }
+.tp-global__chip--more { font-family: inherit; cursor: pointer; color: rgba(255,255,255,0.62); background: transparent; transition: color 160ms, border-color 160ms; }
+.tp-global__chip--more:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.4); }
+.tp-global__region.is-expanded .tp-global__chip--more { display: none; }
 
 .tp-global__map-wrap { position: relative; width: 100%; height: 640px; margin-top: 56px; margin-bottom: 88px; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%); }
 .tp-global__map { position: absolute; inset: 0; width: 100%; height: 100%; }
