@@ -233,12 +233,14 @@
         // get noticeably fewer streaks — on a narrow column the same
         // streak count that reads as nicely spread out on a wide desktop
         // hero instead crowds together and looks like too many lights
-        // falling on top of each other, so it's halved on mobile widths.
+        // falling on top of each other, so it's reduced on mobile widths
+        // (was halved, then nudged back up +30% from that halved value).
         var aspect = rect.height / Math.max(1, rect.width);
         var portraitFactor = Math.max(1, Math.min(aspect / 1.2, 2.4));
         uniforms.uZoom.value = D.zoom * portraitFactor;
-        var streakFactor = rect.width <= 640 ? 0.5 : 1;
-        uniforms.uStreakCount.value = Math.max(1, Math.min(16, Math.round(D.streakCount * streakFactor)));
+        var streakFactor = rect.width <= 640 ? 0.65 : 1;
+        var streakCount = rect.width <= 640 ? Math.ceil(D.streakCount * streakFactor) : Math.round(D.streakCount * streakFactor);
+        uniforms.uStreakCount.value = Math.max(1, Math.min(16, streakCount));
       };
       resize();
       if (typeof ResizeObserver !== 'undefined') { this._ro = new ResizeObserver(resize); this._ro.observe(this); }
