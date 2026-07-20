@@ -466,7 +466,11 @@ a:hover { color: #0E332B; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
 
-.tp-pagehero__ticker { position: relative; z-index: 3; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(10,24,20,0) 0%, rgba(10,24,20,0.28) 100%); }
+/* Stronger blur for a more premium frosted-glass feel; mask-image fades
+   the whole effect in from the top instead of cutting on/off at a hard
+   rectangular edge, which was reading as a rough seam against the
+   lightfall-bg canvas behind it. */
+.tp-pagehero__ticker { position: relative; z-index: 3; backdrop-filter: blur(28px) saturate(1.15); -webkit-backdrop-filter: blur(28px) saturate(1.15); background: linear-gradient(180deg, rgba(10,24,20,0) 0%, rgba(10,24,20,0.18) 35%, rgba(10,24,20,0.34) 100%); mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.55) 30%, #000 65%); -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.55) 30%, #000 65%); }
 .tp-pagehero__ticker-inner { max-width: 1240px; margin: 0 auto; padding: 30px 40px 26px; display: flex; align-items: center; gap: 36px; }
 .tp-pagehero__ticker-label { flex: 0 0 auto; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.06em; color: #FFFFFF; text-shadow: 0 1px 12px rgba(0,0,0,0.4); }
 
