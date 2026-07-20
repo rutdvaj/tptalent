@@ -195,7 +195,9 @@ a:hover { color: #0E332B; }
 /* Both hero buttons forced to identical radius/width/height — pill-btn's
    icon prefix and solid-btn's plain text would otherwise size the two
    differently since they have different natural content widths. */
-.tp-hero__actions .tp-pill-btn, .tp-hero__actions .tp-solid-btn { display: inline-flex; align-items: center; box-sizing: border-box; width: 210px; height: 54px; padding: 0; border-radius: 999px; justify-content: center; }
+/* Radius matches Hire talent's (.tp-solid-btn) original 10px — Browse
+   talent conforms to it, not the other way around. */
+.tp-hero__actions .tp-pill-btn, .tp-hero__actions .tp-solid-btn { display: inline-flex; align-items: center; box-sizing: border-box; width: 210px; height: 54px; padding: 0; border-radius: 10px; justify-content: center; }
 
 .tp-hero__stats { margin-top: auto; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; text-align: left; padding-top: 36px; }
 .tp-hero__metrics { display: flex; gap: 56px; flex: 0 0 auto; }
