@@ -227,15 +227,18 @@
         uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight, 1];
         // The raymarch (sceneC) normalizes screen space by width only
         // (r.x), so on a narrow/tall viewport — a portrait mobile hero —
-        // the effective vertical field of view balloons and the tunnel
-        // pattern reads as blown-out/stretched compared to the wide
-        // desktop aspect it was authored against. Pull the "camera" back
-        // (more zoom) and add a couple more streaks to fill the taller
-        // frame, scaling with how portrait the container currently is.
+        // the effective vertical field of view balloons compared to the
+        // wide desktop aspect this was authored against. Pull the
+        // "camera" back (more zoom) to compensate. Narrow viewports also
+        // get noticeably fewer streaks — on a narrow column the same
+        // streak count that reads as nicely spread out on a wide desktop
+        // hero instead crowds together and looks like too many lights
+        // falling on top of each other, so it's halved on mobile widths.
         var aspect = rect.height / Math.max(1, rect.width);
         var portraitFactor = Math.max(1, Math.min(aspect / 1.2, 2.4));
         uniforms.uZoom.value = D.zoom * portraitFactor;
-        uniforms.uStreakCount.value = Math.max(1, Math.min(16, Math.round(D.streakCount * Math.min(portraitFactor, 1.8))));
+        var streakFactor = rect.width <= 640 ? 0.5 : 1;
+        uniforms.uStreakCount.value = Math.max(1, Math.min(16, Math.round(D.streakCount * streakFactor)));
       };
       resize();
       if (typeof ResizeObserver !== 'undefined') { this._ro = new ResizeObserver(resize); this._ro.observe(this); }
