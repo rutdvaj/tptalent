@@ -78,7 +78,10 @@ a:hover { color: #0E332B; }
    interactive regardless of what the library does. */
 .tp-hero__shader, .tp-hero__shader * { pointer-events: none !important; }
 .tp-hero__shader { display: block; position: absolute; inset: 0; z-index: 0 !important; }
-.tp-hero__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.35) 100%); }
+/* Soft dark-mint radial instead of a white wash — darkens the center
+   zone behind the headline so text reads cleanly. % based so it scales
+   with the hero across all screen sizes without needing breakpoints. */
+.tp-hero__veil { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 50% at 50% 38%, rgba(14,51,43,0.3) 0%, rgba(14,51,43,0.1) 55%, rgba(14,51,43,0) 100%); }
 
 /* z-index must beat .tp-hero__inner's (2) — equal z-index siblings stack
    by DOM order, and .tp-hero__inner comes after <nav> in the markup, so
