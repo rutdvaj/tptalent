@@ -514,6 +514,33 @@ function tp_get_services_nav_items() {
 }
 
 /**
+ * Same pattern as tp_get_services_nav_items(), for pages using the
+ * "Industry Page" template — sourced live by page_template + menu_order,
+ * so new industry pages just need the right template to appear here.
+ */
+function tp_get_industries_nav_items() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $q = new WP_Query([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'page-industry.php',
+        'orderby'        => 'menu_order',
+        'order'          => 'ASC',
+        'no_found_rows'  => true,
+    ]);
+    $items = [];
+    foreach ($q->posts as $p) {
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
+    }
+    wp_reset_postdata();
+    $cache = $items;
+    return $items;
+}
+
+/**
  * Insights dropdown mirrors Services but is sourced live from the
  * 'post' type — no per-post nav edits needed as new posts are published.
  */

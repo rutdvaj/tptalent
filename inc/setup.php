@@ -277,6 +277,72 @@ function tp_bootstrap_industry_pages() {
 add_action('init', 'tp_bootstrap_industry_pages');
 
 /**
+ * One-time: the remaining 5 of the 6 planned Industries pages —
+ * Technology & ITES, Manufacturing & Energy, BFSI, Automotive &
+ * Aerospace, Digital Transformation. Same pattern as
+ * tp_bootstrap_industry_pages(). All 6 industry pages now exist.
+ */
+function tp_bootstrap_industry_pages_v2() {
+    if (get_option('tp_industry_pages_v2_bootstrapped')) return;
+
+    $pages = [
+        'technology-ites'        => 'Technology & ITES',
+        'manufacturing-energy'   => 'Manufacturing & Energy',
+        'bfsi'                   => 'BFSI',
+        'automotive-aerospace'   => 'Automotive & Aerospace',
+        'digital-transformation' => 'Digital Transformation',
+    ];
+    $order = 1;
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) continue;
+        $id = wp_insert_post([
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+            'menu_order'   => $order,
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-industry.php');
+        }
+        $order++;
+    }
+    update_option('tp_industry_pages_v2_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_industry_pages_v2');
+
+/**
+ * One-time: the Digital Transformation INDUSTRY page, under its own
+ * distinct slug (digital-transformation-industry) — v2 above tried to
+ * use the plain 'digital-transformation' slug, which collided with the
+ * pre-existing Digital Transformation SERVICE page. See
+ * tp_bootstrap_fix_digital_transformation_collision() in
+ * inc/acf-fields.php for the repair of that service page's corrupted
+ * fields.
+ */
+function tp_bootstrap_industry_pages_v3() {
+    if (get_option('tp_industry_pages_v3_bootstrapped')) return;
+
+    $slug = 'digital-transformation-industry';
+    if (!get_page_by_path($slug)) {
+        $id = wp_insert_post([
+            'post_title'   => 'Digital Transformation',
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+            'menu_order'   => 5,
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-industry.php');
+        }
+    }
+    update_option('tp_industry_pages_v3_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_industry_pages_v3');
+
+/**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
  * posts (see inc/blog-seed-content.php) — native 'post' type so they
  * behave like any post written in wp-admin from here on.

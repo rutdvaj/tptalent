@@ -29,7 +29,14 @@ $hero  = tp_get_section('tp_hero');
           <?php endforeach; ?>
         </div>
       </div>
-      <a href="<?php echo esc_url($nav['industries_url']); ?>"><?php echo esc_html($nav['industries_label']); ?></a>
+      <div class="tp-nav__dropdown">
+        <button type="button" class="tp-nav__dropdown-trigger"><?php echo esc_html($nav['industries_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+        <div class="tp-nav__dropdown-panel">
+          <?php foreach (tp_get_industries_nav_items() as $ind) : ?>
+            <a href="<?php echo esc_url($ind['url']); ?>"><?php echo esc_html($ind['label']); ?></a>
+          <?php endforeach; ?>
+        </div>
+      </div>
       <div class="tp-nav__dropdown">
         <button type="button" class="tp-nav__dropdown-trigger"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
         <div class="tp-nav__dropdown-panel">
@@ -62,7 +69,14 @@ $hero  = tp_get_section('tp_hero');
         <?php endforeach; ?>
       </div>
     </div>
-    <a href="<?php echo esc_url($nav['industries_url']); ?>"><?php echo esc_html($nav['industries_label']); ?></a>
+    <div class="tp-nav-mobile__group">
+      <button type="button" class="tp-nav-mobile__toggle" aria-expanded="false"><?php echo esc_html($nav['industries_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <div class="tp-nav-mobile__submenu">
+        <?php foreach (tp_get_industries_nav_items() as $ind) : ?>
+          <a href="<?php echo esc_url($ind['url']); ?>"><?php echo esc_html($ind['label']); ?></a>
+        <?php endforeach; ?>
+      </div>
+    </div>
     <div class="tp-nav-mobile__group">
       <button type="button" class="tp-nav-mobile__toggle" aria-expanded="false"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav-mobile__submenu">

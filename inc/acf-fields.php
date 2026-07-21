@@ -341,6 +341,105 @@ function tp_bootstrap_industry_content_acf() {
 add_action('wp_loaded', 'tp_bootstrap_industry_content_acf');
 
 /**
+ * One-time: push content for the 5 new industry pages
+ * (tp_bootstrap_industry_pages_v2()) into ACF, and re-push Healthcare &
+ * Life Sciences' FAQ — its 6-question set was replaced with a shorter,
+ * refined 4-question version. Re-pushing all 6 is harmless for the
+ * fields that didn't change.
+ */
+function tp_bootstrap_industry_content_acf_v2() {
+    if (get_option('tp_industry_content_acf_v2_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_industry_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['industry_name', 'headline', 'subhead', 'prob_heading', 'prob_intro', 'sol_heading', 'sol_intro', 'testimonial_quote', 'testimonial_name', 'testimonial_title', 'faq_heading', 'faq_intro', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text'], 'severity' => $p['severity']], $id);
+        }
+        foreach ($content['solutions'] as $i => $s) {
+            update_field('solution_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body'], 'image' => $s['image']], $id);
+        }
+        // Clear any leftover faq_5/faq_6 from the old 6-question set —
+        // the refined FAQ is 4 questions per page.
+        for ($i = 1; $i <= 6; $i++) {
+            $f = $content['faqs'][$i - 1] ?? null;
+            update_field('faq_' . $i, $f ? ['q' => $f['q'], 'a' => $f['a']] : ['q' => '', 'a' => ''], $id);
+        }
+    }
+
+    update_option('tp_industry_content_acf_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_industry_content_acf_v2');
+
+/**
+ * One-time: push Digital Transformation's industry content onto its own
+ * page (digital-transformation-industry, created by
+ * tp_bootstrap_industry_pages_v3()) now that it has a non-colliding slug.
+ */
+function tp_bootstrap_industry_content_acf_v3() {
+    if (get_option('tp_industry_content_acf_v3_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    $slug = 'digital-transformation-industry';
+    $all = tp_industry_content_all();
+    $page = get_page_by_path($slug);
+    if ($page && isset($all[$slug])) {
+        $content = $all[$slug];
+        $id = $page->ID;
+        foreach (['industry_name', 'headline', 'subhead', 'prob_heading', 'prob_intro', 'sol_heading', 'sol_intro', 'testimonial_quote', 'testimonial_name', 'testimonial_title', 'faq_heading', 'faq_intro', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text'], 'severity' => $p['severity']], $id);
+        }
+        foreach ($content['solutions'] as $i => $s) {
+            update_field('solution_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body'], 'image' => $s['image']], $id);
+        }
+        foreach ($content['faqs'] as $i => $f) {
+            update_field('faq_' . ($i + 1), ['q' => $f['q'], 'a' => $f['a']], $id);
+        }
+    }
+
+    update_option('tp_industry_content_acf_v3_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_industry_content_acf_v3');
+
+/**
+ * One-time repair: tp_bootstrap_industry_content_acf_v2() collided with
+ * the pre-existing "Digital Transformation" SERVICE page (same slug,
+ * overlapping ACF field names between the service and industry field
+ * groups — headline, subhead, prob_heading, problem_N, cta_subhead) and
+ * overwrote that page's content with industry copy. Restores the
+ * service page's fields from its own correct source data
+ * (inc/service-content.php, never itself modified).
+ */
+function tp_bootstrap_fix_digital_transformation_collision() {
+    if (get_option('tp_fix_digital_transformation_collision_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    $page = get_page_by_path('digital-transformation');
+    $content = tp_service_content('digital-transformation');
+    if ($page && $content) {
+        $id = $page->ID;
+        foreach (['headline', 'subhead', 'prob_heading', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text']], $id);
+        }
+    }
+
+    update_option('tp_fix_digital_transformation_collision_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_fix_digital_transformation_collision');
+
+/**
  * One-time: point the nav's "Industries" link at the new Healthcare &
  * Life Sciences page. tp_nav isn't ACF-backed (legacy meta-box), and the
  * Home page already has explicit saved tp_nav meta from an earlier
