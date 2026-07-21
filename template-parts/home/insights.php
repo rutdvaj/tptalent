@@ -66,7 +66,7 @@ $cards = [$real_articles[0], $real_articles[1], null];
             <?php endif; ?>
           </a>
         <?php else : ?>
-          <div class="tp-card tp-card--article tp-card--soon" aria-hidden="false">
+          <div class="tp-card tp-card--article tp-card--soon" data-reveal aria-hidden="false">
             <div class="tp-card__top">
               <div class="tp-card__head">
                 <div class="tp-card__title tp-card__title--soon">Releasing soon</div>

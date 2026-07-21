@@ -29,7 +29,7 @@ $tp_service_icons = [
 <section id="services" class="tp-services" data-screen-label="Our services">
   <div class="tp-container">
     <div class="tp-services__grid">
-      <div class="tp-services__intro">
+      <div class="tp-services__intro" data-reveal>
         <div class="tp-eyebrow"><?php echo esc_html($s['eyebrow']); ?></div>
         <h2 class="tp-h2"><?php echo esc_html($s['heading']); ?></h2>
         <p class="tp-services__lede"><?php echo esc_html($s['intro']); ?></p>
