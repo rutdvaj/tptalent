@@ -417,6 +417,11 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
    countries (chips), so it needs more room; map size/behavior below is
    untouched, it just sits inside a wider section now. */
 .tp-global .tp-container { max-width: 1440px; padding: 72px 40px 0; }
+/* Industry pages reuse this section as-is (see page-industry.php), but
+   its heading carries a hardcoded <br> from the homepage content
+   ("Global expertise,<br>local collaboration") — drop it here only, so
+   every H2 on the industry template reads as one line. */
+.page-template-page-industry-php .tp-global .tp-h2 br { display: none; }
 .tp-global__head { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
 .tp-global__copy { display: flex; flex-direction: column; gap: 20px; }
 .tp-global__lede { font-size: 16.5px; line-height: 1.6; color: rgba(255,255,255,0.68); margin: 0; max-width: 42ch; text-wrap: pretty; }
@@ -518,8 +523,6 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
-.tp-pagehero__badge { display: inline-flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--p1, #94ffd1); padding: 8px 16px; border: 1px solid rgba(255,255,255,0.22); border-radius: 30px; background: rgba(10,28,24,0.3); backdrop-filter: blur(8px); }
-.tp-pagehero__badge span { opacity: 0.5; }
 
 /* Matches the design handoff's client-ticker band exactly: flat 7%-white
    glass instead of a dark gradient, with a crisp hairline border-top +

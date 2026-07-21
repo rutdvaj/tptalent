@@ -33,7 +33,6 @@ $insights_cross = tp_get_insights_nav_items(2);
   <?php get_template_part('template-parts/nav-subpage'); ?>
 
   <div class="tp-pagehero__inner">
-    <div class="tp-pagehero__badge">Industries <span aria-hidden="true">//</span> <?php echo esc_html($industry); ?></div>
     <h1 class="tp-pagehero__headline"><?php echo esc_html($content['headline']); ?></h1>
     <p class="tp-pagehero__subhead"><?php echo esc_html($content['subhead']); ?></p>
     <div class="tp-pagehero__actions">
