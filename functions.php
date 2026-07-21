@@ -13,5 +13,6 @@ require_once TP_THEME_DIR . '/inc/helpers.php';
 require_once TP_THEME_DIR . '/inc/setup.php';
 require_once TP_THEME_DIR . '/inc/meta-boxes.php';
 require_once TP_THEME_DIR . '/inc/service-content.php';
+require_once TP_THEME_DIR . '/inc/industry-content.php';
 require_once TP_THEME_DIR . '/inc/blog-seed-content.php';
 require_once TP_THEME_DIR . '/inc/acf-fields.php';

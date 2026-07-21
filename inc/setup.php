@@ -32,6 +32,7 @@ function tp_enqueue_assets() {
     $shader_js_path = get_template_directory() . '/assets/js/shader-bg.js';
     $wave_js_path = get_template_directory() . '/assets/js/wave-field.js';
     $vortex_js_path = get_template_directory() . '/assets/js/vortex-bg.js';
+    $grid_glow_js_path = get_template_directory() . '/assets/js/sea-mint-grid-glow.js';
     $main_js_path = get_template_directory() . '/assets/js/main.js';
 
     wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], file_exists($style_path) ? filemtime($style_path) : TP_THEME_VERSION);
@@ -57,7 +58,11 @@ function tp_enqueue_assets() {
     // particle flow-field, palette-driven via `colors`, with a pointer-
     // reactive swirl (not in the source design; added per request).
     wp_enqueue_script('tp-vortex-bg', TP_THEME_URI . '/assets/js/vortex-bg.js', [], file_exists($vortex_js_path) ? filemtime($vortex_js_path) : TP_THEME_VERSION, true);
-    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-vortex-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
+    // sea-mint-grid-glow is the Industries-page hero background — a
+    // self-contained Canvas 2D grid + drifting glow dots, same pattern
+    // as wave-field/vortex-bg, no CDN dependency.
+    wp_enqueue_script('tp-grid-glow', TP_THEME_URI . '/assets/js/sea-mint-grid-glow.js', [], file_exists($grid_glow_js_path) ? filemtime($grid_glow_js_path) : TP_THEME_VERSION, true);
+    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-vortex-bg', 'tp-grid-glow'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
 
@@ -242,6 +247,34 @@ function tp_bootstrap_service_pages_v4() {
     update_option('tp_service_pages_v4_bootstrapped', 1);
 }
 add_action('init', 'tp_bootstrap_service_pages_v4');
+
+/**
+ * One-time: first Industries page (Healthcare & Life Sciences), using
+ * the new "Industry Page" template (page-industry.php). More industries
+ * will follow the same pattern — just add a slug/title pair here.
+ */
+function tp_bootstrap_industry_pages() {
+    if (get_option('tp_industry_pages_bootstrapped')) return;
+
+    $pages = [
+        'healthcare-life-sciences' => 'Healthcare & Life Sciences',
+    ];
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) continue;
+        $id = wp_insert_post([
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-industry.php');
+        }
+    }
+    update_option('tp_industry_pages_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_industry_pages');
 
 /**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog

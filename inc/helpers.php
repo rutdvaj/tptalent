@@ -161,7 +161,10 @@ function tp_default($section) {
         ],
         'tp_nav' => [
             'services_label' => 'Services', 'services_url' => '#services',
-            'industries_label' => 'Industries', 'industries_url' => '#',
+            // Points straight at the one Industries page that exists so
+            // far; once more launch, this should become a dropdown like
+            // Services (tp_get_services_nav_items()).
+            'industries_label' => 'Industries', 'industries_url' => home_url('/healthcare-life-sciences/'),
             'insights_label' => 'Insights', 'insights_url' => '#insights',
             'about_label' => 'About Us', 'about_url' => '#',
             'cta_label' => 'Find jobs', 'cta_url' => '#',
@@ -405,6 +408,55 @@ function tp_get_service_page_content($post_id, $slug) {
         ];
     }
     return tp_service_content($slug);
+}
+
+/**
+ * Same ACF-first/array-fallback pattern as tp_get_service_page_content(),
+ * for the Industries page template (group_tp_industry_page).
+ */
+function tp_get_industry_page_content($post_id, $slug) {
+    if (function_exists('get_field') && get_field('headline', $post_id)) {
+        $problems = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $g = get_field("problem_{$i}", $post_id);
+            if (is_array($g) && !empty($g['heading'])) {
+                $problems[] = ['heading' => $g['heading'], 'text' => $g['text'], 'severity' => $g['severity']];
+            }
+        }
+        $solutions = [];
+        for ($i = 1; $i <= 3; $i++) {
+            $g = get_field("solution_{$i}", $post_id);
+            if (is_array($g) && !empty($g['title'])) {
+                $solutions[] = ['title' => $g['title'], 'body' => $g['body'], 'image' => $g['image']];
+            }
+        }
+        $faqs = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $g = get_field("faq_{$i}", $post_id);
+            if (is_array($g) && !empty($g['q'])) {
+                $faqs[] = ['q' => $g['q'], 'a' => $g['a']];
+            }
+        }
+        return [
+            'industry_name' => get_field('industry_name', $post_id),
+            'headline' => get_field('headline', $post_id),
+            'subhead' => get_field('subhead', $post_id),
+            'prob_heading' => get_field('prob_heading', $post_id),
+            'prob_intro' => get_field('prob_intro', $post_id),
+            'problems' => $problems,
+            'sol_heading' => get_field('sol_heading', $post_id),
+            'sol_intro' => get_field('sol_intro', $post_id),
+            'solutions' => $solutions,
+            'testimonial_quote' => get_field('testimonial_quote', $post_id),
+            'testimonial_name' => get_field('testimonial_name', $post_id),
+            'testimonial_title' => get_field('testimonial_title', $post_id),
+            'faq_heading' => get_field('faq_heading', $post_id),
+            'faq_intro' => get_field('faq_intro', $post_id),
+            'faqs' => $faqs,
+            'cta_subhead' => get_field('cta_subhead', $post_id),
+        ];
+    }
+    return tp_industry_content($slug);
 }
 
 function tp_field($section, $key, $fallback = '') {

@@ -98,6 +98,68 @@ add_action('acf/init', function () {
         'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-service.php']]],
         'menu_order' => 2,
     ]);
+
+    $industry_fields = [
+        ['key' => 'field_tp_ind_name', 'label' => 'Industry name', 'name' => 'industry_name', 'type' => 'text'],
+        ['key' => 'field_tp_ind_headline', 'label' => 'Headline (H1)', 'name' => 'headline', 'type' => 'text'],
+        ['key' => 'field_tp_ind_subhead', 'label' => 'Subhead', 'name' => 'subhead', 'type' => 'textarea', 'rows' => 2],
+        ['key' => 'field_tp_ind_prob_heading', 'label' => '"The problem" heading', 'name' => 'prob_heading', 'type' => 'text'],
+        ['key' => 'field_tp_ind_prob_intro', 'label' => '"The problem" framing paragraph', 'name' => 'prob_intro', 'type' => 'textarea', 'rows' => 2],
+    ];
+    for ($i = 1; $i <= 5; $i++) {
+        $industry_fields[] = [
+            'key'        => "field_tp_ind_problem_{$i}",
+            'label'      => "Problem {$i}",
+            'name'       => "problem_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_ind_problem_{$i}_heading", 'label' => 'Heading', 'name' => 'heading', 'type' => 'text'],
+                ['key' => "field_tp_ind_problem_{$i}_text", 'label' => 'Body text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2],
+                ['key' => "field_tp_ind_problem_{$i}_severity", 'label' => 'Severity', 'name' => 'severity', 'type' => 'select', 'choices' => ['Moderate' => 'Moderate', 'High' => 'High', 'Critical' => 'Critical'], 'default_value' => 'High'],
+            ],
+        ];
+    }
+    $industry_fields[] = ['key' => 'field_tp_ind_sol_heading', 'label' => '"Our solution" heading', 'name' => 'sol_heading', 'type' => 'text'];
+    $industry_fields[] = ['key' => 'field_tp_ind_sol_intro', 'label' => '"Our solution" framing line', 'name' => 'sol_intro', 'type' => 'textarea', 'rows' => 2];
+    for ($i = 1; $i <= 3; $i++) {
+        $industry_fields[] = [
+            'key'        => "field_tp_ind_solution_{$i}",
+            'label'      => "Solution {$i}",
+            'name'       => "solution_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_ind_solution_{$i}_title", 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                ['key' => "field_tp_ind_solution_{$i}_body", 'label' => 'Body text', 'name' => 'body', 'type' => 'textarea', 'rows' => 2],
+                ['key' => "field_tp_ind_solution_{$i}_image", 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+            ],
+        ];
+    }
+    $industry_fields[] = ['key' => 'field_tp_ind_testimonial_quote', 'label' => 'Testimonial quote', 'name' => 'testimonial_quote', 'type' => 'textarea', 'rows' => 3];
+    $industry_fields[] = ['key' => 'field_tp_ind_testimonial_name', 'label' => 'Client name', 'name' => 'testimonial_name', 'type' => 'text'];
+    $industry_fields[] = ['key' => 'field_tp_ind_testimonial_title', 'label' => 'Client title / company', 'name' => 'testimonial_title', 'type' => 'text'];
+    $industry_fields[] = ['key' => 'field_tp_ind_faq_heading', 'label' => 'FAQ heading', 'name' => 'faq_heading', 'type' => 'text'];
+    $industry_fields[] = ['key' => 'field_tp_ind_faq_intro', 'label' => 'FAQ framing line', 'name' => 'faq_intro', 'type' => 'text'];
+    for ($i = 1; $i <= 6; $i++) {
+        $industry_fields[] = [
+            'key'        => "field_tp_ind_faq_{$i}",
+            'label'      => "FAQ {$i}",
+            'name'       => "faq_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_ind_faq_{$i}_q", 'label' => 'Question', 'name' => 'q', 'type' => 'text'],
+                ['key' => "field_tp_ind_faq_{$i}_a", 'label' => 'Answer', 'name' => 'a', 'type' => 'textarea', 'rows' => 2],
+            ],
+        ];
+    }
+    $industry_fields[] = ['key' => 'field_tp_ind_cta_subhead', 'label' => 'Pre-footer CTA subhead', 'name' => 'cta_subhead', 'type' => 'textarea', 'rows' => 2];
+
+    acf_add_local_field_group([
+        'key'      => 'group_tp_industry_page',
+        'title'    => 'Industry Page Content',
+        'fields'   => $industry_fields,
+        'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-industry.php']]],
+        'menu_order' => 3,
+    ]);
 });
 
 /**
@@ -245,6 +307,60 @@ function tp_bootstrap_service_content_acf_v3() {
     update_option('tp_service_content_acf_v3_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_service_content_acf_v3');
+
+/**
+ * One-time: push Industries page content into ACF (group_tp_industry_page)
+ * for every page created by tp_bootstrap_industry_pages(). Same pattern
+ * as the service-page content bootstraps.
+ */
+function tp_bootstrap_industry_content_acf() {
+    if (get_option('tp_industry_content_acf_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_industry_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['industry_name', 'headline', 'subhead', 'prob_heading', 'prob_intro', 'sol_heading', 'sol_intro', 'testimonial_quote', 'testimonial_name', 'testimonial_title', 'faq_heading', 'faq_intro', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text'], 'severity' => $p['severity']], $id);
+        }
+        foreach ($content['solutions'] as $i => $s) {
+            update_field('solution_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body'], 'image' => $s['image']], $id);
+        }
+        foreach ($content['faqs'] as $i => $f) {
+            update_field('faq_' . ($i + 1), ['q' => $f['q'], 'a' => $f['a']], $id);
+        }
+    }
+
+    update_option('tp_industry_content_acf_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_industry_content_acf');
+
+/**
+ * One-time: point the nav's "Industries" link at the new Healthcare &
+ * Life Sciences page. tp_nav isn't ACF-backed (legacy meta-box), and the
+ * Home page already has explicit saved tp_nav meta from an earlier
+ * wp-admin save — same shadowing issue hit before with tp_global, so
+ * this overwrites the saved meta directly rather than just the code
+ * default.
+ */
+function tp_bootstrap_nav_industries_url() {
+    if (get_option('tp_nav_industries_url_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_nav', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_nav');
+    $saved['industries_url'] = tp_default('tp_nav')['industries_url'];
+    update_post_meta($id, 'tp_nav', $saved);
+
+    update_option('tp_nav_industries_url_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_nav_industries_url');
 
 /**
  * One-time: replace the client kinetic headline rotator's "name" values
