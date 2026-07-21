@@ -37,9 +37,16 @@ function tp_enqueue_assets() {
     wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], file_exists($style_path) ? filemtime($style_path) : TP_THEME_VERSION);
     wp_enqueue_style('tp-main', TP_THEME_URI . '/assets/css/style.css', ['tp-style'], file_exists($main_css_path) ? filemtime($main_css_path) : TP_THEME_VERSION);
 
-    // shader-bg is a plain custom element that loads its React dependencies
-    // via dynamic import() at runtime — no <script type=module> needed.
-    wp_enqueue_script('tp-shader-bg', TP_THEME_URI . '/assets/js/shader-bg.js', [], file_exists($shader_js_path) ? filemtime($shader_js_path) : TP_THEME_VERSION, true);
+    // shader-bg is a self-hosted bundle (~340KB gzipped). Previously
+    // enqueued in the footer, which meant the browser didn't even start
+    // downloading it until it had parsed all the way to the end of the
+    // page — the hero's text/nav/ticker (plain HTML) would paint well
+    // before the shader had a chance to start loading, let alone mount.
+    // 'defer' + in_footer:false puts the <script> in <head> so the
+    // download starts immediately, in parallel with HTML parsing,
+    // without blocking that parsing (defer semantics) — it still only
+    // executes once the DOM is ready, same as before.
+    wp_enqueue_script('tp-shader-bg', TP_THEME_URI . '/assets/js/shader-bg.js', [], file_exists($shader_js_path) ? filemtime($shader_js_path) : TP_THEME_VERSION, false);
     // wave-field is a self-contained WebGL custom element (no external
     // deps, unlike shader-bg) used by the blog-post hero background.
     // Enqueued site-wide like shader-bg — registering the element costs
@@ -52,6 +59,35 @@ function tp_enqueue_assets() {
     wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-lightfall-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
+
+/**
+ * Preload hint for shader-bg.js on the homepage only (the only page that
+ * actually uses <shader-bg>) — gets the browser starting the download a
+ * beat earlier than even the deferred <script> tag would on its own,
+ * since it's discovered the moment this early <link> is parsed rather
+ * than waiting on the rest of <head> first.
+ */
+function tp_preload_shader_bg() {
+    if (!is_front_page()) return;
+    $path = get_template_directory() . '/assets/js/shader-bg.js';
+    if (!file_exists($path)) return;
+    $url = TP_THEME_URI . '/assets/js/shader-bg.js?ver=' . filemtime($path);
+    echo '<link rel="preload" href="' . esc_url($url) . '" as="script">' . "\n";
+}
+add_action('wp_head', 'tp_preload_shader_bg', 1);
+
+/**
+ * Adds the defer attribute to shader-bg's <script> tag. Used the
+ * 5-arg 'strategy' form of wp_enqueue_script first, but on this WP
+ * version it didn't actually move the tag into <head> as documented —
+ * this filter is the well-established, version-safe way to do it.
+ */
+function tp_defer_shader_bg_script($tag, $handle) {
+    if ($handle !== 'tp-shader-bg') return $tag;
+    if (strpos($tag, ' defer') !== false) return $tag;
+    return str_replace(' src=', ' defer src=', $tag);
+}
+add_filter('script_loader_tag', 'tp_defer_shader_bg_script', 10, 2);
 
 /**
  * One-time bootstrap: create the 3 service pages (if missing) with the
