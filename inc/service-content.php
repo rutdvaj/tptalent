@@ -90,7 +90,7 @@ function tp_service_content_all() {
         ],
 
         'talent-acquisition' => [
-            'headline' => 'Talent Acquisition Services',
+            'headline' => 'Talent Acquisition That Finds the Right Fit, Faster',
             'subhead'  => 'Build high-performing teams with strategic hiring solutions that connect you with skilled professionals faster.',
             'prob_heading' => 'Hiring Challenges That Slow Business Growth',
             'problems' => [
@@ -112,7 +112,7 @@ function tp_service_content_all() {
         ],
 
         'recruiter-on-premise' => [
-            'headline' => 'Recruiter on Premise Services',
+            'headline' => 'Recruiter on Premise, Right Where Hiring Happens',
             'subhead'  => 'Extend your hiring team with dedicated recruiters who work as a seamless part of your organization.',
             'prob_heading' => 'When Internal Recruitment Needs Extra Capacity',
             'problems' => [
@@ -134,7 +134,7 @@ function tp_service_content_all() {
         ],
 
         'robotics-automation' => [
-            'headline' => 'Robotics & Automation Services',
+            'headline' => 'Robotics & Automation That Keep Work Moving',
             'subhead'  => 'Automate repetitive business processes to improve productivity, accuracy, and operational efficiency.',
             'prob_heading' => 'Manual Processes Limit Business Performance',
             'problems' => [
@@ -156,7 +156,7 @@ function tp_service_content_all() {
         ],
 
         'generative-agentic-ai' => [
-            'headline' => 'Generative AI & Agentic AI Services',
+            'headline' => 'Generative & Agentic AI That Turns Intelligence Into Action',
             'subhead'  => 'Develop intelligent AI solutions that automate workflows, accelerate decision-making, and unlock new business opportunities.',
             'prob_heading' => 'Challenges Preventing Enterprise AI Adoption',
             'problems' => [
@@ -178,7 +178,7 @@ function tp_service_content_all() {
         ],
 
         'machine-learning' => [
-            'headline' => 'Machine Learning Services',
+            'headline' => 'Machine Learning That Turns Data Into Foresight',
             'subhead'  => 'Transform enterprise data into intelligent predictions, automation, and better business decisions.',
             'prob_heading' => 'Data Without Intelligence Creates Missed Opportunities',
             'problems' => [
@@ -200,7 +200,7 @@ function tp_service_content_all() {
         ],
 
         'pega' => [
-            'headline' => 'PEGA Development Services',
+            'headline' => 'PEGA Solutions That Make Complex Work Flow',
             'subhead'  => 'Build intelligent workflow automation and customer engagement solutions with the PEGA platform.',
             'prob_heading' => 'Legacy Processes Reduce Operational Efficiency',
             'problems' => [
@@ -222,7 +222,7 @@ function tp_service_content_all() {
         ],
 
         'engineering-services' => [
-            'headline' => 'Engineering Services',
+            'headline' => 'Engineering Services Built to Move Ideas Forward',
             'subhead'  => 'Accelerate product innovation with end-to-end engineering expertise across design, validation, and development.',
             'prob_heading' => 'Engineering Challenges Delay Product Delivery',
             'problems' => [
@@ -244,7 +244,7 @@ function tp_service_content_all() {
         ],
 
         'embedded-technologies' => [
-            'headline' => 'Embedded Technologies Services',
+            'headline' => 'Embedded Technologies That Power What’s Next',
             'subhead'  => 'Develop reliable embedded systems that power connected products, industrial devices, and next-generation technologies.',
             'prob_heading' => 'Embedded Systems Demand Precision and Reliability',
             'problems' => [

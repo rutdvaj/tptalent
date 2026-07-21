@@ -190,6 +190,29 @@ function tp_bootstrap_service_content_acf_v2() {
 add_action('wp_loaded', 'tp_bootstrap_service_content_acf_v2');
 
 /**
+ * One-time: push the improved H1 headlines for the 8 newest service
+ * pages (client noticed the generic "X Services" pattern and asked for
+ * a more distinctive line per page) into their already-saved ACF field.
+ * Only touches 'headline' — every other field is untouched.
+ */
+function tp_bootstrap_service_headlines_v4() {
+    if (get_option('tp_service_headlines_v4_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    $slugs = ['talent-acquisition', 'recruiter-on-premise', 'robotics-automation', 'generative-agentic-ai', 'machine-learning', 'pega', 'engineering-services', 'embedded-technologies'];
+    $all = tp_service_content_all();
+    foreach ($slugs as $slug) {
+        if (!isset($all[$slug])) continue;
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        update_field('headline', $all[$slug]['headline'], $page->ID);
+    }
+
+    update_option('tp_service_headlines_v4_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_service_headlines_v4');
+
+/**
  * One-time: replace the client kinetic headline rotator's "name" values
  * with anonymized company-type labels (e.g. "A Big 4 company") instead of
  * direct client names — per client request not to name specific companies
