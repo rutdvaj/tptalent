@@ -287,7 +287,7 @@ a:hover { color: #0E332B; }
    PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
    (design handoff option 1e/2e)
    =========================================================== */
-.tp-proof { background: linear-gradient(180deg, #DCE7DD 0%, #EEF3EE 60%, #FFFFFF 100%); }
+.tp-proof { background: #FFFFFF; }
 .tp-proof .tp-container { max-width: 1240px; padding: 104px 40px; }
 .tp-proof__card { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
 .tp-proof__intro { position: sticky; top: 40px; }
