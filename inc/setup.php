@@ -31,7 +31,7 @@ function tp_enqueue_assets() {
     $main_css_path = get_template_directory() . '/assets/css/style.css';
     $shader_js_path = get_template_directory() . '/assets/js/shader-bg.js';
     $wave_js_path = get_template_directory() . '/assets/js/wave-field.js';
-    $lightfall_js_path = get_template_directory() . '/assets/js/lightfall-bg.js';
+    $vortex_js_path = get_template_directory() . '/assets/js/vortex-bg.js';
     $main_js_path = get_template_directory() . '/assets/js/main.js';
 
     wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], file_exists($style_path) ? filemtime($style_path) : TP_THEME_VERSION);
@@ -52,11 +52,12 @@ function tp_enqueue_assets() {
     // Enqueued site-wide like shader-bg — registering the element costs
     // nothing on pages that don't use the <wave-field> tag.
     wp_enqueue_script('tp-wave-field', TP_THEME_URI . '/assets/js/wave-field.js', [], file_exists($wave_js_path) ? filemtime($wave_js_path) : TP_THEME_VERSION, true);
-    // lightfall-bg replaces wave-field on the service-page hero background
-    // (updated design handoff) — same self-contained WebGL custom element
-    // pattern, just a different streak/glow effect instead of waves.
-    wp_enqueue_script('tp-lightfall-bg', TP_THEME_URI . '/assets/js/lightfall-bg.js', [], file_exists($lightfall_js_path) ? filemtime($lightfall_js_path) : TP_THEME_VERSION, true);
-    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-lightfall-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
+    // vortex-bg replaces lightfall-bg on the service-page hero background
+    // (Sea Mint Tecno Prism Vortex handoff) — self-contained Canvas 2D
+    // particle flow-field, palette-driven via `colors`, with a pointer-
+    // reactive swirl (not in the source design; added per request).
+    wp_enqueue_script('tp-vortex-bg', TP_THEME_URI . '/assets/js/vortex-bg.js', [], file_exists($vortex_js_path) ? filemtime($vortex_js_path) : TP_THEME_VERSION, true);
+    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-vortex-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
 

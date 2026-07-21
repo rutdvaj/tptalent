@@ -23,7 +23,7 @@ $insights_cross = tp_get_insights_nav_items(2);
 ?>
 
 <div class="tp-pagehero tp-nav-scope" data-screen-label="Service hero">
-  <lightfall-bg colors="<?php echo esc_attr(tp_wave_colors()); ?>" class="tp-pagehero__wave" aria-hidden="true"></lightfall-bg>
+  <vortex-bg colors="<?php echo esc_attr(tp_wave_colors()); ?>" class="tp-pagehero__wave" aria-hidden="true"></vortex-bg>
 
   <?php get_template_part('template-parts/nav-subpage'); ?>
 

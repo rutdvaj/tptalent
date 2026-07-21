@@ -503,6 +503,10 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
    =========================================================== */
 .tp-pagehero { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; background: radial-gradient(120% 90% at 50% -10%, var(--ink, #16483B) 0%, var(--ink-deep, #0E332B) 45%, #050B09 100%); }
 .tp-pagehero__wave { position: absolute; inset: 0; z-index: 0; opacity: 0.9; pointer-events: none; }
+/* vortex-bg reacts to the pointer (particles swirl around the cursor),
+   so it needs pointer-events re-enabled — nav/content above it sit in
+   higher stacking contexts and still receive clicks/hovers normally. */
+vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; box-sizing: border-box; flex: 1 1 auto; padding: 64px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 22px; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; }
 /* max-width widened from 18ch — the newer generic "X Services"
    headlines (e.g. "Recruiter on Premise Services") are longer than the
