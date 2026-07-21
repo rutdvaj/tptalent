@@ -112,7 +112,7 @@ function tp_service_content_all() {
         ],
 
         'recruiter-on-premise' => [
-            'headline' => 'Recruiter on Premise (ROP) Services',
+            'headline' => 'Recruiter on Premise Services',
             'subhead'  => 'Extend your hiring team with dedicated recruiters who work as a seamless part of your organization.',
             'prob_heading' => 'When Internal Recruitment Needs Extra Capacity',
             'problems' => [
@@ -175,6 +175,94 @@ function tp_service_content_all() {
             ],
             'cta_heading' => 'Turn Enterprise AI into Business Value',
             'cta_subhead' => 'Partner with Tecnoprism to build secure, scalable AI solutions that drive measurable outcomes.',
+        ],
+
+        'machine-learning' => [
+            'headline' => 'Machine Learning Services',
+            'subhead'  => 'Transform enterprise data into intelligent predictions, automation, and better business decisions.',
+            'prob_heading' => 'Data Without Intelligence Creates Missed Opportunities',
+            'problems' => [
+                ['heading' => 'Business data goes unused', 'text' => 'Valuable data exists but isn’t driving better decisions.'],
+                ['heading' => 'Forecasts lack accuracy', 'text' => 'Traditional methods struggle to predict changing business conditions.'],
+                ['heading' => 'Manual analysis consumes time', 'text' => 'Teams spend hours interpreting data instead of acting on it.'],
+                ['heading' => 'Models fail to scale', 'text' => 'Existing solutions cannot adapt as data grows.'],
+                ['heading' => 'Customer behavior remains unclear', 'text' => 'Businesses lack meaningful insights into user patterns.'],
+                ['heading' => 'AI projects stall', 'text' => 'Poor implementation prevents machine learning initiatives from delivering value.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Assess Business Objectives', 'body' => 'We identify machine learning opportunities aligned with measurable outcomes.'],
+                ['num' => '02', 'title' => 'Develop Intelligent Models', 'body' => 'Custom ML models are built using high-quality enterprise data.'],
+                ['num' => '03', 'title' => 'Deploy Into Production', 'body' => 'Models integrate seamlessly with your existing systems.'],
+                ['num' => '04', 'title' => 'Optimize Performance', 'body' => 'Continuous monitoring improves accuracy and long-term business value.'],
+            ],
+            'cta_heading' => 'Unlock Smarter Business Decisions',
+            'cta_subhead' => 'Leverage machine learning solutions that turn enterprise data into measurable business outcomes.',
+        ],
+
+        'pega' => [
+            'headline' => 'PEGA Development Services',
+            'subhead'  => 'Build intelligent workflow automation and customer engagement solutions with the PEGA platform.',
+            'prob_heading' => 'Legacy Processes Reduce Operational Efficiency',
+            'problems' => [
+                ['heading' => 'Business processes are fragmented', 'text' => 'Multiple disconnected workflows slow daily operations.'],
+                ['heading' => 'Manual approvals create delays', 'text' => 'Decision-making becomes slower and less consistent.'],
+                ['heading' => 'Legacy systems limit agility', 'text' => 'Older applications struggle to support modern business needs.'],
+                ['heading' => 'Customer experiences become inconsistent', 'text' => 'Disconnected systems affect service quality.'],
+                ['heading' => 'Workflow visibility is limited', 'text' => 'Businesses lack real-time operational insights.'],
+                ['heading' => 'Scaling operations becomes difficult', 'text' => 'Manual processes cannot support enterprise growth.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Analyze Existing Processes', 'body' => 'We identify workflow improvements across your organization.'],
+                ['num' => '02', 'title' => 'Design PEGA Solutions', 'body' => 'Intelligent applications are tailored to your business needs.'],
+                ['num' => '03', 'title' => 'Integrate Enterprise Systems', 'body' => 'PEGA connects seamlessly with legacy and cloud platforms.'],
+                ['num' => '04', 'title' => 'Support Continuous Improvement', 'body' => 'Solutions evolve alongside your business requirements.'],
+            ],
+            'cta_heading' => 'Modernize Enterprise Workflows',
+            'cta_subhead' => 'Empower your business with scalable PEGA solutions designed for long-term operational excellence.',
+        ],
+
+        'engineering-services' => [
+            'headline' => 'Engineering Services',
+            'subhead'  => 'Accelerate product innovation with end-to-end engineering expertise across design, validation, and development.',
+            'prob_heading' => 'Engineering Challenges Delay Product Delivery',
+            'problems' => [
+                ['heading' => 'Product development takes too long', 'text' => 'Inefficient engineering workflows slow time-to-market.'],
+                ['heading' => 'Specialized talent is difficult to find', 'text' => 'Critical engineering expertise remains in short supply.'],
+                ['heading' => 'Design quality suffers', 'text' => 'Limited resources affect product performance and reliability.'],
+                ['heading' => 'Validation becomes a bottleneck', 'text' => 'Testing delays impact development schedules.'],
+                ['heading' => 'Cross-functional collaboration is weak', 'text' => 'Engineering teams struggle to stay aligned.'],
+                ['heading' => 'Projects exceed budgets', 'text' => 'Inefficient execution increases development costs.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Understand Engineering Requirements', 'body' => 'We align resources with your technical objectives.'],
+                ['num' => '02', 'title' => 'Provide Specialized Expertise', 'body' => 'Experienced engineers support every project phase.'],
+                ['num' => '03', 'title' => 'Validate Quality', 'body' => 'Rigorous testing ensures reliable engineering outcomes.'],
+                ['num' => '04', 'title' => 'Accelerate Product Delivery', 'body' => 'Efficient execution keeps projects on schedule.'],
+            ],
+            'cta_heading' => 'Engineer Better Products Faster',
+            'cta_subhead' => 'Partner with Tecnoprism to deliver innovative engineering solutions with confidence.',
+        ],
+
+        'embedded-technologies' => [
+            'headline' => 'Embedded Technologies Services',
+            'subhead'  => 'Develop reliable embedded systems that power connected products, industrial devices, and next-generation technologies.',
+            'prob_heading' => 'Embedded Systems Demand Precision and Reliability',
+            'problems' => [
+                ['heading' => 'Hardware and software lack alignment', 'text' => 'Integration challenges delay product development.'],
+                ['heading' => 'Firmware performance is inconsistent', 'text' => 'Poor optimization affects system reliability.'],
+                ['heading' => 'Testing uncovers late-stage issues', 'text' => 'Product defects increase development costs.'],
+                ['heading' => 'IoT devices require stronger connectivity', 'text' => 'Connected systems struggle with scalability and security.'],
+                ['heading' => 'Complex platforms increase development time', 'text' => 'Advanced embedded solutions demand specialized expertise.'],
+                ['heading' => 'Product launches get delayed', 'text' => 'Engineering bottlenecks impact time-to-market.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Define System Architecture', 'body' => 'We design embedded solutions around your product requirements.'],
+                ['num' => '02', 'title' => 'Develop Reliable Firmware', 'body' => 'Optimized software delivers stable device performance.'],
+                ['num' => '03', 'title' => 'Validate Hardware Integration', 'body' => 'Thorough testing ensures dependable operation.'],
+                ['num' => '04', 'title' => 'Deploy Scalable Solutions', 'body' => 'Embedded systems are built for long-term reliability and growth.'],
+            ],
+            'cta_heading' => 'Power Intelligent Connected Products',
+            'cta_subhead' => 'Deliver robust embedded solutions that enable innovation across modern industries.',
         ],
 
     ];

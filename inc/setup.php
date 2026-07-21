@@ -129,6 +129,45 @@ function tp_bootstrap_service_pages_v2() {
 add_action('init', 'tp_bootstrap_service_pages_v2');
 
 /**
+ * One-time: 4 more service pages (of 12 planned) — Machine Learning,
+ * PEGA, Engineering Services, Embedded Technologies. Continues the
+ * menu_order sequence from v2 (7-10) so the nav dropdown keeps a
+ * stable, controlled order as pages are added in batches.
+ */
+function tp_bootstrap_service_pages_v3() {
+    if (get_option('tp_service_pages_v3_bootstrapped')) return;
+
+    $pages = [
+        'machine-learning'      => 'Machine Learning',
+        'pega'                  => 'PEGA',
+        'engineering-services'  => 'Engineering Services',
+        'embedded-technologies' => 'Embedded Technologies',
+    ];
+    $order = 7;
+    foreach ($pages as $slug => $title) {
+        $page = get_page_by_path($slug);
+        if (!$page) {
+            $id = wp_insert_post([
+                'post_title'   => $title,
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => '',
+                'menu_order'   => $order,
+            ], true);
+            if (!is_wp_error($id)) {
+                update_post_meta($id, '_wp_page_template', 'page-service.php');
+            }
+        } else {
+            wp_update_post(['ID' => $page->ID, 'menu_order' => $order]);
+        }
+        $order++;
+    }
+    update_option('tp_service_pages_v3_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_service_pages_v3');
+
+/**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
  * posts (see inc/blog-seed-content.php) — native 'post' type so they
  * behave like any post written in wp-admin from here on.

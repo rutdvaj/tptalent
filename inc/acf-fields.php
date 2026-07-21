@@ -158,6 +158,38 @@ function tp_bootstrap_service_content_acf() {
 add_action('wp_loaded', 'tp_bootstrap_service_content_acf');
 
 /**
+ * One-time: re-push every service page's content — covers the 4 pages
+ * added in tp_bootstrap_service_pages_v3() (Machine Learning, PEGA,
+ * Engineering Services, Embedded Technologies), and also re-applies the
+ * Recruiter on Premise headline fix ("(ROP)" dropped) to the already-
+ * saved ACF field from the v1 push. Harmless no-op for every other
+ * already-correct page.
+ */
+function tp_bootstrap_service_content_acf_v2() {
+    if (get_option('tp_service_content_acf_v2_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_service_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['headline', 'subhead', 'prob_heading', 'cta_heading', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text']], $id);
+        }
+        foreach ($content['steps'] as $i => $s) {
+            update_field('step_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body']], $id);
+        }
+    }
+
+    update_option('tp_service_content_acf_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_service_content_acf_v2');
+
+/**
  * One-time: replace the client kinetic headline rotator's "name" values
  * with anonymized company-type labels (e.g. "A Big 4 company") instead of
  * direct client names — per client request not to name specific companies
