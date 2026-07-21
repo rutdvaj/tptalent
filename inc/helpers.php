@@ -372,6 +372,41 @@ function tp_get_section_saved_data($section, $id) {
     return get_post_meta($id, $section, true);
 }
 
+/**
+ * Service pages (page-service.php) are ACF-backed per page (see
+ * group_tp_service_page in inc/acf-fields.php) — falls back to the
+ * plain-array tp_service_content($slug) for any page whose ACF fields
+ * haven't been filled in yet.
+ */
+function tp_get_service_page_content($post_id, $slug) {
+    if (function_exists('get_field') && get_field('headline', $post_id)) {
+        $problems = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $g = get_field("problem_{$i}", $post_id);
+            if (is_array($g) && !empty($g['heading'])) {
+                $problems[] = ['heading' => $g['heading'], 'text' => $g['text']];
+            }
+        }
+        $steps = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $g = get_field("step_{$i}", $post_id);
+            if (is_array($g) && !empty($g['title'])) {
+                $steps[] = ['num' => sprintf('%02d', count($steps) + 1), 'title' => $g['title'], 'body' => $g['body']];
+            }
+        }
+        return [
+            'headline' => get_field('headline', $post_id),
+            'subhead' => get_field('subhead', $post_id),
+            'prob_heading' => get_field('prob_heading', $post_id),
+            'problems' => $problems,
+            'steps' => $steps,
+            'cta_heading' => get_field('cta_heading', $post_id),
+            'cta_subhead' => get_field('cta_subhead', $post_id),
+        ];
+    }
+    return tp_service_content($slug);
+}
+
 function tp_field($section, $key, $fallback = '') {
     $data = tp_get_section($section);
     if (!isset($data[$key]) || $data[$key] === '') return $fallback;
@@ -399,20 +434,30 @@ function tp_image_url($row, $size = 'medium') {
  * here when a new service page ships. get_permalink() is looked up by
  * slug so links stay correct even if the page's parent/path changes.
  */
+/**
+ * Sourced live from every Page using the "Service Page" template,
+ * ordered by the page's own menu_order — new service pages just need
+ * to be created with that template to appear here, no code edit.
+ */
 function tp_get_services_nav_items() {
-    $slugs = [
-        'executive-search'   => 'Executive Search',
-        'virtual-assistance' => 'Virtual Assistance',
-        'payrolling-services' => 'Payrolling Services',
-    ];
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $q = new WP_Query([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'page-service.php',
+        'orderby'        => 'menu_order',
+        'order'          => 'ASC',
+        'no_found_rows'  => true,
+    ]);
     $items = [];
-    foreach ($slugs as $slug => $label) {
-        $page = get_page_by_path($slug);
-        $items[] = [
-            'label' => $label,
-            'url'   => $page ? get_permalink($page) : home_url('/services/' . $slug . '/'),
-        ];
+    foreach ($q->posts as $p) {
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
     }
+    wp_reset_postdata();
+    $cache = $items;
     return $items;
 }
 

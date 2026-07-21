@@ -58,6 +58,46 @@ add_action('acf/init', function () {
         'location' => [[['param' => 'page_type', 'operator' => '==', 'value' => 'front_page']]],
         'menu_order' => 1,
     ]);
+
+    $service_fields = [
+        ['key' => 'field_tp_svc_headline', 'label' => 'Headline (H1)', 'name' => 'headline', 'type' => 'text'],
+        ['key' => 'field_tp_svc_subhead', 'label' => 'Subhead', 'name' => 'subhead', 'type' => 'text'],
+        ['key' => 'field_tp_svc_prob_heading', 'label' => '"Where it breaks" section heading', 'name' => 'prob_heading', 'type' => 'text'],
+    ];
+    for ($i = 1; $i <= 6; $i++) {
+        $service_fields[] = [
+            'key'        => "field_tp_svc_problem_{$i}",
+            'label'      => "Problem {$i}",
+            'name'       => "problem_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_svc_problem_{$i}_heading", 'label' => 'Heading', 'name' => 'heading', 'type' => 'text'],
+                ['key' => "field_tp_svc_problem_{$i}_text", 'label' => 'Body text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2],
+            ],
+        ];
+    }
+    for ($i = 1; $i <= 4; $i++) {
+        $service_fields[] = [
+            'key'        => "field_tp_svc_step_{$i}",
+            'label'      => "Step {$i}",
+            'name'       => "step_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_svc_step_{$i}_title", 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                ['key' => "field_tp_svc_step_{$i}_body", 'label' => 'Body text', 'name' => 'body', 'type' => 'textarea', 'rows' => 2],
+            ],
+        ];
+    }
+    $service_fields[] = ['key' => 'field_tp_svc_cta_heading', 'label' => 'CTA heading', 'name' => 'cta_heading', 'type' => 'text'];
+    $service_fields[] = ['key' => 'field_tp_svc_cta_subhead', 'label' => 'CTA subhead', 'name' => 'cta_subhead', 'type' => 'text'];
+
+    acf_add_local_field_group([
+        'key'      => 'group_tp_service_page',
+        'title'    => 'Service Page Content',
+        'fields'   => $service_fields,
+        'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-service.php']]],
+        'menu_order' => 2,
+    ]);
 });
 
 /**
@@ -85,6 +125,37 @@ function tp_bootstrap_acf_content() {
     update_option('tp_acf_content_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_acf_content');
+
+/**
+ * One-time: push every service page's content (inc/service-content.php)
+ * into its ACF fields (group_tp_service_page) — covers all 7 pages that
+ * exist so far (the original 3 + the 4 just added), including the 3
+ * that were still running on the plain-array fallback. Runs after
+ * tp_bootstrap_service_pages_v2() so the pages already exist.
+ */
+function tp_bootstrap_service_content_acf() {
+    if (get_option('tp_service_content_acf_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_service_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['headline', 'subhead', 'prob_heading', 'cta_heading', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text']], $id);
+        }
+        foreach ($content['steps'] as $i => $s) {
+            update_field('step_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body']], $id);
+        }
+    }
+
+    update_option('tp_service_content_acf_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_service_content_acf');
 
 /**
  * One-time: replace the client kinetic headline rotator's "name" values

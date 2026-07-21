@@ -4,14 +4,15 @@
  *
  * Static gradient hero (not the homepage's shader) + Problems grid +
  * Engagement Model (4 steps) + Articles cross-links + CTA band + shared
- * footer. One template, content per page comes from tp_service_content()
- * keyed by page slug (see inc/service-content.php) — swap to ACF later
- * without touching this file's markup.
+ * footer. One template, content per page is ACF-backed (see
+ * group_tp_service_page in inc/acf-fields.php), falling back to the
+ * plain-array tp_service_content() in inc/service-content.php for any
+ * page whose fields aren't filled in yet.
  */
 get_header();
 
 $slug = get_post_field('post_name');
-$content = tp_service_content($slug);
+$content = tp_get_service_page_content(get_the_ID(), $slug);
 if (!$content) {
     $content = [
         'headline' => get_the_title(), 'subhead' => '', 'prob_heading' => '',

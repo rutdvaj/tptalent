@@ -87,6 +87,48 @@ function tp_bootstrap_service_pages() {
 add_action('init', 'tp_bootstrap_service_pages');
 
 /**
+ * One-time: 4 more service pages (of 12 planned) + explicit menu_order
+ * on all 7 pages so the nav dropdown (now sourced live by page template,
+ * see tp_get_services_nav_items()) lists them in a controlled order
+ * instead of whatever order they happened to be created in.
+ */
+function tp_bootstrap_service_pages_v2() {
+    if (get_option('tp_service_pages_v2_bootstrapped')) return;
+
+    $pages = [
+        'executive-search'     => 'Executive Search',
+        'virtual-assistance'   => 'Virtual Assistance',
+        'payrolling-services'  => 'Payrolling Services',
+        'talent-acquisition'   => 'Talent Acquisition',
+        'recruiter-on-premise' => 'Recruiter on Premise (ROP)',
+        'robotics-automation'  => 'Robotics & Automation',
+        'generative-agentic-ai' => 'Generative AI & Agentic AI',
+    ];
+    $order = 0;
+    foreach ($pages as $slug => $title) {
+        $page = get_page_by_path($slug);
+        if (!$page) {
+            $id = wp_insert_post([
+                'post_title'   => $title,
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => '',
+                'menu_order'   => $order,
+            ], true);
+            if (!is_wp_error($id)) {
+                update_post_meta($id, '_wp_page_template', 'page-service.php');
+            }
+        } else {
+            wp_update_post(['ID' => $page->ID, 'menu_order' => $order]);
+        }
+        $order++;
+    }
+    update_option('tp_service_pages_v2_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_service_pages_v2');
+
+/**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
  * posts (see inc/blog-seed-content.php) — native 'post' type so they
  * behave like any post written in wp-admin from here on.

@@ -1,12 +1,13 @@
 <?php
 /**
- * Content for the 3 service pages, keyed by page slug — mirrors the shape
- * tp_get_section() uses for the homepage. Transitional: this is a plain
- * PHP array today; once ACF is wired up (see project notes), each page's
- * fields will move to post meta and this file becomes just the fallback.
+ * Content for the service pages, keyed by page slug — mirrors the shape
+ * tp_get_section() uses for the homepage. Each page's content now lives
+ * in ACF (group_tp_service_page in inc/acf-fields.php); this array is
+ * the fallback (see tp_get_service_page_content()) and also the source
+ * data the bootstrap functions push into ACF for each page.
  *
- * All copy below is taken directly from the design handoff files, not
- * placeholder text.
+ * All copy below is taken directly from the design handoff files / the
+ * content the client provided, not placeholder text.
  */
 
 if (!defined('ABSPATH')) exit;
@@ -86,6 +87,94 @@ function tp_service_content_all() {
             ],
             'cta_heading' => 'Your calendar shouldn’t run your company',
             'cta_subhead' => 'Tell us what eats your week — we’ll map which of it an assistant can own, within one business day.',
+        ],
+
+        'talent-acquisition' => [
+            'headline' => 'Talent Acquisition Services',
+            'subhead'  => 'Build high-performing teams with strategic hiring solutions that connect you with skilled professionals faster.',
+            'prob_heading' => 'Hiring Challenges That Slow Business Growth',
+            'problems' => [
+                ['heading' => 'Critical roles remain vacant', 'text' => 'Long hiring cycles delay projects and impact business performance.'],
+                ['heading' => 'Poor candidate quality', 'text' => 'Unqualified applicants consume valuable hiring time.'],
+                ['heading' => 'High employee turnover', 'text' => 'Frequent attrition increases hiring costs and disrupts continuity.'],
+                ['heading' => 'Limited access to niche talent', 'text' => 'Specialized professionals are difficult to source through traditional hiring.'],
+                ['heading' => 'Slow recruitment processes', 'text' => 'Manual workflows delay decision-making and candidate engagement.'],
+                ['heading' => 'Scaling becomes difficult', 'text' => 'Rapid business growth outpaces internal recruitment capabilities.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Understand Your Hiring Goals', 'body' => 'We align recruitment strategies with your business objectives.'],
+                ['num' => '02', 'title' => 'Source Qualified Talent', 'body' => 'Our recruiters identify and engage pre-screened professionals.'],
+                ['num' => '03', 'title' => 'Evaluate & Shortlist', 'body' => 'Every candidate is assessed for technical skills and cultural fit.'],
+                ['num' => '04', 'title' => 'Support Successful Hiring', 'body' => 'We manage the process until the right candidate joins your team.'],
+            ],
+            'cta_heading' => 'Build Your Workforce with Confidence',
+            'cta_subhead' => 'Partner with Tecnoprism to hire skilled professionals faster and strengthen your workforce.',
+        ],
+
+        'recruiter-on-premise' => [
+            'headline' => 'Recruiter on Premise (ROP) Services',
+            'subhead'  => 'Extend your hiring team with dedicated recruiters who work as a seamless part of your organization.',
+            'prob_heading' => 'When Internal Recruitment Needs Extra Capacity',
+            'problems' => [
+                ['heading' => 'Recruiters are overloaded', 'text' => 'Growing hiring demands overwhelm internal HR teams.'],
+                ['heading' => 'Hiring lacks consistency', 'text' => 'Different recruiters follow different recruitment practices.'],
+                ['heading' => 'Business knowledge is limited', 'text' => 'External recruiters often lack an understanding of company culture.'],
+                ['heading' => 'Hiring spikes become unmanageable', 'text' => 'Seasonal and project-based recruitment creates bottlenecks.'],
+                ['heading' => 'Candidate experience suffers', 'text' => 'Slow communication causes qualified candidates to drop out.'],
+                ['heading' => 'Internal teams lose productivity', 'text' => 'Recruitment takes focus away from strategic HR initiatives.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Embed Dedicated Recruiters', 'body' => 'Our specialists integrate directly with your hiring team.'],
+                ['num' => '02', 'title' => 'Align with Your Processes', 'body' => 'Recruitment follows your workflows and employer brand.'],
+                ['num' => '03', 'title' => 'Accelerate Candidate Delivery', 'body' => 'Dedicated sourcing improves hiring speed and consistency.'],
+                ['num' => '04', 'title' => 'Continuously Optimize Hiring', 'body' => 'Performance metrics help improve recruitment outcomes over time.'],
+            ],
+            'cta_heading' => 'Extend Your Recruitment Team',
+            'cta_subhead' => 'Scale hiring efficiently with experienced recruiters working alongside your organization.',
+        ],
+
+        'robotics-automation' => [
+            'headline' => 'Robotics & Automation Services',
+            'subhead'  => 'Automate repetitive business processes to improve productivity, accuracy, and operational efficiency.',
+            'prob_heading' => 'Manual Processes Limit Business Performance',
+            'problems' => [
+                ['heading' => 'Repetitive work consumes time', 'text' => 'Employees spend valuable hours on routine manual tasks.'],
+                ['heading' => 'Operational errors increase', 'text' => 'Human mistakes affect productivity and compliance.'],
+                ['heading' => 'Processes don’t scale', 'text' => 'Manual operations struggle as business demand grows.'],
+                ['heading' => 'Systems remain disconnected', 'text' => 'Multiple platforms create inefficient workflows.'],
+                ['heading' => 'High operational costs', 'text' => 'Manual execution increases long-term expenses.'],
+                ['heading' => 'Slow response times', 'text' => 'Business processes fail to meet customer expectations.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Identify Automation Opportunities', 'body' => 'We assess workflows suitable for automation.'],
+                ['num' => '02', 'title' => 'Design Intelligent Solutions', 'body' => 'Automation is tailored to your business processes.'],
+                ['num' => '03', 'title' => 'Implement & Integrate', 'body' => 'Bots are deployed across existing enterprise systems.'],
+                ['num' => '04', 'title' => 'Monitor & Optimize', 'body' => 'Performance is continuously improved for maximum efficiency.'],
+            ],
+            'cta_heading' => 'Transform Manual Work into Intelligent Automation',
+            'cta_subhead' => 'Streamline operations with scalable automation solutions built for enterprise growth.',
+        ],
+
+        'generative-agentic-ai' => [
+            'headline' => 'Generative AI & Agentic AI Services',
+            'subhead'  => 'Develop intelligent AI solutions that automate workflows, accelerate decision-making, and unlock new business opportunities.',
+            'prob_heading' => 'Challenges Preventing Enterprise AI Adoption',
+            'problems' => [
+                ['heading' => 'AI initiatives lack direction', 'text' => 'Businesses struggle to identify practical AI use cases.'],
+                ['heading' => 'Knowledge remains siloed', 'text' => 'Valuable organizational data is difficult to access.'],
+                ['heading' => 'Processes require constant manual effort', 'text' => 'Teams spend time on repetitive knowledge-based tasks.'],
+                ['heading' => 'Customer expectations are evolving', 'text' => 'Traditional support models struggle to keep pace.'],
+                ['heading' => 'AI integration feels complex', 'text' => 'Existing systems make implementation challenging.'],
+                ['heading' => 'Innovation moves too slowly', 'text' => 'Delayed adoption reduces competitive advantage.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Identify High-Impact Use Cases', 'body' => 'We prioritize AI initiatives that deliver measurable value.'],
+                ['num' => '02', 'title' => 'Develop Intelligent AI Solutions', 'body' => 'Custom AI models and agents are designed around your business.'],
+                ['num' => '03', 'title' => 'Integrate with Enterprise Systems', 'body' => 'AI is connected securely with your existing technology stack.'],
+                ['num' => '04', 'title' => 'Scale & Continuously Improve', 'body' => 'Models are monitored and refined for long-term business performance.'],
+            ],
+            'cta_heading' => 'Turn Enterprise AI into Business Value',
+            'cta_subhead' => 'Partner with Tecnoprism to build secure, scalable AI solutions that drive measurable outcomes.',
         ],
 
     ];
