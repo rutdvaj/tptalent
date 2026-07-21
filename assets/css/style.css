@@ -18,7 +18,7 @@ a:hover { color: #0E332B; }
 @keyframes riseDrift { from { transform: translateY(6%) scale(1); } to { transform: translateY(-5%) scale(1.1); } }
 @keyframes cubeFloat { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-26px) rotate(9deg); } }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes fillFlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+@keyframes fillFlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 @keyframes bentoDot { 0%, 100% { opacity: 0.22; } 50% { opacity: 1; } }
 @keyframes barPulse { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
 
@@ -28,7 +28,7 @@ a:hover { color: #0E332B; }
 /* ---- hovercard mechanics (services + insights cards) ---- */
 [data-hovercard] { position: relative; }
 [data-hovercard] [data-fill] { opacity: 0; transition: opacity 700ms cubic-bezier(0.2,0.8,0.2,1); }
-[data-hovercard]:hover [data-fill] { opacity: 0.9; animation: fillFlow 6s linear infinite; }
+[data-hovercard]:hover [data-fill] { opacity: 0.9; animation: fillFlow 4s linear infinite; }
 [data-hovercard] [data-cardtitle], [data-hovercard] [data-cardbody], [data-hovercard] [data-cardnum] { transition: color 400ms cubic-bezier(0.2,0.8,0.2,1); }
 [data-hovercard]:hover [data-cardtitle] { color: var(--ink-deep, #0E332B) !important; font-weight: 700 !important; }
 [data-hovercard]:hover [data-cardbody] { color: var(--ink-deep, #0E332B) !important; font-weight: 600 !important; }
@@ -274,7 +274,11 @@ a:hover { color: #0E332B; }
 .tp-card__glow { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 55%; filter: blur(34px); opacity: 0.85; animation: riseDrift 11s ease-in-out infinite alternate; }
 .tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--p1) 0%, var(--p2) 45%, transparent 78%); }
 .tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--p2) 0%, var(--p1) 45%, transparent 78%); }
-.tp-card__fill { position: absolute; inset: 0; background-size: 300% 300%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
+/* background-size shrunk from 300% so more of the mint/cyan/white
+   sweep is visible within the card at any moment — at 300% a typical
+   brief hover only ever showed the early, green-dominant slice of the
+   loop before the cursor moved on. */
+.tp-card__fill { position: absolute; inset: 0; background-size: 200% 200%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
 
 /* ===========================================================
    PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
