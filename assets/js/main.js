@@ -144,7 +144,7 @@
    * design's own count-up/bar-fill logic.
    * --------------------------------------------------------- */
   function initNumbersAnimation() {
-    var els = document.querySelectorAll('.tp-numbers [data-count], .tp-numbers [data-bar]');
+    var els = document.querySelectorAll('.tp-numbers [data-count], .tp-numbers [data-bar], .tp-proof [data-count], .tp-proof [data-bar]');
     if (!els.length) return;
     var DUR = 3000;
     var animate = function (el) {

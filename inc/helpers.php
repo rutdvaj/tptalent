@@ -272,6 +272,28 @@ function tp_default($section) {
                 ['name' => 'Singapore', 'lat' => '1.35', 'lon' => '103.8', 'hq' => 0],
             ],
         ],
+        // "Proof, in four figures" — split narrative + hiring-funnel panel.
+        // Variant 1e/2e from the design handoff (Firm metrics presentation
+        // variations). Sits between "Our services" and the case-study bento.
+        'tp_proof' => [
+            'eyebrow' => 'Proof, in four figures',
+            'heading' => 'We’d rather show the maths than the adjectives',
+            'intro' => 'Every engagement is tracked from first submission to first day. These are the figures our clients hold us to across 21 countries.',
+            'cta_label' => 'See how we measure', 'cta_url' => '#',
+            'funnel_label' => 'The hiring funnel, honestly',
+            'stats' => [
+                ['value' => '10', 'prefix' => '$', 'suffix' => 'M+', 'display' => '$10M+', 'label' => 'Annual client cost savings'],
+                ['value' => '3700', 'prefix' => '', 'suffix' => '+', 'display' => '3,700+', 'label' => 'Successful engagements'],
+                ['value' => '21', 'prefix' => '', 'suffix' => '', 'display' => '21', 'label' => 'Countries supported'],
+                ['value' => '250', 'prefix' => '', 'suffix' => '+', 'display' => '250+', 'label' => 'Professionals on team'],
+            ],
+            'perf' => [
+                ['label' => 'Offer to start', 'pct' => '97'],
+                ['label' => 'Coverage', 'pct' => '96'],
+                ['label' => 'Interview to offer', 'pct' => '26'],
+                ['label' => 'Fill ratio', 'pct' => '18'],
+            ],
+        ],
         'tp_insights' => [
             'eyebrow' => 'Insights',
             'heading' => 'Field notes on the workforce',

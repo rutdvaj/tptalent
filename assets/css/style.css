@@ -284,6 +284,35 @@ a:hover { color: #0E332B; }
 .tp-card__fill { position: absolute; inset: 0; background-size: 300% 300%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
 
 /* ===========================================================
+   PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
+   (design handoff option 1e/2e)
+   =========================================================== */
+.tp-proof { background: linear-gradient(180deg, #DCE7DD 0%, #EEF3EE 60%, #FFFFFF 100%); }
+.tp-proof .tp-container { max-width: 1240px; padding: 104px 40px; }
+.tp-proof__card { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+.tp-proof__intro { position: sticky; top: 40px; }
+.tp-proof__heading { margin: 14px 0 24px; max-width: 15ch; }
+.tp-proof__lede { font-size: 16.5px; line-height: 1.6; color: #33544A; margin: 0 0 32px; max-width: 40ch; text-wrap: pretty; }
+.tp-proof__panels { display: flex; flex-direction: column; gap: 16px; }
+.tp-proof__stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tp-proof__stats-row--top { order: 1; }
+.tp-proof__funnel { order: 2; }
+.tp-proof__stats-row--bottom { order: 3; }
+.tp-proof__stat { background: #FFFFFF; border: 1px solid #E4E8EF; border-radius: 14px; padding: 30px; }
+.tp-proof__stat--tint { background: linear-gradient(135deg, #DCE7DD 0%, #C8EED8 100%); border-color: rgba(167,223,194,0.9); }
+.tp-proof__stat--tint .tp-proof__stat-value { color: #0E332B; }
+.tp-proof__stat-value { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 58px; line-height: 1; color: var(--ink, #16483B); }
+.tp-proof__stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #33544A; margin-top: 12px; }
+.tp-proof__funnel { background: radial-gradient(120% 150% at 80% 0%, var(--mid, #3E7159) -25%, var(--ink, #16483B) 45%, var(--ink-deep, #0E332B) 100%); border-radius: 14px; padding: 34px; }
+.tp-proof__funnel-label { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--soft, #A9C4B0); margin-bottom: 26px; }
+.tp-proof__funnel-row { display: grid; grid-template-columns: 170px 1fr 70px; align-items: center; gap: 18px; padding: 12px 0; border-top: 1px solid rgba(167,223,194,0.15); }
+.tp-proof__funnel-row:first-of-type { border-top: none; }
+.tp-proof__funnel-name { font-size: 14px; font-weight: 600; color: #EAF5EE; }
+.tp-proof__funnel-track { height: 22px; border-radius: 5px; background: rgba(167,223,194,0.12); overflow: hidden; }
+.tp-proof__funnel-fill { height: 100%; width: 0; border-radius: 5px; background: linear-gradient(90deg, var(--mid, #4F9F8A), var(--p1, #A7DFC2)); }
+.tp-proof__funnel-pct { font-family: 'Newsreader', Georgia, serif; font-size: 26px; font-weight: 500; color: #FFFFFF; text-align: right; }
+
+/* ===========================================================
    FEATURED CASE STUDY — bento grid (glassy)
    =========================================================== */
 .tp-bento { position: relative; overflow: hidden; background: var(--bento-bg); }
@@ -630,6 +659,23 @@ a:hover { color: #0E332B; }
   .tp-nav__bar { width: 4px; }
   .tp-nav__name { font-size: 15px; }
   .tp-nav__sub { font-size: 11px; letter-spacing: 0.4em; }
+  /* Proof-figures (1e/2e): single column, not sticky; both stat rows
+     regroup into one continuous 2x2 grid ahead of the funnel panel
+     instead of sandwiching it, matching the 2e mobile mock. */
+  .tp-proof .tp-container { padding: 56px 20px; }
+  .tp-proof__card { grid-template-columns: 1fr; gap: 40px; }
+  .tp-proof__intro { position: static; top: auto; }
+  .tp-proof__heading { font-size: 28px; max-width: none; }
+  .tp-proof__lede { font-size: 15px; }
+  .tp-proof__stats-row--bottom { order: 2; }
+  .tp-proof__funnel { order: 3; }
+  .tp-proof__stat { padding: 22px; }
+  .tp-proof__stat-value { font-size: 40px; }
+  .tp-proof__funnel { padding: 24px; }
+  .tp-proof__funnel-row { grid-template-columns: 1fr auto; grid-template-areas: "name pct" "track track"; row-gap: 8px; }
+  .tp-proof__funnel-name { grid-area: name; }
+  .tp-proof__funnel-pct { grid-area: pct; font-size: 20px; }
+  .tp-proof__funnel-track { grid-area: track; height: 16px; }
   /* Headline/subhead/buttons stay grouped, nudged further down toward
      screen center via extra top padding; the ticker sits right near
      the bottom edge with a small fixed margin — close but not flush. */
