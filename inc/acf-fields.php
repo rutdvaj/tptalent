@@ -213,6 +213,40 @@ function tp_bootstrap_service_headlines_v4() {
 add_action('wp_loaded', 'tp_bootstrap_service_headlines_v4');
 
 /**
+ * One-time: push content into ACF for the final 4 service pages
+ * (tp_bootstrap_service_pages_v4()) — Digital Transformation, Software
+ * Testing, Data Analytics, Software Development & Outsourcing. All 15
+ * service pages are now ACF-backed and content-complete.
+ */
+function tp_bootstrap_service_content_acf_v3() {
+    if (get_option('tp_service_content_acf_v3_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    $slugs = ['digital-transformation', 'software-testing', 'data-analytics', 'software-development-outsourcing'];
+    $all = tp_service_content_all();
+    foreach ($slugs as $slug) {
+        if (!isset($all[$slug])) continue;
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $content = $all[$slug];
+        $id = $page->ID;
+
+        foreach (['headline', 'subhead', 'prob_heading', 'cta_heading', 'cta_subhead'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['problems'] as $i => $p) {
+            update_field('problem_' . ($i + 1), ['heading' => $p['heading'], 'text' => $p['text']], $id);
+        }
+        foreach ($content['steps'] as $i => $s) {
+            update_field('step_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body']], $id);
+        }
+    }
+
+    update_option('tp_service_content_acf_v3_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_service_content_acf_v3');
+
+/**
  * One-time: replace the client kinetic headline rotator's "name" values
  * with anonymized company-type labels (e.g. "A Big 4 company") instead of
  * direct client names — per client request not to name specific companies

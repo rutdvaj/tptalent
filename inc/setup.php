@@ -168,6 +168,45 @@ function tp_bootstrap_service_pages_v3() {
 add_action('init', 'tp_bootstrap_service_pages_v3');
 
 /**
+ * One-time: final 4 of the 12 planned service pages — Digital
+ * Transformation, Software Testing, Data Analytics, Software
+ * Development & Outsourcing. Continues the menu_order sequence from
+ * v3 (11-14). All 15 service pages now exist.
+ */
+function tp_bootstrap_service_pages_v4() {
+    if (get_option('tp_service_pages_v4_bootstrapped')) return;
+
+    $pages = [
+        'digital-transformation'           => 'Digital Transformation',
+        'software-testing'                 => 'Software Testing',
+        'data-analytics'                   => 'Data Analytics',
+        'software-development-outsourcing' => 'Software Development & Outsourcing',
+    ];
+    $order = 11;
+    foreach ($pages as $slug => $title) {
+        $page = get_page_by_path($slug);
+        if (!$page) {
+            $id = wp_insert_post([
+                'post_title'   => $title,
+                'post_name'    => $slug,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => '',
+                'menu_order'   => $order,
+            ], true);
+            if (!is_wp_error($id)) {
+                update_post_meta($id, '_wp_page_template', 'page-service.php');
+            }
+        } else {
+            wp_update_post(['ID' => $page->ID, 'menu_order' => $order]);
+        }
+        $order++;
+    }
+    update_option('tp_service_pages_v4_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_service_pages_v4');
+
+/**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
  * posts (see inc/blog-seed-content.php) — native 'post' type so they
  * behave like any post written in wp-admin from here on.

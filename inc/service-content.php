@@ -265,6 +265,94 @@ function tp_service_content_all() {
             'cta_subhead' => 'Deliver robust embedded solutions that enable innovation across modern industries.',
         ],
 
+        'digital-transformation' => [
+            'headline' => 'Digital Transformation That Moves Business Forward',
+            'subhead'  => 'Modernize technology, processes, and operations to build a faster, smarter, and more adaptable enterprise.',
+            'prob_heading' => 'When Legacy Ways of Working Hold You Back',
+            'problems' => [
+                ['heading' => 'Legacy systems slow everything down', 'text' => 'Outdated technology creates bottlenecks and makes change harder than it should be.'],
+                ['heading' => 'Data lives in disconnected silos', 'text' => 'Fragmented systems prevent teams from seeing the complete business picture.'],
+                ['heading' => 'Manual processes drain productivity', 'text' => 'Repetitive workflows consume time that could be spent on higher-value work.'],
+                ['heading' => 'Technology struggles to scale', 'text' => 'Existing infrastructure cannot keep pace with growing business demands.'],
+                ['heading' => 'Customer experiences feel fragmented', 'text' => 'Disconnected digital touchpoints create inconsistent experiences across channels.'],
+                ['heading' => 'Transformation lacks direction', 'text' => 'Technology investments fail to create value without a clear business-led roadmap.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Find What Needs to Change', 'body' => 'We assess your technology, processes, and priorities to identify high-impact opportunities.'],
+                ['num' => '02', 'title' => 'Build the Transformation Roadmap', 'body' => 'We create a practical strategy aligned with your business goals and technology landscape.'],
+                ['num' => '03', 'title' => 'Modernize & Integrate', 'body' => 'We connect cloud, automation, data, AI, and applications into a cohesive digital ecosystem.'],
+                ['num' => '04', 'title' => 'Scale What Creates Value', 'body' => 'We continuously optimize solutions to support sustainable transformation and growth.'],
+            ],
+            'cta_heading' => 'Turn Transformation Into Momentum',
+            'cta_subhead' => 'Build a connected, adaptable digital enterprise designed to keep moving forward.',
+        ],
+
+        'software-testing' => [
+            'headline' => 'Software Testing That Catches Problems Before Users Do',
+            'subhead'  => 'Build confidence into every release with rigorous testing that protects performance, reliability, and user experience.',
+            'prob_heading' => 'When Small Defects Become Big Problems',
+            'problems' => [
+                ['heading' => 'Bugs reach production', 'text' => 'Undetected defects create costly fixes and frustrating user experiences.'],
+                ['heading' => 'Releases take too long', 'text' => 'Slow testing cycles become bottlenecks between development and deployment.'],
+                ['heading' => 'Updates break what already works', 'text' => 'New releases introduce regressions that compromise existing functionality.'],
+                ['heading' => 'Performance fails under pressure', 'text' => 'Applications that work in testing can struggle when real-world demand increases.'],
+                ['heading' => 'Testing coverage leaves blind spots', 'text' => 'Critical workflows remain vulnerable when testing is fragmented or incomplete.'],
+                ['heading' => 'Quality becomes an afterthought', 'text' => 'Late-stage testing makes defects harder and more expensive to resolve.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Define What Cannot Fail', 'body' => 'We identify critical workflows, risks, and quality requirements before testing begins.'],
+                ['num' => '02', 'title' => 'Test Across Every Layer', 'body' => 'We validate functionality, integrations, performance, and end-to-end user journeys.'],
+                ['num' => '03', 'title' => 'Automate Where It Matters', 'body' => 'Repeatable testing is automated to improve coverage and accelerate release cycles.'],
+                ['num' => '04', 'title' => 'Release With Confidence', 'body' => 'Clear reporting and continuous validation help teams ship reliable software faster.'],
+            ],
+            'cta_heading' => 'Make Every Release a Confident One',
+            'cta_subhead' => 'Strengthen software quality with testing built to find problems before your customers do.',
+        ],
+
+        'data-analytics' => [
+            'headline' => 'Data Analytics That Turns Complexity Into Clarity',
+            'subhead'  => 'Transform scattered enterprise data into actionable insights that sharpen decisions and uncover opportunities.',
+            'prob_heading' => 'When More Data Still Means Fewer Answers',
+            'problems' => [
+                ['heading' => 'Data sits in silos', 'text' => 'Disconnected sources prevent teams from seeing one reliable version of the truth.'],
+                ['heading' => 'Reports explain the past, not the future', 'text' => 'Traditional reporting shows what happened without revealing what is likely to happen next.'],
+                ['heading' => 'Decisions rely on assumptions', 'text' => 'Without timely insights, critical business choices depend more on instinct than evidence.'],
+                ['heading' => 'Teams drown in dashboards', 'text' => 'More metrics create confusion when the insights that actually matter remain unclear.'],
+                ['heading' => 'Opportunities stay hidden', 'text' => 'Patterns in customers, operations, and markets go unnoticed inside complex datasets.'],
+                ['heading' => 'Insights arrive too late', 'text' => 'Slow analysis means decisions are made after the moment to act has already passed.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Connect the Right Data', 'body' => 'We bring relevant data sources together to create a reliable analytical foundation.'],
+                ['num' => '02', 'title' => 'Find What Matters', 'body' => 'We uncover meaningful patterns, trends, and performance drivers hidden within your data.'],
+                ['num' => '03', 'title' => 'Turn Insight Into Foresight', 'body' => 'Predictive and prescriptive analytics help anticipate outcomes and guide smarter action.'],
+                ['num' => '04', 'title' => 'Put Intelligence Into Action', 'body' => 'Clear dashboards and actionable insights bring better decisions into everyday operations.'],
+            ],
+            'cta_heading' => 'Make Your Data Mean More',
+            'cta_subhead' => 'Turn complex information into the clarity your business needs to decide what comes next.',
+        ],
+
+        'software-development-outsourcing' => [
+            'headline' => 'Software Development & Outsourcing Built Around What’s Next',
+            'subhead'  => 'Design, build, and scale reliable digital products with engineering expertise that grows alongside your ambitions.',
+            'prob_heading' => 'When Software Becomes the Bottleneck to Growth',
+            'problems' => [
+                ['heading' => 'Development moves too slowly', 'text' => 'Limited capacity and complex requirements push critical products further behind schedule.'],
+                ['heading' => 'The right expertise is missing', 'text' => 'Specialized technical skills can be difficult and expensive to build entirely in-house.'],
+                ['heading' => 'Legacy applications hold teams back', 'text' => 'Outdated architectures make new features, integrations, and scaling increasingly difficult.'],
+                ['heading' => 'Technical debt keeps growing', 'text' => 'Short-term fixes accumulate until maintaining software becomes harder than improving it.'],
+                ['heading' => 'Scaling creates instability', 'text' => 'Applications built for yesterday’s demand struggle as users and workloads grow.'],
+                ['heading' => 'Outsourcing creates more management', 'text' => 'Poorly aligned partners add communication gaps instead of extending your capabilities.'],
+            ],
+            'steps' => [
+                ['num' => '01', 'title' => 'Define What You’re Building', 'body' => 'We align product goals, technical requirements, and delivery priorities before development begins.'],
+                ['num' => '02', 'title' => 'Assemble the Right Expertise', 'body' => 'The right engineering capabilities are matched to your technology and delivery needs.'],
+                ['num' => '03', 'title' => 'Build, Test & Integrate', 'body' => 'We develop scalable software across front-end, back-end, APIs, mobile, and enterprise integrations.'],
+                ['num' => '04', 'title' => 'Scale Beyond the Launch', 'body' => 'Ongoing engineering support keeps your software reliable, adaptable, and ready to evolve.'],
+            ],
+            'cta_heading' => 'Build Software That Keeps Moving With You',
+            'cta_subhead' => 'Extend your engineering capabilities and turn ambitious ideas into scalable digital products.',
+        ],
+
     ];
 
     return $data;
