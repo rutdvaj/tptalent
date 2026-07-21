@@ -18,7 +18,6 @@ a:hover { color: #0E332B; }
 @keyframes riseDrift { from { transform: translateY(6%) scale(1); } to { transform: translateY(-5%) scale(1.1); } }
 @keyframes cubeFloat { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-26px) rotate(9deg); } }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes fillFlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 @keyframes bentoDot { 0%, 100% { opacity: 0.22; } 50% { opacity: 1; } }
 @keyframes barPulse { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
 
@@ -28,16 +27,16 @@ a:hover { color: #0E332B; }
 /* ---- hovercard mechanics (services + insights cards) ---- */
 [data-hovercard] { position: relative; }
 [data-hovercard] [data-fill] { opacity: 0; transition: opacity 700ms cubic-bezier(0.2,0.8,0.2,1); }
-[data-hovercard]:hover [data-fill] { opacity: 0.9; animation: fillFlow 4s linear infinite; }
+[data-hovercard]:hover [data-fill] { opacity: 0.9; }
 [data-hovercard] [data-cardtitle], [data-hovercard] [data-cardbody], [data-hovercard] [data-cardnum] { transition: color 400ms cubic-bezier(0.2,0.8,0.2,1); }
 [data-hovercard]:hover [data-cardtitle] { color: var(--ink-deep, #0E332B) !important; font-weight: 700 !important; }
 [data-hovercard]:hover [data-cardbody] { color: var(--ink-deep, #0E332B) !important; font-weight: 600 !important; }
 [data-hovercard]:hover [data-cardnum] { color: var(--ink, #16483B) !important; }
 #services [data-hovercard] [data-cardtitle] { background-image: linear-gradient(90deg, var(--mid, #3E7159) 0%, var(--ink, #16483B) 70%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #services [data-hovercard]:hover [data-cardtitle] { background-image: none; -webkit-text-fill-color: var(--ink-deep, #0E332B); }
-/* Services cards now match the design file's hover exactly — the
-   generic [data-hovercard]:hover [data-fill] rule above (endless
-   fillFlow sweep) applies with no #services-specific override. */
+/* Services cards use the shared [data-hovercard]:hover [data-fill]
+   rule above with no #services-specific override — a static mint ->
+   cyan -> white sweep that fades in and holds, no looping animation. */
 
 /* ---- shared: eyebrow / h2 / pill+solid buttons ---- */
 .tp-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid, #3E7159); }
@@ -274,11 +273,10 @@ a:hover { color: #0E332B; }
 .tp-card__glow { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 55%; filter: blur(34px); opacity: 0.85; animation: riseDrift 11s ease-in-out infinite alternate; }
 .tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--p1) 0%, var(--p2) 45%, transparent 78%); }
 .tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--p2) 0%, var(--p1) 45%, transparent 78%); }
-/* background-size shrunk from 300% so more of the mint/cyan/white
-   sweep is visible within the card at any moment — at 300% a typical
-   brief hover only ever showed the early, green-dominant slice of the
-   loop before the cursor moved on. */
-.tp-card__fill { position: absolute; inset: 0; background-size: 200% 200%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
+/* Static gradient, no flowing/looping animation — background-size:100%
+   fits the whole mint -> cyan -> white -> mint sweep within the card
+   at once, so it's all visible immediately on hover and just holds. */
+.tp-card__fill { position: absolute; inset: 0; background-size: 100% 100%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
 
 /* ===========================================================
    PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
