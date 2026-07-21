@@ -150,7 +150,7 @@
       var rangeHue = 78;
       var countAttr = parseFloat(this.getAttribute('particle-count'));
       return {
-        particleCount: isNaN(countAttr) ? 480 : countAttr,
+        particleCount: isNaN(countAttr) ? 720 : countAttr,
         particlePropCount: 9,
         rangeY: 120,
         baseTTL: 50, rangeTTL: 150,
