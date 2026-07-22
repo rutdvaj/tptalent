@@ -99,19 +99,20 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-nav__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
 .tp-nav__name { font-size: 19px; font-weight: 700; letter-spacing: 0.14em; line-height: 1; background: linear-gradient(90deg, #69B69D 0%, #4F9F8A 45%, #16483B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .tp-nav__sub { font-size: 15px; font-weight: 700; letter-spacing: 0.52em; line-height: 1; color: #3E7159; }
-/* Item row + sliding highlight pill that glides to whichever item is
-   hovered (data-slider/data-slider-pill, wired in main.js initNavSlider). */
 .tp-nav__slider, .tp-subnav__slider { position: relative; display: flex; align-items: center; gap: 2px; justify-self: center; }
-.tp-nav__slider-pill, .tp-subnav__slider-pill { position: absolute; top: 0; bottom: 0; left: 0; width: 0; border-radius: 999px; opacity: 0; pointer-events: none; transition: left 320ms cubic-bezier(0.2,0.9,0.2,1), width 320ms cubic-bezier(0.2,0.9,0.2,1), opacity 200ms; }
-.tp-nav__slider-pill { background: rgba(167,223,194,0.55); border: 1px solid rgba(79,159,138,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
 .tp-nav__cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
 .tp-nav__cta { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; color: #FFFFFF; padding: 11px 22px; border-radius: 999px; background: #16483B; box-shadow: 0 8px 20px rgba(22,72,59,0.28); transition: background 200ms cubic-bezier(0.2,0.8,0.2,1), transform 180ms; }
 .tp-nav__cta:hover { background: #0E332B; color: #FFFFFF; transform: translateY(-1px); }
 
 /* ---- desktop dropdowns (Services / Industries / Solutions / Insights / About) ---- */
 .tp-nav__dropdown { position: relative; }
-.tp-nav__dropdown-trigger { all: unset; box-sizing: border-box; position: relative; z-index: 1; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 15px; font-weight: 500; color: #141C2B; padding: 10px 16px; border-radius: 999px; transition: color 180ms; }
+.tp-nav__dropdown-trigger { all: unset; box-sizing: border-box; position: relative; z-index: 1; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 15px; font-weight: 500; color: #141C2B; padding: 10px 16px 16px; border-radius: 999px; transition: color 180ms; }
 .tp-nav__dropdown-trigger:hover { color: #16483B; }
+/* 3c hover effect: a thin gradient underline grows from left to right
+   under the individual item, instead of a shared sliding highlight pill. */
+.tp-nav__dropdown-trigger::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: 5px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, #69B69D, #4F9F8A, #16483B); box-shadow: 0 0 8px rgba(79,159,138,0.5); transform: scaleX(0); transform-origin: left center; transition: transform 260ms cubic-bezier(0.2,0.8,0.2,1); pointer-events: none; }
+.tp-nav__dropdown:hover .tp-nav__dropdown-trigger::after { transform: scaleX(1); }
+.tp-subnav__trigger::after { background: linear-gradient(90deg, #A7DFC2, #6FC2A6, #FFFFFF); box-shadow: 0 0 8px rgba(167,223,194,0.5); }
 .tp-nav__caret { display: inline-block; font-size: 10px; transition: transform 200ms cubic-bezier(0.2,0.8,0.2,1); }
 /* Opening is click/:focus-within driven (see the rule below), not raw
    :hover, so a real margin-top gap here is safe — no hoverable-hitbox
@@ -120,8 +121,11 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-nav__dropdown-panel a, .tp-nav__dropdown-empty { display: block; font-size: 15px; font-weight: 500; line-height: 1.4; color: #141C2B; padding: 10px 12px; border-radius: 8px; white-space: normal; transition: background 150ms, color 150ms; }
 .tp-nav__dropdown-panel a:hover { background: rgba(200,238,216,0.7); color: #16483B; }
 .tp-nav__dropdown-empty { color: #8A93A3; cursor: default; }
-/* Services mega-dropdown — 3 labeled columns instead of a flat list. */
-.tp-nav__dropdown-panel--mega { width: 640px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 20px; }
+/* Services mega-dropdown — 3 labeled columns instead of a flat list.
+   display:grid is set only in the open-state rules below — setting it
+   here unconditionally used to override the panel's own `display:none`
+   and left the Services dropdown visibly open on page load. */
+.tp-nav__dropdown-panel--mega { width: 640px; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 20px; }
 .tp-nav__dropdown-col { display: flex; flex-direction: column; gap: 2px; }
 .tp-nav__dropdown-col-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid, #3E7159); padding: 0 12px 6px; }
 .tp-nav__dropdown-col a { font-size: 14px; padding: 8px 12px; }
@@ -130,6 +134,7 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
    zone for even a frame while moving toward a link, eating the
    navigation. :focus-within kept for keyboard/tab access. */
 .tp-nav__dropdown:focus-within .tp-nav__dropdown-panel, .tp-nav__dropdown.is-open .tp-nav__dropdown-panel { display: block; }
+.tp-nav__dropdown:focus-within .tp-nav__dropdown-panel--mega, .tp-nav__dropdown.is-open .tp-nav__dropdown-panel--mega { display: grid; }
 .tp-nav__dropdown.is-open .tp-nav__caret { transform: rotate(180deg); }
 .tp-nav__dropdown:hover .tp-nav__caret, .tp-nav__dropdown:focus-within .tp-nav__caret { transform: rotate(180deg); }
 
@@ -178,7 +183,6 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-subnav__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
 .tp-subnav__name { font-size: 19px; font-weight: 700; letter-spacing: 0.14em; line-height: 1; background: linear-gradient(90deg, #FFFFFF 0%, var(--p1, #94ffd1) 60%, var(--p2, #6bf5ff) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .tp-subnav__sub { font-size: 15px; font-weight: 700; letter-spacing: 0.52em; line-height: 1; color: var(--p1, #94ffd1); }
-.tp-subnav__slider-pill { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22); }
 .tp-subnav__trigger { color: rgba(255,255,255,0.88); }
 .tp-subnav__trigger:hover { color: #FFFFFF; }
 .tp-subnav__cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
@@ -700,11 +704,13 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
    =========================================================== */
 @media (max-width: 980px) {
   .tp-nav { grid-template-columns: auto 1fr; padding: 18px 20px 0; }
-  .tp-nav__links { display: none; }
+  .tp-nav--pill { margin: 18px 12px 0; }
+  .tp-nav__slider { display: none; }
   .tp-nav__cta { display: none; }
   .tp-nav__burger { display: flex; }
   .tp-subnav { grid-template-columns: auto 1fr; padding: 18px 20px 0; }
-  .tp-subnav__links { display: none; }
+  .tp-subnav--pill { margin: 18px 12px 0; }
+  .tp-subnav__slider { display: none; }
   .tp-subnav__cta { display: none; }
   .tp-metric__value { font-size: 42px; }
   .tp-bento-card__cube { display: none; }

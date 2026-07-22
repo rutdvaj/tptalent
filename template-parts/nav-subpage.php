@@ -26,10 +26,9 @@ $about_nav = tp_get_placeholder_about_nav_items();
     </span>
   </a>
 
-  <div class="tp-subnav__slider" data-slider>
-    <span class="tp-subnav__slider-pill" data-slider-pill aria-hidden="true"></span>
+  <div class="tp-subnav__slider">
     <div class="tp-nav__dropdown" data-nav-item>
-      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger" data-slide-item><?php echo esc_html($nav['services_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['services_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel tp-nav__dropdown-panel--mega">
         <?php foreach (tp_get_services_nav_categories() as $cat) : ?>
           <div class="tp-nav__dropdown-col">
@@ -42,7 +41,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
       </div>
     </div>
     <div class="tp-nav__dropdown" data-nav-item>
-      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger" data-slide-item><?php echo esc_html($nav['industries_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['industries_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel">
         <?php foreach (tp_get_industries_nav_items() as $ind) : ?>
           <a href="<?php echo esc_url($ind['url']); ?>"><?php echo esc_html($ind['label']); ?></a>
@@ -50,7 +49,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
       </div>
     </div>
     <div class="tp-nav__dropdown" data-nav-item>
-      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger" data-slide-item><?php echo esc_html($nav['solutions_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['solutions_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel">
         <?php foreach ($solutions_nav as $sol) : ?>
           <a href="<?php echo esc_url($sol['url']); ?>"><?php echo esc_html($sol['label']); ?></a>
@@ -58,7 +57,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
       </div>
     </div>
     <div class="tp-nav__dropdown" data-nav-item>
-      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger" data-slide-item><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel">
         <?php if ($insights_nav) : foreach ($insights_nav as $i) : ?>
           <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['label']); ?></a>
@@ -68,7 +67,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
       </div>
     </div>
     <div class="tp-nav__dropdown" data-nav-item>
-      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger" data-slide-item><?php echo esc_html($nav['about_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
+      <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['about_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel">
         <?php foreach ($about_nav as $ab) : ?>
           <a href="<?php echo esc_url($ab['url']); ?>"><?php echo esc_html($ab['label']); ?></a>
