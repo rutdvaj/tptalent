@@ -161,12 +161,10 @@ function tp_default($section) {
         ],
         'tp_nav' => [
             'services_label' => 'Services', 'services_url' => '#services',
-            // Points straight at the one Industries page that exists so
-            // far; once more launch, this should become a dropdown like
-            // Services (tp_get_services_nav_items()).
-            'industries_label' => 'Industries', 'industries_url' => home_url('/healthcare-life-sciences/'),
+            'industries_label' => 'Industries',
+            'solutions_label' => 'Solutions',
             'insights_label' => 'Insights', 'insights_url' => '#insights',
-            'about_label' => 'About Us', 'about_url' => '#',
+            'about_label' => 'About',
             'cta_label' => 'Find jobs', 'cta_url' => '#',
         ],
         'tp_hero' => [
@@ -514,6 +512,54 @@ function tp_get_services_nav_items() {
 }
 
 /**
+ * Services grouped into 3 labeled columns for the mega-dropdown (navbar
+ * redesign, "3c/4c" handoff) — same live page lookup as
+ * tp_get_services_nav_items(), just organized by category instead of a
+ * flat list. Category membership is by slug since there's no ACF
+ * taxonomy field for this; the design's own grouping only named 12 of
+ * our 15 service pages, so the original 3 (Executive Search, Virtual
+ * Assistance, Payrolling Services) were folded into "Talent &
+ * Transformation" as the closest fit rather than dropped from the nav.
+ */
+function tp_get_services_nav_categories() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+
+    $groups = [
+        'AI & Automation' => ['robotics-automation', 'generative-agentic-ai', 'machine-learning', 'data-analytics'],
+        'Engineering & Development' => ['pega', 'engineering-services', 'embedded-technologies', 'software-development-outsourcing', 'software-testing'],
+        'Talent & Transformation' => ['talent-acquisition', 'recruiter-on-premise', 'digital-transformation', 'executive-search', 'virtual-assistance', 'payrolling-services'],
+    ];
+
+    // Own query keyed by slug — tp_get_services_nav_items() only returns
+    // label/url, and changing its shape risks its other callers.
+    $q = new WP_Query([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'page-service.php',
+        'no_found_rows'  => true,
+    ]);
+    $by_slug = [];
+    foreach ($q->posts as $p) {
+        $by_slug[$p->post_name] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
+    }
+    wp_reset_postdata();
+
+    $categories = [];
+    foreach ($groups as $label => $slugs) {
+        $items = [];
+        foreach ($slugs as $slug) {
+            if (isset($by_slug[$slug])) $items[] = $by_slug[$slug];
+        }
+        if ($items) $categories[] = ['label' => $label, 'items' => $items];
+    }
+    $cache = $categories;
+    return $categories;
+}
+
+/**
  * Same pattern as tp_get_services_nav_items(), for pages using the
  * "Industry Page" template — sourced live by page_template + menu_order,
  * so new industry pages just need the right template to appear here.
@@ -538,6 +584,35 @@ function tp_get_industries_nav_items() {
     wp_reset_postdata();
     $cache = $items;
     return $items;
+}
+
+/**
+ * Placeholder-only nav items (navbar redesign, "Solutions" dropdown) —
+ * Permanent Staffing, Contract Staffing, Executive Search, RPO aren't
+ * real pages yet (client plans 4 more pages later); every link is '#'
+ * until then. Swap for a live page_template query, same pattern as
+ * tp_get_services_nav_items(), once those pages exist.
+ */
+function tp_get_placeholder_solutions_nav_items() {
+    return [
+        ['label' => 'Permanent Staffing', 'url' => '#'],
+        ['label' => 'Contract Staffing', 'url' => '#'],
+        ['label' => 'Executive Search', 'url' => '#'],
+        ['label' => 'Recruitment Process Outsourcing (RPO)', 'url' => '#'],
+    ];
+}
+
+/**
+ * Placeholder-only nav items (navbar redesign, "About" dropdown) — same
+ * situation as tp_get_placeholder_solutions_nav_items(): no real pages
+ * yet, every link is '#' until the client builds them.
+ */
+function tp_get_placeholder_about_nav_items() {
+    return [
+        ['label' => 'About Tecnoprism', 'url' => '#'],
+        ['label' => 'Privacy Policy', 'url' => '#'],
+        ['label' => 'Terms & Conditions', 'url' => '#'],
+    ];
 }
 
 /**
