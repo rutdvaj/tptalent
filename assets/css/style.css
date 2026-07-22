@@ -65,7 +65,15 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 /* ===========================================================
    HERO
    =========================================================== */
-.tp-hero { position: relative; width: 100%; overflow: hidden; background: linear-gradient(180deg, #DCE7DD 0%, #EEF3EE 55%, #FFFFFF 100%); min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+/* Static approximation of the WebGL shader's own colors (mint -> cyan ->
+   white, see tp_shader_url()'s color1/color2/color3) — paints instantly
+   on first load, before the ~340KB shader-bg bundle has even finished
+   downloading, let alone booted WebGL. <shader-bg> sits on top of this
+   at inset:0 and fades itself in once mounted (see shader-bg.js), so
+   this is what's visible during that gap instead of a blank/white hero;
+   once the canvas starts painting real frames it simply layers over it,
+   no coordination needed between this CSS and the shader's own JS. */
+.tp-hero { position: relative; width: 100%; overflow: hidden; background: radial-gradient(120% 90% at 25% 8%, var(--p1, #94ffd1) 0%, var(--p2, #6bf5ff) 32%, var(--wash-b, #EEF3EE) 62%, #FFFFFF 100%); min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
 /* !important + the descendant wildcard: the shader is a 3rd-party WebGL
    library (@shadergradient/react, loaded from a CDN) that makes its
    canvas mouse-reactive for the distortion effect — it can set
