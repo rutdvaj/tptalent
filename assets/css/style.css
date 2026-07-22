@@ -543,6 +543,21 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
+/* Solutions hero kicker ("Solutions // {name}") — a pill badge above the
+   headline, matching the Solutions page handoff. */
+.tp-pagehero__kicker { display: inline-flex !important; align-items: center; gap: 10px; font-size: 13px !important; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.22); border-radius: 30px; background: rgba(6,24,20,0.35); backdrop-filter: blur(8px); color: var(--p1, #94ffd1) !important; }
+
+/* ===========================================================
+   SOLUTIONS PAGE — "How it works" 4-step grid.
+   =========================================================== */
+.tp-sol-steps { position: relative; overflow: hidden; background: #FFFFFF; }
+.tp-sol-steps__head { padding: clamp(56px, 6vw, 108px) 40px 0; display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
+.tp-sol-steps__intro { font-size: 17px; line-height: 1.6; color: #5A6478; margin: 0; max-width: 60ch; }
+.tp-sol-steps__grid { padding: clamp(40px, 5vw, 64px) 40px clamp(56px, 6vw, 108px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(28px, 3.5vw, 48px); }
+.tp-sol-step-card { display: flex; flex-direction: column; gap: 14px; }
+.tp-sol-step-card__num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: #E6F8EF; color: #16483B; }
+.tp-sol-step-card__title { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; margin: 0; color: #141C2B; }
+.tp-sol-step-card__body { font-size: 15.5px; line-height: 1.6; color: #5A6478; margin: 0; }
 
 /* Matches the design handoff's client-ticker band exactly: flat 7%-white
    glass instead of a dark gradient, with a crisp hairline border-top +
@@ -726,6 +741,7 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
   .tp-numbers__heading { margin-bottom: 48px; }
   .tp-footer__top { grid-template-columns: 1fr 1fr; }
   .tp-pagehero__inner { padding: 64px 24px; }
+  .tp-sol-steps__head, .tp-sol-steps__grid { padding-left: 24px; padding-right: 24px; }
   .tp-engagement__timeline { padding-left: 48px; }
   .tp-engagement__node { left: -33px; }
   /* "hover a problem" doesn't apply on touch — hidden below desktop */

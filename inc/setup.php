@@ -33,6 +33,7 @@ function tp_enqueue_assets() {
     $wave_js_path = get_template_directory() . '/assets/js/wave-field.js';
     $vortex_js_path = get_template_directory() . '/assets/js/vortex-bg.js';
     $grid_glow_js_path = get_template_directory() . '/assets/js/sea-mint-grid-glow.js';
+    $beam_js_path = get_template_directory() . '/assets/js/beam-bg.js';
     $main_js_path = get_template_directory() . '/assets/js/main.js';
 
     wp_enqueue_style('tp-style', TP_THEME_URI . '/style.css', [], file_exists($style_path) ? filemtime($style_path) : TP_THEME_VERSION);
@@ -62,7 +63,11 @@ function tp_enqueue_assets() {
     // self-contained Canvas 2D grid + drifting glow dots, same pattern
     // as wave-field/vortex-bg, no CDN dependency.
     wp_enqueue_script('tp-grid-glow', TP_THEME_URI . '/assets/js/sea-mint-grid-glow.js', [], file_exists($grid_glow_js_path) ? filemtime($grid_glow_js_path) : TP_THEME_VERSION, true);
-    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-vortex-bg', 'tp-grid-glow'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
+    // beam-bg is the Solutions-page hero background (Tecno Prism animated-
+    // background handoff) — self-contained Canvas 2D "meteor beam" streaks,
+    // same pattern as vortex-bg/sea-mint-grid-glow.
+    wp_enqueue_script('tp-beam-bg', TP_THEME_URI . '/assets/js/beam-bg.js', [], file_exists($beam_js_path) ? filemtime($beam_js_path) : TP_THEME_VERSION, true);
+    wp_enqueue_script('tp-main', TP_THEME_URI . '/assets/js/main.js', ['tp-shader-bg', 'tp-wave-field', 'tp-vortex-bg', 'tp-grid-glow', 'tp-beam-bg'], file_exists($main_js_path) ? filemtime($main_js_path) : TP_THEME_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'tp_enqueue_assets');
 
@@ -341,6 +346,42 @@ function tp_bootstrap_industry_pages_v3() {
     update_option('tp_industry_pages_v3_bootstrapped', 1);
 }
 add_action('init', 'tp_bootstrap_industry_pages_v3');
+
+/**
+ * One-time: the 2 Solutions pages with real content so far (Permanent
+ * Staffing, Contract Staffing) — same pattern as
+ * tp_bootstrap_industry_pages(). Executive Search and Recruitment
+ * Process Outsourcing get added here once their copy is provided; the
+ * Solutions nav dropdown (tp_get_solutions_nav_items()) only lists
+ * pages that actually exist, so it'll pick up the other 2 automatically
+ * once they're created.
+ */
+function tp_bootstrap_solution_pages() {
+    if (get_option('tp_solution_pages_bootstrapped')) return;
+
+    $pages = [
+        'permanent-staffing' => 'Permanent Staffing',
+        'contract-staffing'  => 'Contract Staffing',
+    ];
+    $order = 1;
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) { $order++; continue; }
+        $id = wp_insert_post([
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+            'menu_order'   => $order,
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-solution.php');
+        }
+        $order++;
+    }
+    update_option('tp_solution_pages_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_solution_pages');
 
 /**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog

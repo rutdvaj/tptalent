@@ -14,7 +14,7 @@
 $brand = tp_get_section('tp_brand');
 $nav   = tp_get_section('tp_nav');
 $insights_nav = tp_get_insights_nav_items();
-$solutions_nav = tp_get_placeholder_solutions_nav_items();
+$solutions_nav = tp_get_solutions_nav_items();
 $about_nav = tp_get_placeholder_about_nav_items();
 ?>
 <nav class="tp-subnav tp-subnav--pill">

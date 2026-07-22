@@ -14,7 +14,7 @@ $hero  = tp_get_section('tp_hero');
 
   <?php
   $insights_nav = tp_get_insights_nav_items();
-  $solutions_nav = tp_get_placeholder_solutions_nav_items();
+  $solutions_nav = tp_get_solutions_nav_items();
   $about_nav = tp_get_placeholder_about_nav_items();
   ?>
   <nav class="tp-nav tp-nav--pill">

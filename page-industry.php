@@ -43,6 +43,8 @@ $insights_cross = tp_get_insights_nav_items(2);
       <a href="#problems" class="tp-pagehero__ghost-btn">See the challenges</a>
     </div>
   </div>
+
+  <?php get_template_part('template-parts/pagehero-ticker'); ?>
 </div>
 
 <section id="problems" class="tp-problems" data-screen-label="Problems">

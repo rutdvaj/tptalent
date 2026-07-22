@@ -160,6 +160,33 @@ add_action('acf/init', function () {
         'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-industry.php']]],
         'menu_order' => 3,
     ]);
+
+    $solution_fields = [
+        ['key' => 'field_tp_sol_name', 'label' => 'Solution name', 'name' => 'solution_name', 'type' => 'text'],
+        ['key' => 'field_tp_sol_headline', 'label' => 'Headline (H1)', 'name' => 'headline', 'type' => 'text'],
+        ['key' => 'field_tp_sol_subhead', 'label' => 'Subhead', 'name' => 'subhead', 'type' => 'textarea', 'rows' => 2],
+        ['key' => 'field_tp_sol_steps_intro', 'label' => '"How it works" framing paragraph', 'name' => 'steps_intro', 'type' => 'textarea', 'rows' => 2],
+    ];
+    for ($i = 1; $i <= 4; $i++) {
+        $solution_fields[] = [
+            'key'        => "field_tp_sol_step_{$i}",
+            'label'      => "Step {$i}",
+            'name'       => "step_{$i}",
+            'type'       => 'group',
+            'sub_fields' => [
+                ['key' => "field_tp_sol_step_{$i}_title", 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                ['key' => "field_tp_sol_step_{$i}_body", 'label' => 'Body text', 'name' => 'body', 'type' => 'textarea', 'rows' => 2],
+            ],
+        ];
+    }
+
+    acf_add_local_field_group([
+        'key'      => 'group_tp_solution_page',
+        'title'    => 'Solution Page Content',
+        'fields'   => $solution_fields,
+        'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-solution.php']]],
+        'menu_order' => 4,
+    ]);
 });
 
 /**
@@ -742,3 +769,33 @@ function tp_bootstrap_ticker_logos_v3_retrim() {
     update_option('tp_ticker_logos_v3_retrim_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_ticker_logos_v3_retrim');
+
+/**
+ * One-time: push every Solutions page's content (inc/solution-content.php)
+ * into its ACF fields (group_tp_solution_page) — same pattern as
+ * tp_bootstrap_service_content_acf(). Runs after
+ * tp_bootstrap_solution_pages() so the pages already exist. Only covers
+ * the pages with real content so far (Permanent Staffing, Contract
+ * Staffing) — Executive Search / RPO get picked up automatically once
+ * they're added to tp_solution_content_all() and bootstrapped as pages.
+ */
+function tp_bootstrap_solution_content_acf() {
+    if (get_option('tp_solution_content_acf_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_solution_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['solution_name', 'headline', 'subhead', 'steps_intro'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['steps'] as $i => $s) {
+            update_field('step_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body']], $id);
+        }
+    }
+
+    update_option('tp_solution_content_acf_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_solution_content_acf');

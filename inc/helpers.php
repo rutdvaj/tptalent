@@ -457,6 +457,30 @@ function tp_get_industry_page_content($post_id, $slug) {
     return tp_industry_content($slug);
 }
 
+/**
+ * Same ACF-first/array-fallback pattern as tp_get_service_page_content(),
+ * for the Solutions page template (group_tp_solution_page).
+ */
+function tp_get_solution_page_content($post_id, $slug) {
+    if (function_exists('get_field') && get_field('headline', $post_id)) {
+        $steps = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $g = get_field("step_{$i}", $post_id);
+            if (is_array($g) && !empty($g['title'])) {
+                $steps[] = ['num' => sprintf('%02d', count($steps) + 1), 'title' => $g['title'], 'body' => $g['body']];
+            }
+        }
+        return [
+            'solution_name' => get_field('solution_name', $post_id),
+            'headline' => get_field('headline', $post_id),
+            'subhead' => get_field('subhead', $post_id),
+            'steps_intro' => get_field('steps_intro', $post_id),
+            'steps' => $steps,
+        ];
+    }
+    return tp_solution_content($slug);
+}
+
 function tp_field($section, $key, $fallback = '') {
     $data = tp_get_section($section);
     if (!isset($data[$key]) || $data[$key] === '') return $fallback;
@@ -498,6 +522,35 @@ function tp_get_services_nav_items() {
         'posts_per_page' => -1,
         'meta_key'       => '_wp_page_template',
         'meta_value'     => 'page-service.php',
+        'orderby'        => 'menu_order',
+        'order'          => 'ASC',
+        'no_found_rows'  => true,
+    ]);
+    $items = [];
+    foreach ($q->posts as $p) {
+        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p)];
+    }
+    wp_reset_postdata();
+    $cache = $items;
+    return $items;
+}
+
+/**
+ * Same pattern as tp_get_industries_nav_items(), for pages using the
+ * "Solution Page" template — sourced live by page_template + menu_order.
+ * Replaces the earlier tp_get_placeholder_solutions_nav_items() now that
+ * real solution pages exist; only lists pages that actually exist, so
+ * the dropdown grows on its own as Executive Search / RPO are added.
+ */
+function tp_get_solutions_nav_items() {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    $q = new WP_Query([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'page-solution.php',
         'orderby'        => 'menu_order',
         'order'          => 'ASC',
         'no_found_rows'  => true,
@@ -587,25 +640,10 @@ function tp_get_industries_nav_items() {
 }
 
 /**
- * Placeholder-only nav items (navbar redesign, "Solutions" dropdown) —
- * Permanent Staffing, Contract Staffing, Executive Search, RPO aren't
- * real pages yet (client plans 4 more pages later); every link is '#'
- * until then. Swap for a live page_template query, same pattern as
+ * Placeholder-only nav items (navbar redesign, "About" dropdown) — no
+ * real pages yet, every link is '#' until the client builds them. Swap
+ * for a live page_template query, same pattern as
  * tp_get_services_nav_items(), once those pages exist.
- */
-function tp_get_placeholder_solutions_nav_items() {
-    return [
-        ['label' => 'Permanent Staffing', 'url' => '#'],
-        ['label' => 'Contract Staffing', 'url' => '#'],
-        ['label' => 'Executive Search', 'url' => '#'],
-        ['label' => 'Recruitment Process Outsourcing (RPO)', 'url' => '#'],
-    ];
-}
-
-/**
- * Placeholder-only nav items (navbar redesign, "About" dropdown) — same
- * situation as tp_get_placeholder_solutions_nav_items(): no real pages
- * yet, every link is '#' until the client builds them.
  */
 function tp_get_placeholder_about_nav_items() {
     return [
