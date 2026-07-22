@@ -19,11 +19,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
 ?>
 <nav class="tp-subnav tp-subnav--pill">
   <a class="tp-subnav__brand" href="<?php echo esc_url(home_url('/')); ?>">
-    <span class="tp-subnav__bar" aria-hidden="true"></span>
-    <span class="tp-subnav__wordmark">
-      <span class="tp-subnav__name"><?php echo esc_html($brand['name']); ?></span>
-      <span class="tp-subnav__sub"><?php echo esc_html($brand['sub']); ?></span>
-    </span>
+    <?php get_template_part('template-parts/brand-logo', null, ['prefix' => 'subnav']); ?>
   </a>
 
   <div class="tp-subnav__slider">

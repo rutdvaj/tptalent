@@ -88,6 +88,21 @@ function tp_preload_shader_bg() {
 add_action('wp_head', 'tp_preload_shader_bg', 1);
 
 /**
+ * Theme favicon (assets/img/favicon.svg — background-free icon mark,
+ * see template-parts/brand-logo.php for the matching nav/footer logos).
+ * Skipped if a Site Icon is already set in Settings > General, since
+ * that takes precedence and already prints its own <link> tags.
+ */
+function tp_print_favicon() {
+    if (has_site_icon()) return;
+    $path = get_template_directory() . '/assets/img/favicon.svg';
+    if (!file_exists($path)) return;
+    $url = TP_THEME_URI . '/assets/img/favicon.svg?ver=' . filemtime($path);
+    echo '<link rel="icon" type="image/svg+xml" href="' . esc_url($url) . '">' . "\n";
+}
+add_action('wp_head', 'tp_print_favicon', 1);
+
+/**
  * Adds the defer attribute to shader-bg's <script> tag. Used the
  * 5-arg 'strategy' form of wp_enqueue_script first, but on this WP
  * version it didn't actually move the tag into <head> as documented —

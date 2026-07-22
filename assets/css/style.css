@@ -93,12 +93,12 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
    drop their own individual chip styling below since they're now one
    continuous glass surface. */
 .tp-nav--pill { margin: 24px 40px 0; padding: 10px 10px 10px 8px; border-radius: 999px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); box-shadow: 0 14px 40px rgba(8,23,15,0.12), inset 0 1px 0 rgba(255,255,255,0.7); width: auto; }
-.tp-nav__brand { display: flex; align-items: stretch; gap: 14px; justify-self: start; padding: 12px 20px 12px 16px; border: 1.5px solid rgba(167,223,194,0.9); border-radius: 12px; background: rgba(230,248,239,0.6); backdrop-filter: blur(8px); }
+.tp-nav__brand { display: flex; align-items: center; gap: 14px; justify-self: start; padding: 12px 20px 12px 16px; border: 1.5px solid rgba(167,223,194,0.9); border-radius: 12px; background: rgba(230,248,239,0.6); backdrop-filter: blur(8px); }
 .tp-nav--pill .tp-nav__brand { border: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 8px 12px; }
-.tp-nav__bar { width: 5px; border-radius: 3px; background: linear-gradient(180deg, #A7DFC2 0%, #4F9F8A 45%, #16483B 100%); }
-.tp-nav__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-.tp-nav__name { font-size: 19px; font-weight: 700; letter-spacing: 0.14em; line-height: 1; background: linear-gradient(90deg, #69B69D 0%, #4F9F8A 45%, #16483B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.tp-nav__sub { font-size: 15px; font-weight: 700; letter-spacing: 0.52em; line-height: 1; color: #3E7159; }
+/* Logo SVGs (assets/img/logo-*.svg) are already background-free —
+   just a fixed-height, auto-width image, no card/backdrop of its own. */
+.tp-nav__logo, .tp-subnav__logo, .tp-footer__logo { display: flex; align-items: center; }
+.tp-nav__logo-img, .tp-subnav__logo-img { height: 42px; width: auto; display: block; }
 .tp-nav__slider, .tp-subnav__slider { position: relative; display: flex; align-items: center; gap: 2px; justify-self: center; }
 .tp-nav__cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
 .tp-nav__cta { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; color: #FFFFFF; padding: 11px 22px; border-radius: 999px; background: #16483B; box-shadow: 0 8px 20px rgba(22,72,59,0.28); transition: background 200ms cubic-bezier(0.2,0.8,0.2,1), transform 180ms; }
@@ -177,12 +177,8 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 /* Dark-glass counterpart to .tp-nav--pill — same floating pill shape,
    same sliding-highlight mechanic, tinted for the dark hero. */
 .tp-subnav--pill { margin: 24px 40px 0; padding: 10px 10px 10px 8px; border-radius: 999px; background: rgba(10,28,24,0.4); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); box-shadow: 0 14px 40px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.08); width: auto; }
-.tp-subnav__brand { display: flex; align-items: stretch; gap: 14px; justify-self: start; text-decoration: none; padding: 12px 20px 12px 16px; border-radius: 12px; background: rgba(10,28,24,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.tp-subnav__brand { display: flex; align-items: center; gap: 14px; justify-self: start; text-decoration: none; padding: 12px 20px 12px 16px; border-radius: 12px; background: rgba(10,28,24,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .tp-subnav--pill .tp-subnav__brand { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 8px 12px; }
-.tp-subnav__bar { width: 5px; border-radius: 3px; background: linear-gradient(180deg, #FFFFFF 0%, var(--p1, #94ffd1) 45%, var(--p2, #6bf5ff) 100%); }
-.tp-subnav__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-.tp-subnav__name { font-size: 19px; font-weight: 700; letter-spacing: 0.14em; line-height: 1; background: linear-gradient(90deg, #FFFFFF 0%, var(--p1, #94ffd1) 60%, var(--p2, #6bf5ff) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.tp-subnav__sub { font-size: 15px; font-weight: 700; letter-spacing: 0.52em; line-height: 1; color: var(--p1, #94ffd1); }
 .tp-subnav__trigger { color: rgba(255,255,255,0.88); }
 .tp-subnav__trigger:hover { color: #FFFFFF; }
 .tp-subnav__cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
@@ -502,11 +498,8 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-footer { background: var(--wash-a, #DCE7DD); }
 .tp-footer .tp-container { padding: 72px 40px 40px; }
 .tp-footer__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid #E4E8EF; }
-.tp-footer__brand { display: flex; align-items: stretch; gap: 12px; margin-bottom: 18px; }
-.tp-footer__bar { width: 4px; border-radius: 2px; background: linear-gradient(180deg, var(--p1) 0%, var(--p2) 50%, var(--ink, #16483B) 100%); }
-.tp-footer__wordmark { display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-.tp-footer__name { font-size: 17px; font-weight: 700; letter-spacing: 0.14em; line-height: 1; color: var(--ink, #16483B); }
-.tp-footer__sub { font-size: 13px; font-weight: 700; letter-spacing: 0.52em; line-height: 1; color: var(--mid, #3E7159); }
+.tp-footer__brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.tp-footer__logo-img { height: 34px; width: auto; display: block; }
 .tp-footer__tagline { font-size: 15px; line-height: 1.6; color: #5A6478; max-width: 34ch; margin: 0; }
 .tp-footer__col { display: flex; flex-direction: column; gap: 14px; }
 .tp-footer__col-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid, #3E7159); }
@@ -718,12 +711,19 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
    RESPONSIVE
    =========================================================== */
 @media (max-width: 980px) {
-  .tp-nav { grid-template-columns: auto 1fr; padding: 18px 20px 0; }
+  /* padding is intentionally NOT overridden here anymore — that stale
+     "18px 20px 0" (top-heavy, no bottom padding) was left over from the
+     old pre-pill nav, which had no rounded card of its own. Against the
+     pill's own rounded chip it made brand/burger hug the pill's bottom
+     edge with a big gap up top — the "logo not centered / disjointed"
+     look. .tp-nav--pill's own symmetric-ish padding (10px 10px 10px 8px)
+     applies at every breakpoint now. */
+  .tp-nav { grid-template-columns: auto 1fr; }
   .tp-nav--pill { margin: 18px 12px 0; }
   .tp-nav__slider { display: none; }
   .tp-nav__cta { display: none; }
   .tp-nav__burger { display: flex; }
-  .tp-subnav { grid-template-columns: auto 1fr; padding: 18px 20px 0; }
+  .tp-subnav { grid-template-columns: auto 1fr; }
   .tp-subnav--pill { margin: 18px 12px 0; }
   .tp-subnav__slider { display: none; }
   .tp-subnav__cta { display: none; }
@@ -754,12 +754,10 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 @media (max-width: 640px) {
   .tp-services .tp-container, .tp-capabilities .tp-container, .tp-insights .tp-container, .tp-cta__inner, .tp-footer .tp-container, .tp-bento__inner { padding-left: 20px; padding-right: 20px; padding-top: 56px; padding-bottom: 56px; }
   .tp-nav { padding-left: 20px; padding-right: 20px; }
-  /* Brand wordmark was rendering at full desktop size — too big/heavy
-     for a narrow mobile nav bar. */
+  /* Logo was rendering at full desktop size — too big/heavy for a
+     narrow mobile nav bar. */
   .tp-nav__brand { gap: 10px; padding: 9px 14px 9px 12px; }
-  .tp-nav__bar { width: 4px; }
-  .tp-nav__name { font-size: 15px; }
-  .tp-nav__sub { font-size: 11px; letter-spacing: 0.4em; }
+  .tp-nav__logo-img, .tp-subnav__logo-img { height: 30px; }
   /* Proof-figures (1e/2e): single column, not sticky; both stat rows
      regroup into one continuous 2x2 grid ahead of the funnel panel
      instead of sandwiching it, matching the 2e mobile mock. */

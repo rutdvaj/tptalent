@@ -10,11 +10,7 @@ $connect = is_array($f['connect_links']) ? $f['connect_links'] : [];
     <div class="tp-footer__top" data-reveal>
       <div>
         <a class="tp-footer__brand" href="<?php echo esc_url(home_url('/')); ?>">
-          <span class="tp-footer__bar" aria-hidden="true"></span>
-          <span class="tp-footer__wordmark">
-            <span class="tp-footer__name"><?php echo esc_html($brand['name']); ?></span>
-            <span class="tp-footer__sub"><?php echo esc_html($brand['sub']); ?></span>
-          </span>
+          <?php get_template_part('template-parts/brand-logo', null, ['prefix' => 'footer']); ?>
         </a>
         <p class="tp-footer__tagline"><?php echo esc_html($f['tagline']); ?></p>
       </div>

@@ -19,11 +19,7 @@ $hero  = tp_get_section('tp_hero');
   ?>
   <nav class="tp-nav tp-nav--pill">
     <a class="tp-nav__brand" href="<?php echo esc_url(home_url('/')); ?>">
-      <span class="tp-nav__bar" aria-hidden="true"></span>
-      <span class="tp-nav__wordmark">
-        <span class="tp-nav__name"><?php echo esc_html($brand['name']); ?></span>
-        <span class="tp-nav__sub"><?php echo esc_html($brand['sub']); ?></span>
-      </span>
+      <?php get_template_part('template-parts/brand-logo', null, ['prefix' => 'nav']); ?>
     </a>
     <div class="tp-nav__slider">
       <div class="tp-nav__dropdown" data-nav-item>
