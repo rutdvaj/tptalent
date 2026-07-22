@@ -7,4 +7,5 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<div id="tp-nav-blur" class="tp-nav-blur" aria-hidden="true"></div>
 <div id="page" style="font-family: 'Libre Franklin', system-ui, sans-serif; color: #141C2B;">

@@ -87,6 +87,18 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
    overlap (panel opens downward into the space .tp-hero__inner starts
    in). The panel's own z-index:40 can't fix this alone since it's
    trapped inside .tp-nav's own stacking context. */
+/* Gradual-blur strip pinned under the floating nav — layered divs
+   (built in main.js initNavBlur, same algorithm as the react-bits
+   GradualBlur component) each masked to a horizontal band and given a
+   progressively stronger backdrop-filter, so content scrolling past
+   underneath the nav fades from sharp to blurred instead of an abrupt
+   cutoff. Only shown while actively scrolling down — toggled via
+   .is-visible by the scroll-direction listener — and hidden again on
+   scroll-up or near the top of the page. */
+.tp-nav-blur { position: fixed; top: 0; left: 0; right: 0; height: 6rem; z-index: 8; pointer-events: none; opacity: 0; transition: opacity 320ms ease; isolation: isolate; }
+.tp-nav-blur.is-visible { opacity: 1; }
+.tp-nav-blur__layer { position: absolute; inset: 0; }
+
 .tp-nav { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; padding: 24px 48px 0 48px; }
 /* Navbar redesign ("3c/4c" handoff) — floating pill bar instead of 3
    separate chips (brand / links / CTA). Brand and the item slider both

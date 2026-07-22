@@ -83,6 +83,62 @@
   }
 
   /* -----------------------------------------------------------
+   * Gradual-blur strip under the nav (#tp-nav-blur, see header.php) —
+   * ported from the react-bits GradualBlur component (divCount/curve/
+   * exponential-strength algorithm kept 1:1) into plain DOM/CSS since
+   * this theme has no React runtime. Only visible while the user is
+   * actively scrolling DOWN; scrolling up (or sitting still near the
+   * top) hides it again.
+   * --------------------------------------------------------- */
+  function buildNavBlurLayers(el) {
+    var DIV_COUNT = 5;
+    var STRENGTH = 2.5;
+    var bezier = function (p) { return p * p * (3 - 2 * p); };
+    var increment = 100 / DIV_COUNT;
+    for (var i = 1; i <= DIV_COUNT; i++) {
+      var progress = bezier(i / DIV_COUNT);
+      var blurValue = Math.pow(2, progress * 4) * 0.0625 * STRENGTH;
+      var p1 = Math.round((increment * i - increment) * 10) / 10;
+      var p2 = Math.round(increment * i * 10) / 10;
+      var p3 = Math.round((increment * i + increment) * 10) / 10;
+      var p4 = Math.round((increment * i + increment * 2) * 10) / 10;
+      var gradient = 'transparent ' + p1 + '%, black ' + p2 + '%';
+      if (p3 <= 100) gradient += ', black ' + p3 + '%';
+      if (p4 <= 100) gradient += ', transparent ' + p4 + '%';
+      var layer = document.createElement('div');
+      layer.className = 'tp-nav-blur__layer';
+      var mask = 'linear-gradient(to top, ' + gradient + ')';
+      layer.style.maskImage = mask;
+      layer.style.webkitMaskImage = mask;
+      layer.style.backdropFilter = 'blur(' + blurValue.toFixed(3) + 'rem)';
+      layer.style.webkitBackdropFilter = 'blur(' + blurValue.toFixed(3) + 'rem)';
+      el.appendChild(layer);
+    }
+  }
+
+  function initNavBlur() {
+    var el = document.getElementById('tp-nav-blur');
+    if (!el) return;
+    buildNavBlurLayers(el);
+
+    var lastY = window.scrollY || window.pageYOffset || 0;
+    var SHOW_AFTER = 24;
+
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY || window.pageYOffset || 0;
+      var goingDown = y > lastY;
+      if (y <= SHOW_AFTER) {
+        el.classList.remove('is-visible');
+      } else if (goingDown) {
+        el.classList.add('is-visible');
+      } else {
+        el.classList.remove('is-visible');
+      }
+      lastY = y;
+    }, { passive: true });
+  }
+
+  /* -----------------------------------------------------------
    * Mobile nav — hamburger toggle for the <=980px collapsed nav.
    * --------------------------------------------------------- */
   function initMobileNav() {
@@ -793,6 +849,7 @@
 
   function init() {
     initReveal();
+    initNavBlur();
     initMobileNav();
     initDesktopDropdowns();
     initNumbersAnimation();
