@@ -98,7 +98,12 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 /* Logo SVGs (assets/img/logo-*.svg) are already background-free —
    just a fixed-height, auto-width image, no card/backdrop of its own. */
 .tp-nav__logo, .tp-subnav__logo, .tp-footer__logo { display: flex; align-items: center; }
-.tp-nav__logo-img, .tp-subnav__logo-img { height: 63px; width: auto; display: block; }
+/* Brand box height is pinned back to its original (pre-logo-bump) size
+   so the pill itself stays the original length — the logo image is
+   allowed to render larger than that box and overflow above/below it
+   (overflow: visible), rather than growing the whole pill to fit. */
+.tp-nav--pill .tp-nav__brand, .tp-subnav--pill .tp-subnav__brand { height: 42px; overflow: visible; }
+.tp-nav__logo-img, .tp-subnav__logo-img { height: 95px; width: auto; display: block; }
 .tp-nav__slider, .tp-subnav__slider { position: relative; display: flex; align-items: center; gap: 2px; justify-self: center; }
 .tp-nav__cta-wrap { display: flex; justify-content: flex-end; align-items: center; }
 .tp-nav__cta { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; color: #FFFFFF; padding: 11px 22px; border-radius: 999px; background: #16483B; box-shadow: 0 8px 20px rgba(22,72,59,0.28); transition: background 200ms cubic-bezier(0.2,0.8,0.2,1), transform 180ms; }
@@ -755,9 +760,12 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
   .tp-services .tp-container, .tp-capabilities .tp-container, .tp-insights .tp-container, .tp-cta__inner, .tp-footer .tp-container, .tp-bento__inner { padding-left: 20px; padding-right: 20px; padding-top: 56px; padding-bottom: 56px; }
   .tp-nav { padding-left: 20px; padding-right: 20px; }
   /* Logo was rendering at full desktop size — too big/heavy for a
-     narrow mobile nav bar. */
+     narrow mobile nav bar. Brand box pinned to the original mobile
+     height (30px) so the pill length matches desktop's, logo overflows
+     it the same way. */
   .tp-nav__brand { gap: 10px; padding: 9px 14px 9px 12px; }
-  .tp-nav__logo-img, .tp-subnav__logo-img { height: 45px; }
+  .tp-nav--pill .tp-nav__brand, .tp-subnav--pill .tp-subnav__brand { height: 30px; }
+  .tp-nav__logo-img, .tp-subnav__logo-img { height: 68px; }
   /* Proof-figures (1e/2e): single column, not sticky; both stat rows
      regroup into one continuous 2x2 grid ahead of the funnel panel
      instead of sandwiching it, matching the 2e mobile mock. */
