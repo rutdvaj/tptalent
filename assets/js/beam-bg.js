@@ -1,8 +1,10 @@
 /* <beam-bg colors="#94ffd1,#6bf5ff,#ffffff"> — self-contained Canvas 2D
-   "meteor beam" background (from the Tecno Prism animated-background
-   handoff, Solutions page hero). Rotated lanes with occasional falling
-   light-streaks, looping on independent random durations. No WebGL/CDN
-   dependency — same pattern as sea-mint-grid-glow.js/vortex-bg.js.
+   "meteor beam" background, ported 1:1 from the Tecno Prism animated-
+   background handoff (Solutions Page hero's buildHeroBg()/beamStreak()).
+   64 rotated lanes, each carrying a permanent faint guide line; ~30% of
+   lanes additionally get an animated tapered "comet" streak sweeping the
+   full lane height (-20% to 300%) on a loop. No WebGL/CDN dependency —
+   same pattern as vortex-bg.js/sea-mint-grid-glow.js.
 */
 (function () {
   if (customElements.get('beam-bg')) return;
@@ -10,6 +12,9 @@
   var LANE_WIDTH = 40;
   var LANE_ANGLE = 12 * Math.PI / 180;
   var LANE_CHANCE = 0.3;
+  // Fixed regardless of the `colors` attribute — the source design keeps
+  // this line color constant across accent variants.
+  var LINE_COLOR = 'rgba(167,223,194,0.10)';
 
   function hexToRgb(hex) {
     hex = (hex || '').trim().replace('#', '');
@@ -27,7 +32,11 @@
     var fast = Math.random() < 0.3;
     this.duration = fast ? (1.2 + Math.random() * 2) : (6 + Math.random() * 8);
     this.length = 24 + Math.random() * 60;
-    this.width = 3 + Math.random() * 4;
+    // Source clip-path (polygon(54% 0,54% 0,60% 100%,40% 100%)) tapers
+    // to a point at top and a base spanning only the middle 20% of the
+    // beam's own (already-thin, 3-7px) container — a slender sliver,
+    // not a solid bar.
+    this.baseHalfWidth = Math.max(0.5, (3 + Math.random() * 4) * 0.1);
     this.opacity = fast ? (0.8 + Math.random() * 0.2) : (0.35 + Math.random() * 0.55);
     this.progress = initial ? Math.random() : 0;
   };
@@ -35,19 +44,28 @@
     this.progress += dt / this.duration;
     if (this.progress >= 1) this.reset(false);
   };
-  Beam.prototype.draw = function (ctx, canvasHeight, rgb) {
-    var travel = canvasHeight * 1.2;
-    var y = -canvasHeight * 0.2 + this.progress * travel;
+  // Sweeps translateY(-20%) -> translateY(300%) of the full lane height,
+  // same 320%-of-height travel as the source CSS keyframes.
+  Beam.prototype.draw = function (ctx, canvasHeight, rgbA, rgbB) {
+    var y = canvasHeight * (-0.2 + this.progress * 3.2);
     var fadeIn = Math.min(1, this.progress / 0.12);
     var fadeOut = Math.min(1, (1 - this.progress) / 0.12);
     var alpha = this.opacity * Math.min(fadeIn, fadeOut);
     if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.moveTo(this.laneX, y);
+    ctx.lineTo(this.laneX + this.baseHalfWidth, y + this.length);
+    ctx.lineTo(this.laneX - this.baseHalfWidth, y + this.length);
+    ctx.closePath();
     var grad = ctx.createLinearGradient(0, y, 0, y + this.length);
-    grad.addColorStop(0, rgba(rgb, 0));
-    grad.addColorStop(0.7, rgba(rgb, alpha));
-    grad.addColorStop(1, rgba(rgb, alpha));
+    grad.addColorStop(0, rgba(rgbA, 0.5));
+    grad.addColorStop(0.75, rgba(rgbA, 1));
+    grad.addColorStop(1, rgba(rgbB, 1));
     ctx.fillStyle = grad;
-    ctx.fillRect(this.laneX - this.width / 2, y, this.width, this.length);
+    ctx.fill();
+    ctx.restore();
   };
 
   customElements.define('beam-bg', class extends HTMLElement {
@@ -61,6 +79,7 @@
       var ctx = canvas.getContext('2d');
       var self = this;
       var beams = [];
+      var laneXs = [];
       var last = 0;
       var raf;
 
@@ -77,11 +96,12 @@
         canvas.width = d.w;
         canvas.height = d.h;
         var laneCount = Math.ceil(d.w / LANE_WIDTH) + 2;
+        laneXs = [];
         beams = [];
         for (var i = 0; i < laneCount; i++) {
-          if (Math.random() < LANE_CHANCE) {
-            beams.push(new Beam(i * LANE_WIDTH - LANE_WIDTH / 2));
-          }
+          var x = i * LANE_WIDTH + LANE_WIDTH / 2;
+          laneXs.push(x);
+          if (Math.random() < LANE_CHANCE) beams.push(new Beam(x));
         }
       }
       function animate(ts) {
@@ -89,25 +109,57 @@
         var dt = last ? (ts - last) / 1000 : 0;
         last = ts;
         var cols = colorList();
+        var rgbA = cols[0], rgbB = cols[1] || cols[0];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.translate(canvas.width / 2, 0);
         ctx.rotate(LANE_ANGLE);
         ctx.translate(-canvas.width / 2, 0);
-        beams.forEach(function (b, i) {
+        // Permanent faint guide line for every lane — always visible,
+        // independent of whether that lane also has an active beam.
+        ctx.strokeStyle = LINE_COLOR;
+        ctx.lineWidth = 1;
+        laneXs.forEach(function (x) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        });
+        // Animated comet streaks on top.
+        beams.forEach(function (b) {
           b.update(dt);
-          b.draw(ctx, canvas.height, cols[i % cols.length]);
+          b.draw(ctx, canvas.height, rgbA, rgbB);
         });
         ctx.restore();
       }
 
+      // ResizeObserver instead of a plain window 'resize' listener —
+      // getBoundingClientRect() called synchronously from
+      // connectedCallback can race ahead of the browser's first layout
+      // pass and return a near-zero rect (seen in practice: a 1px-wide
+      // canvas that only self-corrected once the window was manually
+      // resized). ResizeObserver always delivers an initial callback
+      // with the settled size, so resize() never runs against stale
+      // dimensions.
       resize();
+      // Belt-and-suspenders: same double-rAF pattern shader-bg.js uses
+      // for its own fade-in, guaranteeing at least one correctly-sized
+      // resize() after layout has definitely settled, independent of
+      // whether ResizeObserver's own initial callback timing can be
+      // relied on in every environment.
+      requestAnimationFrame(function () { requestAnimationFrame(function () { resize(); }); });
+      if (window.ResizeObserver) {
+        this._ro = new ResizeObserver(function () { resize(); });
+        this._ro.observe(this);
+      } else {
+        this._onResize = function () { resize(); };
+        window.addEventListener('resize', this._onResize);
+      }
       raf = requestAnimationFrame(function (ts) { last = ts; animate(ts); });
-      this._onResize = function () { resize(); };
-      window.addEventListener('resize', this._onResize);
       this._stop = function () { if (raf) cancelAnimationFrame(raf); };
     }
     disconnectedCallback() {
+      if (this._ro) this._ro.disconnect();
       if (this._onResize) window.removeEventListener('resize', this._onResize);
       if (this._stop) this._stop();
     }
