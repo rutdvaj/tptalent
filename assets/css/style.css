@@ -561,10 +561,6 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
-/* Solutions hero kicker ("Solutions // {name}") — a pill badge above the
-   headline, matching the Solutions page handoff. */
-.tp-pagehero__kicker { display: inline-flex !important; align-items: center; gap: 10px; font-size: 13px !important; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.22); border-radius: 30px; background: rgba(6,24,20,0.35); backdrop-filter: blur(8px); color: var(--p1, #94ffd1) !important; }
-
 /* ===========================================================
    SOLUTIONS PAGE — "How it works" 4-step grid.
    =========================================================== */

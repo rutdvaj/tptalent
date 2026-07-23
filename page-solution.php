@@ -29,7 +29,6 @@ $insights_cross = tp_get_insights_nav_items(3);
   <?php get_template_part('template-parts/nav-subpage'); ?>
 
   <div class="tp-pagehero__inner">
-    <div class="tp-eyebrow tp-eyebrow--light tp-pagehero__kicker">Solutions <span aria-hidden="true">&#47;&#47;</span> <?php echo esc_html($content['solution_name']); ?></div>
     <h1 class="tp-pagehero__headline"><?php echo esc_html($content['headline']); ?></h1>
     <p class="tp-pagehero__subhead"><?php echo esc_html($content['subhead']); ?></p>
     <div class="tp-pagehero__actions">
