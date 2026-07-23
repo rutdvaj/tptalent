@@ -222,8 +222,8 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-pagehero .tp-nav-mobile__submenu a:hover { color: #3D1B2E; }
 
 .tp-hero__inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; padding: 128px 40px 28px; text-align: center; animation: heroRise 900ms cubic-bezier(0.16,1,0.3,1) both; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
-.tp-hero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(52px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto 28px; max-width: 17ch; color: #FFFFFFEB; text-wrap: pretty; }
-.tp-hero__subhead { font-size: 20px; line-height: 1.55; color: #FFFFFF; max-width: 46ch; margin: 0 auto 40px; text-wrap: pretty; }
+.tp-hero__headline { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(52px, 6.4vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto 28px; max-width: 17ch; color: var(--ink, #3D1B2E); text-wrap: pretty; }
+.tp-hero__subhead { font-size: 20px; line-height: 1.55; color: var(--ink, #3D1B2E); max-width: 46ch; margin: 0 auto 40px; text-wrap: pretty; }
 @media (min-width: 980px) {
   .tp-hero__subhead { font-size: 23px; }
 }

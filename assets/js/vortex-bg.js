@@ -200,9 +200,15 @@
       this._tick++;
       var canvas = this._canvas, ctx = this._ctx;
       var w = this._cssW || canvas.width, h = this._cssH || canvas.height;
+      // Transparent, not an opaque fill — this used to hard-paint a
+      // near-black backdrop every frame regardless of the page's own
+      // background, which fought the service-page hero's CSS background
+      // (fine back when that was also dark, but broke outright once it
+      // became white — the canvas was still opaquely painting over it).
+      // The glow/trail look comes from _renderGlow's blur+lighter self-
+      // composite below, not from this fill, so dropping it to a plain
+      // clearRect is safe and lets the CSS background show through.
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = '#020905';
-      ctx.fillRect(0, 0, w, h);
       ctx.lineCap = 'round';
       this._drawParticles(ctx);
       this._renderGlow(canvas, ctx);
