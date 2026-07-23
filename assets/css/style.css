@@ -577,6 +577,10 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
 .tp-pagehero__ghost-btn { font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.35); padding: 13.5px 28px; border-radius: 10px; }
 .tp-pagehero__ghost-btn:hover { background: rgba(255,255,255,0.16); color: #FFFFFF; }
+/* Service/industry/solution hero CTAs sized to match the homepage
+   hero's fixed pill/solid button box (.tp-hero__actions above) — same
+   210x54 box, same 10px radius, text/labels unchanged. */
+.tp-pagehero__actions .tp-pill-btn, .tp-pagehero__actions .tp-pagehero__ghost-btn { display: inline-flex; align-items: center; box-sizing: border-box; width: 210px; height: 54px; padding: 0; border-radius: 10px; justify-content: center; }
 /* ===========================================================
    SOLUTIONS PAGE — "How it works" 4-step grid.
    =========================================================== */
