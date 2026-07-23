@@ -113,10 +113,6 @@ function tp_theme_vars() {
     ];
     for ($i = 0; $i < 5; $i++) $vars['--p' . ($i + 1)] = $pal[$i % $n];
 
-    $c1 = tp_to_rgba(tp_hex_to_arr($pal[0]), 0.22);
-    $c2 = tp_to_rgba(tp_hex_to_arr($pal[1]), 0.16);
-    $c3 = tp_to_rgba(tp_hex_to_arr($pal[2]), 0.24);
-    $vars['--testimonial-bg'] = "linear-gradient(150deg, $c1 0%, $c2 50%, $c3 100%), #FFFFFF";
     // Same value as --ink-deep (#2B1622) — a specific dark-plum shade
     // requested directly, rather than the earlier looser 0.4-mix. Kept
     // as its own token (not literally var(--ink-deep) in the CSS) in
