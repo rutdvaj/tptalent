@@ -107,7 +107,12 @@
       if (p4 <= 100) gradient += ', transparent ' + p4 + '%';
       var layer = document.createElement('div');
       layer.className = 'tp-nav-blur__layer';
-      var mask = 'linear-gradient(to top, ' + gradient + ')';
+      // "to bottom" (not "to top") — the strip is now pinned to the
+      // bottom of the screen (mobile-only, see CSS), so the strongest
+      // layer (built last, highest % in the loop) needs to land at the
+      // element's bottom edge — flush with the viewport bottom — fading
+      // to the weakest layer at the element's top edge, not the reverse.
+      var mask = 'linear-gradient(to bottom, ' + gradient + ')';
       layer.style.maskImage = mask;
       layer.style.webkitMaskImage = mask;
       layer.style.backdropFilter = 'blur(' + blurValue.toFixed(3) + 'rem)';
