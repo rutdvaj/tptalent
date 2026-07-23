@@ -465,6 +465,36 @@ function tp_bootstrap_blog_posts() {
 add_action('init', 'tp_bootstrap_blog_posts');
 
 /**
+ * Same pattern as tp_bootstrap_blog_posts(), for the 2nd batch of blog
+ * posts (inc/blog-seed-content.php's tp_blog_seed_posts_v2()) — also
+ * stores each post's short 'nav_label' as post meta, read by
+ * tp_get_insights_nav_items() for the Insights nav dropdown instead of
+ * the (much longer) full title.
+ */
+function tp_bootstrap_blog_posts_v2() {
+    if (get_option('tp_blog_posts_v2_bootstrapped')) return;
+
+    foreach (tp_blog_seed_posts_v2() as $slug => $post) {
+        if (get_page_by_path($slug, OBJECT, 'post')) continue;
+        $id = wp_insert_post([
+            'post_title'   => $post['title'],
+            'post_name'    => $slug,
+            'post_excerpt' => $post['excerpt'],
+            'post_content' => $post['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'post',
+            'post_date'    => '2026-07-23 09:00:00',
+        ], true);
+        if (!is_wp_error($id) && !empty($post['nav_label'])) {
+            update_post_meta($id, 'tp_nav_label', $post['nav_label']);
+        }
+    }
+
+    update_option('tp_blog_posts_v2_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_blog_posts_v2');
+
+/**
  * Creates a real "Home" page and points Settings > Reading at it, so the
  * content meta-box / ACF system has an actual post to attach saved values
  * to. front-page.php already rendered at the site root before this (WP

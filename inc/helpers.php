@@ -692,7 +692,18 @@ function tp_get_insights_nav_items($limit = 5) {
     ]);
     $items = [];
     foreach ($q->posts as $p) {
-        $items[] = ['label' => get_the_title($p), 'url' => get_permalink($p), 'thumb' => get_the_post_thumbnail_url($p, 'medium')];
+        $title = get_the_title($p);
+        // nav_label is a short version for the Insights nav dropdown
+        // specifically (see tp_nav_label post meta, set by
+        // tp_bootstrap_blog_posts_v2()) — the "Related Insights"
+        // cross-link cards elsewhere keep using the full 'label'/title.
+        $navLabel = get_post_meta($p->ID, 'tp_nav_label', true);
+        $items[] = [
+            'label' => $title,
+            'nav_label' => $navLabel ?: $title,
+            'url' => get_permalink($p),
+            'thumb' => get_the_post_thumbnail_url($p, 'medium'),
+        ];
     }
     wp_reset_postdata();
     $cache[$limit] = $items;

@@ -56,7 +56,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
       <button type="button" class="tp-nav__dropdown-trigger tp-subnav__trigger"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
       <div class="tp-nav__dropdown-panel">
         <?php if ($insights_nav) : foreach ($insights_nav as $i) : ?>
-          <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['label']); ?></a>
+          <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['nav_label']); ?></a>
         <?php endforeach; else : ?>
           <span class="tp-nav__dropdown-empty">No posts yet</span>
         <?php endif; ?>
@@ -114,7 +114,7 @@ $about_nav = tp_get_placeholder_about_nav_items();
     <button type="button" class="tp-nav-mobile__toggle" aria-expanded="false"><?php echo esc_html($nav['insights_label']); ?> <span class="tp-nav__caret" aria-hidden="true">&#9662;</span></button>
     <div class="tp-nav-mobile__submenu">
       <?php if ($insights_nav) : foreach ($insights_nav as $i) : ?>
-        <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['label']); ?></a>
+        <a href="<?php echo esc_url($i['url']); ?>"><?php echo esc_html($i['nav_label']); ?></a>
       <?php endforeach; else : ?>
         <span class="tp-nav-mobile__empty">No posts yet</span>
       <?php endif; ?>

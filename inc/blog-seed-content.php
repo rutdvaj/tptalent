@@ -77,3 +77,54 @@ function tp_blog_seed_posts() {
 
     ];
 }
+
+/**
+ * 2nd batch of blog posts — nav_label is a short version of the title
+ * for the Insights nav dropdown (see tp_get_insights_nav_items()),
+ * since these titles are too long to use as-is there. The original 2
+ * posts above don't have this key; their (shorter) titles are used
+ * directly as before.
+ */
+function tp_blog_seed_posts_v2() {
+    return [
+
+        'ai-in-talent-acquisition' => [
+            'title'     => 'AI in Talent Acquisition: How Intelligent Hiring Is Transforming Recruitment in 2026',
+            'excerpt'   => 'Discover how AI is helping organizations hire faster, improve candidate quality, and make smarter recruitment decisions without replacing the human touch.',
+            'nav_label' => 'AI in Recruitment',
+            'content'   => "<p>Hiring has never been more challenging. Organizations are expected to fill specialized roles faster while competing for a limited pool of skilled professionals. At the same time, candidates expect quicker communication, personalized experiences, and a seamless hiring journey.</p>\n" .
+                "<p>Artificial Intelligence (AI) is helping recruitment teams meet these expectations. Rather than replacing recruiters, AI enables them to focus on higher-value activities like relationship building, interviewing, and strategic hiring decisions.</p>\n" .
+                "<h2>Why Traditional Recruitment Is No Longer Enough</h2>\n" .
+                "<p>As businesses grow, recruitment teams often struggle to manage increasing application volumes without compromising quality. Manual resume screening, repetitive administrative tasks, and lengthy hiring cycles can delay business growth.</p>\n" .
+                "<p>AI helps recruiters process information faster, identify suitable candidates earlier, and reduce repetitive work without sacrificing human judgment.</p>\n" .
+                "<h2>Where AI Creates the Greatest Impact</h2>\n" .
+                "<p>Modern recruitment platforms use AI to assist throughout the hiring lifecycle. Recruiters can automatically screen resumes, identify relevant skills, prioritize qualified candidates, and schedule interviews more efficiently.</p>\n" .
+                "<p>AI-powered analytics also help organizations understand hiring trends, identify bottlenecks, and improve workforce planning over time.</p>\n" .
+                "<h2>Why Human Expertise Still Matters</h2>\n" .
+                "<p>Successful hiring is about more than matching keywords on a resume. Leadership potential, communication skills, cultural alignment, and long-term career aspirations still require experienced recruiters to evaluate.</p>\n" .
+                "<p>The most successful organizations combine AI-driven efficiency with human expertise to create better hiring outcomes.</p>\n" .
+                "<h2>Preparing for the Future of Recruitment</h2>\n" .
+                "<p>AI will continue transforming recruitment, but organizations that achieve the greatest success will use technology to support recruiters&mdash;not replace them. Businesses that combine intelligent hiring tools with strong recruitment strategies will be better positioned to attract, engage, and retain exceptional talent.</p>",
+        ],
+
+        'skills-based-hiring' => [
+            'title'     => 'Skills-Based Hiring: Why Skills Matter More Than Degrees in Modern Recruitment',
+            'excerpt'   => 'Learn why organizations are shifting toward skills-based hiring to access wider talent pools, improve workforce quality, and build future-ready teams.',
+            'nav_label' => 'Skills-Based Hiring',
+            'content'   => "<p>For decades, hiring decisions were heavily influenced by academic qualifications and years of experience. Today, organizations are increasingly recognizing that practical skills often provide a better indicator of future performance than traditional credentials alone.</p>\n" .
+                "<p>Skills-based hiring allows businesses to focus on what candidates can actually do rather than where they studied or how long they have worked.</p>\n" .
+                "<h2>Why Businesses Are Adopting Skills-Based Hiring</h2>\n" .
+                "<p>Technology continues to evolve rapidly, creating demand for new capabilities that many traditional education systems cannot keep pace with. Employers need professionals who can adapt, learn quickly, and contribute from day one.</p>\n" .
+                "<p>By prioritizing skills over credentials, organizations gain access to larger and more diverse talent pools while reducing unnecessary hiring barriers.</p>\n" .
+                "<h2>Building Stronger Teams Through Skills</h2>\n" .
+                "<p>A skills-first recruitment strategy encourages hiring managers to evaluate technical expertise, problem-solving ability, communication, and practical experience alongside formal qualifications.</p>\n" .
+                "<p>This approach often results in better role alignment, improved employee performance, and higher long-term retention.</p>\n" .
+                "<h2>The Role of Recruitment Partners</h2>\n" .
+                "<p>Identifying skilled professionals requires more than reviewing resumes. Effective recruitment partners assess technical capabilities, industry experience, and cultural fit to recommend candidates who can deliver meaningful business impact.</p>\n" .
+                "<p>A structured evaluation process helps organizations make informed hiring decisions while reducing recruitment risks.</p>\n" .
+                "<h2>Looking Ahead</h2>\n" .
+                "<p>As workforce demands continue to change, skills-based hiring is becoming a competitive advantage rather than simply a hiring trend. Organizations that embrace this approach will be better equipped to build agile, high-performing teams capable of adapting to future business challenges.</p>",
+        ],
+
+    ];
+}
