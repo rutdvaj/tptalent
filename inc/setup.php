@@ -399,6 +399,41 @@ function tp_bootstrap_solution_pages() {
 add_action('init', 'tp_bootstrap_solution_pages');
 
 /**
+ * One-time: the remaining 2 Solutions pages (Executive Search,
+ * Recruitment Process Outsourcing) now that their copy has been
+ * provided — same pattern as tp_bootstrap_solution_pages(). Executive
+ * Search uses the 'executive-search-solution' slug, not the plain
+ * 'executive-search' slug already taken by the Executive Search SERVICE
+ * page — see the comment in inc/solution-content.php for why.
+ */
+function tp_bootstrap_solution_pages_v2() {
+    if (get_option('tp_solution_pages_v2_bootstrapped')) return;
+
+    $pages = [
+        'executive-search-solution'       => 'Executive Search',
+        'recruitment-process-outsourcing' => 'Recruitment Process Outsourcing (RPO)',
+    ];
+    $order = 3;
+    foreach ($pages as $slug => $title) {
+        if (get_page_by_path($slug)) { $order++; continue; }
+        $id = wp_insert_post([
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_content' => '',
+            'menu_order'   => $order,
+        ], true);
+        if (!is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', 'page-solution.php');
+        }
+        $order++;
+    }
+    update_option('tp_solution_pages_v2_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_solution_pages_v2');
+
+/**
  * Same pattern as tp_bootstrap_service_pages(), for the 2 launch blog
  * posts (see inc/blog-seed-content.php) — native 'post' type so they
  * behave like any post written in wp-admin from here on.

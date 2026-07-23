@@ -799,3 +799,33 @@ function tp_bootstrap_solution_content_acf() {
     update_option('tp_solution_content_acf_bootstrapped', 1);
 }
 add_action('wp_loaded', 'tp_bootstrap_solution_content_acf');
+
+/**
+ * One-time: push the 2 Solutions pages added in
+ * tp_bootstrap_solution_pages_v2() (Executive Search, Recruitment
+ * Process Outsourcing) into ACF — same loop as
+ * tp_bootstrap_solution_content_acf(), just re-run since that one
+ * already flagged itself done before this content existed. Harmless
+ * no-op for Permanent Staffing/Contract Staffing (re-pushes identical
+ * content).
+ */
+function tp_bootstrap_solution_content_acf_v2() {
+    if (get_option('tp_solution_content_acf_v2_bootstrapped')) return;
+    if (!function_exists('update_field')) return;
+
+    foreach (tp_solution_content_all() as $slug => $content) {
+        $page = get_page_by_path($slug);
+        if (!$page) continue;
+        $id = $page->ID;
+
+        foreach (['solution_name', 'headline', 'subhead', 'steps_intro'] as $k) {
+            update_field($k, $content[$k], $id);
+        }
+        foreach ($content['steps'] as $i => $s) {
+            update_field('step_' . ($i + 1), ['title' => $s['title'], 'body' => $s['body']], $id);
+        }
+    }
+
+    update_option('tp_solution_content_acf_v2_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_solution_content_acf_v2');
