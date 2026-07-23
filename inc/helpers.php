@@ -126,14 +126,10 @@ add_action('wp_head', 'tp_print_theme_vars', 5);
  */
 function tp_shader_url() {
     $pal = tp_palette();
-    // Shader's 3rd color blended toward mint instead of pure white, so the
-    // waves show pale mint where they'd otherwise blow out to white.
-    $white_mix = 0.55;
-    $color3 = tp_to_hex(tp_mix_arr(tp_hex_to_arr($pal[2]), tp_hex_to_arr($pal[0]), $white_mix));
     $q = [
         'animate' => 'on', 'axesHelper' => 'off', 'brightness' => '1.2',
         'cAzimuthAngle' => '170', 'cDistance' => '4.4', 'cPolarAngle' => '70', 'cameraZoom' => '1',
-        'color1' => $pal[0], 'color2' => $pal[1], 'color3' => $color3,
+        'color1' => $pal[0], 'color2' => $pal[1], 'color3' => $pal[2],
         'destination' => 'onCanvas', 'embedMode' => 'off', 'envPreset' => 'city', 'format' => 'gif', 'fov' => '45',
         'frameRate' => '10', 'gizmoHelper' => 'hide', 'grain' => 'off', 'lightType' => '3d', 'pixelDensity' => '1',
         'positionX' => '0', 'positionY' => '0.9', 'positionZ' => '-0.3', 'range' => 'disabled', 'rangeEnd' => '40',
