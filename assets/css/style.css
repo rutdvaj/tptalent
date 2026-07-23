@@ -377,26 +377,26 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 
 .tp-bento-card__bars { position: absolute; top: 24px; left: 28px; right: 28px; height: 110px; display: flex; align-items: flex-end; gap: 8px; opacity: 0.75; }
 .tp-bento-card__bar { flex: 1; border-radius: 4px 4px 0 0; transform-origin: bottom; animation: barPulse 2.6s ease-in-out infinite alternate; }
-.tp-bento-card__bar:nth-child(1), .tp-bento-card__bar:nth-child(2) { background: linear-gradient(180deg, var(--p1), transparent); }
+.tp-bento-card__bar:nth-child(1), .tp-bento-card__bar:nth-child(2) { background: linear-gradient(180deg, var(--p2), transparent); }
 .tp-bento-card__bar:nth-child(3), .tp-bento-card__bar:nth-child(4) { background: linear-gradient(180deg, var(--p2), transparent); }
-.tp-bento-card__bar:nth-child(5) { background: linear-gradient(180deg, var(--p2), var(--p1)); }
+.tp-bento-card__bar:nth-child(5) { background: linear-gradient(180deg, var(--p2), var(--mid)); }
 
-.tp-bento-card__stat { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 58px; line-height: 1; color: var(--p1); }
+.tp-bento-card__stat { font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 58px; line-height: 1; color: var(--p2); }
 .tp-bento-card__stat--white { color: #FFFFFF; font-size: 46px; }
 .tp-bento-card__caption { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.88); text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
 
 .tp-bento-card__dots { position: absolute; top: 34px; left: 28px; right: 28px; display: flex; align-items: center; gap: 6px; }
 .tp-bento-card__dot-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.tp-bento-card__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--p1); animation: bentoDot 3.6s ease-in-out infinite; display: block; }
+.tp-bento-card__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--p2); animation: bentoDot 3.6s ease-in-out infinite; display: block; }
 .tp-bento-card__dot-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.75); }
 
 .tp-bento-card__rings { position: absolute; top: 30px; right: 28px; width: 84px; height: 84px; }
 .tp-bento-card__ring { position: absolute; border-radius: 50%; animation: bentoDot 3s ease-in-out infinite; }
 .tp-bento-card__ring--outer { top: 0; right: 0; width: 84px; height: 84px; border: 2px solid var(--p2); opacity: 0.5; }
-.tp-bento-card__ring--inner { top: 14px; right: 14px; width: 56px; height: 56px; border: 2px solid var(--p1); opacity: 0.8; animation-delay: .6s; }
+.tp-bento-card__ring--inner { top: 14px; right: 14px; width: 56px; height: 56px; border: 2px solid var(--p2); opacity: 0.8; animation-delay: .6s; }
 
 .tp-bento-card__cube { position: absolute; border-radius: 6px; animation: cubeFloat 8s ease-in-out infinite alternate; }
-.tp-bento-card__cube--a { top: 24px; left: 28px; width: 26px; height: 26px; background: var(--p1); opacity: 0.7; }
+.tp-bento-card__cube--a { top: 24px; left: 28px; width: 26px; height: 26px; background: var(--p2); opacity: 0.7; }
 .tp-bento-card__cube--b { top: 48px; left: 64px; width: 15px; height: 15px; background: var(--p2); opacity: 0.55; animation-duration: 6s; animation-direction: alternate-reverse; }
 .tp-bento-card__cta-text { font-family: 'Newsreader', Georgia, serif; font-size: 24px; line-height: 1.25; color: #FFFFFF; text-wrap: pretty; }
 

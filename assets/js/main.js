@@ -760,8 +760,8 @@
       '  float p2=0.5+0.5*th(1.6*sin(l*2.2+t+1.3));\n' +
       '  float p3=0.5+0.5*th(1.6*sin(l*2.2+t+2.6));\n' +
       '  float inten=0.7+wi*0.4;\n' +
-      '  vec3 col=(p1*u_c1+p2*u_c2+p3*u_c3)*0.55*inten;\n' +
-      '  float a=clamp(max(p1,max(p2,p3)),0.0,1.0)*0.6;\n' +
+      '  vec3 col=(p1*u_c1+p2*u_c2+p3*u_c3)*0.4*inten;\n' +
+      '  float a=clamp(max(p1,max(p2,p3)),0.0,1.0)*0.4;\n' +
       '  gl_FragColor=vec4(mix(u_bg,col,a),1.0);\n' +
       '}';
     var mk = function (type, src) {
@@ -848,8 +848,21 @@
       step();
       var pal = palette();
       var c = function (hex) { var a = hexToArr(hex); return [a[0] / 255, a[1] / 255, a[2] / 255]; };
-      var c1 = c(pal[0]), c2 = c(pal[1]), c3 = c(pal[2]);
-      var bgHex = hexToArr(pal[0]);
+      var mixArr = function (hexA, hexB, t) {
+        var a = hexToArr(hexA), b = hexToArr(hexB);
+        return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+      };
+      // c1 toned down toward lavender instead of pure pal[0] (too orange).
+      // c3 was pure white (pal[2]) — the brightest of the 3 additive
+      // layers, and the main reason ripple peaks were washing out over
+      // the card text. A muted mid-tone reads far darker at the same
+      // alpha instead of blowing out to near-white.
+      var c1 = mixArr(pal[0], pal[1], 0.5).map(function (v) { return v / 255; });
+      var c2 = c(pal[1]);
+      var c3 = c(cssVar('--mid', '#AF8B91'));
+      // bg derived from the plum ink base, not pal[0] (coral) — matches
+      // the same "chocolate brown at scale" fix applied to --map-bg.
+      var bgHex = hexToArr(cssVar('--ink', '#3D1B2E'));
       var bg = [bgHex[0] + (6 - bgHex[0]) * 0.92, bgHex[1] + (10 - bgHex[1]) * 0.92, bgHex[2] + (8 - bgHex[2]) * 0.92];
       gl.uniform1f(U('u_time'), (performance.now() - t0b) * 0.001);
       gl.uniform2f(U('u_res'), cv.width, cv.height);
