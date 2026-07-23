@@ -117,7 +117,11 @@ function tp_theme_vars() {
     $c2 = tp_to_rgba(tp_hex_to_arr($pal[1]), 0.16);
     $c3 = tp_to_rgba(tp_hex_to_arr($pal[2]), 0.24);
     $vars['--testimonial-bg'] = "linear-gradient(150deg, $c1 0%, $c2 50%, $c3 100%), #FFFFFF";
-    $vars['--map-bg'] = tp_to_hex(tp_mix_arr(tp_hex_to_arr($pal[0]), $black, 0.87));
+    // Mixed from $ink_base (purple), not $pal[0] (coral) — mixing a warm
+    // coral toward black reads as "chocolate brown" for a section this
+    // large; the deep-plum ink base keeps it in the same purple family
+    // as the rest of the dark surfaces.
+    $vars['--map-bg'] = tp_to_hex(tp_mix_arr($ink_base, $black, 0.4));
 
     // Bento case-study cards — "Glassy" style (frosted, static border, no glow halo).
     $vars['--bento-bg']       = 'radial-gradient(120% 130% at 75% 30%, ' . tp_to_hex($mid) . ' -25%, ' . tp_to_hex($ink) . ' 32%, ' . tp_to_hex($ink_deep) . ' 68%, #08120F 100%)';
@@ -275,7 +279,7 @@ function tp_default($section) {
                 ['label' => 'MENA & Africa', 'anchor' => 'Dubai · Abu Dhabi · Saudi Arabia', 'chips' => ['Qatar', 'Oman', 'Kuwait', 'Bahrain', 'Egypt', 'South Africa', 'Kenya', 'Nigeria', 'Mauritius']],
                 ['label' => 'Americas', 'anchor' => 'USA · Canada · Brazil', 'chips' => ['Colombia', 'Chile', 'Argentina', 'Mexico', 'Peru']],
             ],
-            // Fixed at 8 markers — the beam sequence below references these by
+            // Fixed at 11 markers — the beam sequence below references these by
             // position, so rows can be edited in place but not added/removed.
             'locations' => [
                 ['name' => 'India', 'lat' => '13.0', 'lon' => '77.6', 'hq' => 1],
@@ -284,8 +288,11 @@ function tp_default($section) {
                 ['name' => 'Brazil', 'lat' => '-23.55', 'lon' => '-46.6', 'hq' => 0],
                 ['name' => 'Colombia', 'lat' => '4.7', 'lon' => '-74.1', 'hq' => 0],
                 ['name' => 'Dubai', 'lat' => '25.2', 'lon' => '55.3', 'hq' => 0],
-                ['name' => 'Kuwait', 'lat' => '29.4', 'lon' => '48.0', 'hq' => 0],
                 ['name' => 'Singapore', 'lat' => '1.35', 'lon' => '103.8', 'hq' => 0],
+                ['name' => 'Japan', 'lat' => '35.68', 'lon' => '139.65', 'hq' => 0],
+                ['name' => 'South Africa', 'lat' => '-26.2', 'lon' => '28.05', 'hq' => 0],
+                ['name' => 'Australia', 'lat' => '-33.87', 'lon' => '151.21', 'hq' => 0],
+                ['name' => 'Norway', 'lat' => '59.91', 'lon' => '10.75', 'hq' => 0],
             ],
         ],
         // "Proof, in four figures" — split narrative + hiring-funnel panel.

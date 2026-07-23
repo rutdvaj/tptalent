@@ -554,12 +554,13 @@
     vio.observe(wrap);
 
     // Indices into `locations`: 0 India, 1 USA, 2 Canada, 3 Brazil,
-    // 4 Colombia, 5 Dubai, 6 Kuwait, 7 Singapore (see tp_default('tp_global')).
+    // 4 Colombia, 5 Dubai, 6 Singapore, 7 Japan, 8 South Africa,
+    // 9 Australia, 10 Norway (see tp_default('tp_global')).
     var routes = [
-      [0, 1, 0], [0, 7, 0],
-      [1, 2, 1], [1, 4, 1],
-      [2, 6, 2], [4, 3, 2],
-      [6, 5, 3],
+      [0, 1, 0], [0, 6, 0], [5, 8, 0],
+      [1, 2, 1], [1, 4, 1], [6, 9, 1],
+      [2, 10, 2], [4, 3, 2], [6, 7, 2],
+      [0, 5, 3],
     ];
     var beamDur = 1.5, hold = 2, pause = 1, slots = 4;
     var drawTime = slots * beamDur;
@@ -614,7 +615,11 @@
         ctx.strokeStyle = grad;
         ctx.lineWidth = 2.2;
         ctx.lineCap = 'round';
-        ctx.globalAlpha = 0.85;
+        ctx.globalAlpha = 1;
+        // Neon glow, matching .tp-engagement__fill's box-shadow treatment
+        // on the service-page progress bar (0 0 14px in the accent color).
+        ctx.shadowColor = pal[0];
+        ctx.shadowBlur = 14;
         ctx.beginPath();
         var seg = 32;
         var q0 = qpt(src, mx, my, dst, 0);
@@ -623,18 +628,23 @@
         ctx.stroke();
         if (frac < 1) {
           var hp = qpt(src, mx, my, dst, frac);
+          ctx.shadowColor = pal[1];
+          ctx.shadowBlur = 16;
           ctx.fillStyle = pal[1];
           ctx.beginPath(); ctx.arc(hp.x, hp.y, 3.4, 0, 7); ctx.fill();
         }
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
       }
       ctx.lineCap = 'butt';
       ctx.globalAlpha = 1;
 
       ctx.font = '600 16px "Libre Franklin", sans-serif';
       var lofs = {
-        Kuwait: [-62, -34], Dubai: [-58, 30],
+        Dubai: [-58, 30],
         India: [66, -42], USA: [-48, -34], Canada: [56, -34], Brazil: [50, 28],
         Colombia: [-64, 26], Singapore: [66, 26],
+        Japan: [70, -30], 'South Africa': [10, 34], Australia: [66, 30], Norway: [-10, -34],
       };
       var pill = function (txt, cx2, cy2, hq2) {
         var w = ctx.measureText(txt).width + 30, h = 34, r2 = h / 2;
@@ -650,15 +660,17 @@
         ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 2;
         ctx.fill();
         ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
-        ctx.fillStyle = '#08170F';
+        ctx.fillStyle = '#140F13';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(txt, cx2, cy2 + 1);
         ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
       };
-      // Mobile: plain emitting dots only, no name-pill labels, and a more
-      // saturated teal-green (pal[0] is a very pale, washed-out mint).
+      // Mobile: plain emitting dots only, no name-pill labels. Used to
+      // hardcode a punchier teal-green here since pal[0] (the old Sea
+      // Mint palette) was too pale/washed-out to read well — pal[0] is
+      // now a saturated coral, so the override is no longer needed.
       var isMobileMap = window.innerWidth <= 640;
-      var dotColor = isMobileMap ? '#2FD98A' : pal[0];
+      var dotColor = pal[0];
       for (var k = 0; k < locations.length; k++) {
         var pp = pts[k];
         var ph = ((t * 0.5 + k * 0.13) % 1);
@@ -668,7 +680,7 @@
         ctx.globalAlpha = 1;
         ctx.fillStyle = dotColor;
         ctx.beginPath(); ctx.arc(pp.x, pp.y, locations[k].hq ? 5.5 : 4, 0, 7); ctx.fill();
-        ctx.fillStyle = '#08170F';
+        ctx.fillStyle = '#140F13';
         ctx.beginPath(); ctx.arc(pp.x, pp.y, locations[k].hq ? 2.2 : 1.5, 0, 7); ctx.fill();
       }
       if (!isMobileMap) {

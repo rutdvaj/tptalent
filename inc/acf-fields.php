@@ -742,6 +742,29 @@ function tp_bootstrap_global_regions_v4_anchors() {
 add_action('wp_loaded', 'tp_bootstrap_global_regions_v4_anchors');
 
 /**
+ * One-time: swap the map's Kuwait marker for Japan, South Africa,
+ * Australia, and Norway. Same shadowing issue as the regions bootstraps
+ * above — the Home page already has explicit saved tp_global meta, so
+ * updating tp_default('tp_global')'s code array alone doesn't change
+ * what's actually rendered; the saved 'locations' key must be
+ * overwritten directly.
+ */
+function tp_bootstrap_global_locations_v5() {
+    if (get_option('tp_global_locations_v5_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_global', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_global');
+    $defaults = tp_default('tp_global');
+    $saved['locations'] = $defaults['locations'];
+    update_post_meta($id, 'tp_global', $saved);
+
+    update_option('tp_global_locations_v5_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_global_locations_v5');
+
+/**
  * One-time: the 8 client logo master files on disk were replaced with
  * auto-trimmed versions (removed a large amount of dead transparent
  * padding baked into the originals — that's why some logos, e.g.

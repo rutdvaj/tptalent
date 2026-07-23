@@ -145,7 +145,7 @@ function tp_meta_boxes_config() {
                     ],
                 ],
                 [
-                    'key' => 'locations', 'label' => 'Map markers — fixed at 8, edit in place (the beam animation sequence is wired to this order: India, USA, Canada, Brazil, Colombia, Dubai, Kuwait, Singapore)', 'type' => 'repeater', 'fixed' => true,
+                    'key' => 'locations', 'label' => 'Map markers — fixed at 11, edit in place (the beam animation sequence is wired to this order: India, USA, Canada, Brazil, Colombia, Dubai, Singapore, Japan, South Africa, Australia, Norway)', 'type' => 'repeater', 'fixed' => true,
                     'fields' => [
                         ['key' => 'name', 'label' => 'Name', 'type' => 'text'],
                         ['key' => 'lat', 'label' => 'Latitude', 'type' => 'number'],
