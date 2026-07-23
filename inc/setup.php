@@ -495,6 +495,25 @@ function tp_bootstrap_blog_posts_v2() {
 add_action('init', 'tp_bootstrap_blog_posts_v2');
 
 /**
+ * One-time: retire the 2 original launch blog posts ("The new deal at
+ * work", "The absorption gap") now that the 2nd batch has replaced them
+ * as the site's live Insights content. Trashed, not permanently
+ * deleted — same reversible pattern used for the "hello-world" sample
+ * post in tp_bootstrap_blog_posts().
+ */
+function tp_bootstrap_trash_launch_blog_posts() {
+    if (get_option('tp_launch_blog_posts_trashed')) return;
+
+    foreach (['the-new-deal-at-work', 'the-absorption-gap'] as $slug) {
+        $post = get_page_by_path($slug, OBJECT, 'post');
+        if ($post) wp_trash_post($post->ID);
+    }
+
+    update_option('tp_launch_blog_posts_trashed', 1);
+}
+add_action('init', 'tp_bootstrap_trash_launch_blog_posts');
+
+/**
  * Creates a real "Home" page and points Settings > Reading at it, so the
  * content meta-box / ACF system has an actual post to attach saved values
  * to. front-page.php already rendered at the site root before this (WP
