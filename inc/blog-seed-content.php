@@ -128,3 +128,51 @@ function tp_blog_seed_posts_v2() {
 
     ];
 }
+
+/**
+ * 3rd batch of blog posts — same nav_label pattern as v2.
+ */
+function tp_blog_seed_posts_v3() {
+    return [
+
+        'industry-4-0-workforce' => [
+            'title'     => 'Building a Future-Ready Workforce for Industry 4.0',
+            'excerpt'   => 'Industry 4.0 is transforming manufacturing. Learn how businesses can build agile, technology-driven workforces ready for automation, AI, and smart manufacturing.',
+            'nav_label' => 'Industry 4.0 Workforce',
+            'content'   => "<p>Manufacturing is undergoing one of its biggest transformations in decades. Technologies like automation, artificial intelligence, robotics, and Industrial Internet of Things (IIoT) are reshaping how products are designed, manufactured, and delivered. While technology is driving this change, people remain at the center of successful Industry 4.0 initiatives.</p>\n" .
+                "<p>Building a future-ready workforce requires organizations to invest in both technology and talent.</p>\n" .
+                "<h2>The Workforce Behind Smart Manufacturing</h2>\n" .
+                "<p>Modern factories require professionals who can work alongside intelligent machines, analyze production data, and optimize manufacturing processes. Traditional manufacturing roles are evolving into multidisciplinary positions that combine engineering, digital technologies, and problem-solving skills.</p>\n" .
+                "<p>Organizations that prepare their workforce today will be better positioned to compete tomorrow.</p>\n" .
+                "<h2>Bridging the Skills Gap</h2>\n" .
+                "<p>Many manufacturers face growing shortages of engineers, automation specialists, robotics professionals, and industrial technicians. Closing this skills gap requires a proactive recruitment strategy focused on identifying candidates with both technical expertise and adaptability.</p>\n" .
+                "<p>Upskilling existing employees and attracting specialized talent are equally important for long-term success.</p>\n" .
+                "<h2>Technology and Talent Must Evolve Together</h2>\n" .
+                "<p>Investing in automation without investing in people often limits the return on technology initiatives. Successful manufacturers build teams capable of implementing, managing, and continuously improving digital production systems.</p>\n" .
+                "<p>Recruitment strategies should align with long-term business objectives rather than immediate hiring needs alone.</p>\n" .
+                "<h2>Preparing for the Next Industrial Revolution</h2>\n" .
+                "<p>Industry 4.0 is not a destination&mdash;it is an ongoing transformation. Organizations that combine advanced technologies with skilled, adaptable professionals will create resilient operations capable of responding to changing market demands and future innovation.</p>",
+        ],
+
+        'digital-transformation-starts-with-people' => [
+            'title'     => 'Digital Transformation Starts With People, Not Technology',
+            'excerpt'   => 'Successful digital transformation depends on people as much as technology. Discover why workforce strategy is the foundation of every transformation initiative.',
+            'nav_label' => 'People-First Transformation',
+            'content'   => "<p>When organizations begin digital transformation initiatives, the focus often falls on new software, cloud platforms, automation, or artificial intelligence. While these technologies are essential, they represent only part of the equation.</p>\n" .
+                "<p>True digital transformation succeeds when businesses empower people to embrace change, adopt new ways of working, and develop the skills needed for a digital future.</p>\n" .
+                "<h2>Technology Alone Doesn&#8217;t Drive Transformation</h2>\n" .
+                "<p>Many transformation projects fail not because the technology is inadequate, but because employees struggle to adapt to new systems and processes. Without clear communication, leadership support, and workforce readiness, even the most advanced technologies may fail to deliver expected outcomes.</p>\n" .
+                "<p>Successful transformation begins with a people-first mindset.</p>\n" .
+                "<h2>Building a Workforce Ready for Change</h2>\n" .
+                "<p>Organizations need professionals who combine technical expertise with adaptability, collaboration, and continuous learning. Recruitment strategies should focus on identifying candidates who can contribute to both technological implementation and organizational change.</p>\n" .
+                "<p>Developing internal talent through learning and upskilling is equally important for sustaining transformation over time.</p>\n" .
+                "<h2>Leadership Shapes Digital Success</h2>\n" .
+                "<p>Digital transformation requires leaders who can inspire innovation, manage organizational change, and align technology investments with business objectives. Strong leadership helps create a culture where employees feel confident adopting new technologies and improving existing processes.</p>\n" .
+                "<p>People remain the driving force behind every successful transformation initiative.</p>\n" .
+                "<h2>Looking Beyond Technology</h2>\n" .
+                "<p>Digital transformation is ultimately about improving how organizations operate, collaborate, and create value. Businesses that prioritize both technology and talent are better equipped to adapt to evolving customer expectations, changing markets, and future opportunities.</p>\n" .
+                "<p>By placing people at the center of transformation, organizations build a stronger foundation for sustainable growth and long-term success.</p>",
+        ],
+
+    ];
+}

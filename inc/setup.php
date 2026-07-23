@@ -495,6 +495,39 @@ function tp_bootstrap_blog_posts_v2() {
 add_action('init', 'tp_bootstrap_blog_posts_v2');
 
 /**
+ * Same pattern as tp_bootstrap_blog_posts_v2(), for the 3rd batch
+ * (inc/blog-seed-content.php's tp_blog_seed_posts_v3()). No hardcoded
+ * post_date this time — a fixed clock-time in the seed data (v2/here
+ * originally used one) risks landing after the server's actual current
+ * time on the day this bootstrap happens to run, which makes WordPress
+ * silently schedule the post as 'future' instead of publishing it
+ * (hit exactly this running it locally: 10:00 seed time vs. 09:43
+ * actual server time). current_time('mysql') always publishes now.
+ */
+function tp_bootstrap_blog_posts_v3() {
+    if (get_option('tp_blog_posts_v3_bootstrapped')) return;
+
+    foreach (tp_blog_seed_posts_v3() as $slug => $post) {
+        if (get_page_by_path($slug, OBJECT, 'post')) continue;
+        $id = wp_insert_post([
+            'post_title'   => $post['title'],
+            'post_name'    => $slug,
+            'post_excerpt' => $post['excerpt'],
+            'post_content' => $post['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'post',
+            'post_date'    => current_time('mysql'),
+        ], true);
+        if (!is_wp_error($id) && !empty($post['nav_label'])) {
+            update_post_meta($id, 'tp_nav_label', $post['nav_label']);
+        }
+    }
+
+    update_option('tp_blog_posts_v3_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_blog_posts_v3');
+
+/**
  * One-time: retire the 2 original launch blog posts ("The new deal at
  * work", "The absorption gap") now that the 2nd batch has replaced them
  * as the site's live Insights content. Trashed, not permanently
