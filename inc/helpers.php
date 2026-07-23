@@ -189,8 +189,8 @@ function tp_default($section) {
         'tp_hero' => [
             'headline' => 'Workforce partners for long‑term growth',
             'subhead' => 'Staffing, RPO and workforce consulting for organisations that plan in years, not quarters.',
-            'browse_label' => 'Browse talent', 'browse_url' => '#',
-            'hire_label' => 'Hire talent', 'hire_url' => '#',
+            'browse_label' => 'Hire talent', 'browse_url' => '#',
+            'hire_label' => 'Browse talent', 'hire_url' => '#',
             'metric1_value' => '98%', 'metric1_label' => 'Fill-rate SLA',
             'metric2_value' => '2,000+', 'metric2_label' => 'Placements',
             'ticker_logos' => array_map(function ($n) {

@@ -673,6 +673,29 @@ function tp_bootstrap_ticker_logos_v2() {
 add_action('wp_loaded', 'tp_bootstrap_ticker_logos_v2');
 
 /**
+ * One-time: swap the hero's "Browse talent" / "Hire talent" button
+ * text. Same shadowing issue as the ticker-logos bootstrap right above
+ * — the Home page already has explicit saved tp_hero meta, so updating
+ * tp_default('tp_hero')'s code array alone doesn't change what's
+ * actually rendered; the saved browse_label/hire_label keys must be
+ * overwritten directly.
+ */
+function tp_bootstrap_hero_button_swap() {
+    if (get_option('tp_hero_button_swap_bootstrapped')) return;
+    $id = tp_front_page_id();
+    if (!$id) return;
+
+    $saved = get_post_meta($id, 'tp_hero', true);
+    $saved = is_array($saved) ? $saved : tp_default('tp_hero');
+    $saved['browse_label'] = 'Hire talent';
+    $saved['hire_label'] = 'Browse talent';
+    update_post_meta($id, 'tp_hero', $saved);
+
+    update_option('tp_hero_button_swap_bootstrapped', 1);
+}
+add_action('wp_loaded', 'tp_bootstrap_hero_button_swap');
+
+/**
  * One-time: the Home page already has explicit saved meta for
  * tp_global (baked in the moment the page was ever saved in wp-admin,
  * since the meta-box form posts back every section's current value on
