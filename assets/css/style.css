@@ -450,7 +450,7 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 /* ===========================================================
    GLOBAL DELIVERY / MAP
    =========================================================== */
-.tp-global { background: var(--map-bg, #291520); overflow: hidden; }
+.tp-global { background: var(--map-bg, #2B1622); overflow: hidden; }
 /* Widened from 1280px — the regions panel now carries a lot more
    countries (chips), so it needs more room; map size/behavior below is
    untouched, it just sits inside a wider section now. */

@@ -584,6 +584,13 @@
         var a = hexToArr(hex);
         return 'rgb(' + Math.round(a[0] + (255 - a[0]) * amt) + ',' + Math.round(a[1] + (255 - a[1]) * amt) + ',' + Math.round(a[2] + (255 - a[2]) * amt) + ')';
       };
+      var mixHex = function (hexA, hexB, t) {
+        var a = hexToArr(hexA), b = hexToArr(hexB);
+        return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * t) + ',' + Math.round(a[1] + (b[1] - a[1]) * t) + ',' + Math.round(a[2] + (b[2] - a[2]) * t) + ')';
+      };
+      // Beam start color toned down toward pal[1] (lavender) instead of
+      // pure pal[0] (a fully-saturated coral read as too orange).
+      var beamStart = mixHex(pal[0], pal[1], 0.55);
       // Mobile: the continent dot-matrix reads too "sea mint" (mixToWhite at
       // only 45% keeps most of pal[0]'s green). Use a neutral off-white at
       // lower alpha instead — visible but no longer color-dominant.
@@ -611,14 +618,14 @@
         var mx = (src.x + dst.x) / 2;
         var my = Math.min(src.y, dst.y) - dist * 0.22 - 18;
         var grad = ctx.createLinearGradient(src.x, src.y, dst.x, dst.y);
-        grad.addColorStop(0, pal[0]); grad.addColorStop(1, pal[1]);
+        grad.addColorStop(0, beamStart); grad.addColorStop(1, pal[1]);
         ctx.strokeStyle = grad;
         ctx.lineWidth = 2.2;
         ctx.lineCap = 'round';
         ctx.globalAlpha = 1;
         // Neon glow, matching .tp-engagement__fill's box-shadow treatment
         // on the service-page progress bar (0 0 14px in the accent color).
-        ctx.shadowColor = pal[0];
+        ctx.shadowColor = beamStart;
         ctx.shadowBlur = 14;
         ctx.beginPath();
         var seg = 32;

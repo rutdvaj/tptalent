@@ -117,11 +117,11 @@ function tp_theme_vars() {
     $c2 = tp_to_rgba(tp_hex_to_arr($pal[1]), 0.16);
     $c3 = tp_to_rgba(tp_hex_to_arr($pal[2]), 0.24);
     $vars['--testimonial-bg'] = "linear-gradient(150deg, $c1 0%, $c2 50%, $c3 100%), #FFFFFF";
-    // Mixed from $ink_base (purple), not $pal[0] (coral) — mixing a warm
-    // coral toward black reads as "chocolate brown" for a section this
-    // large; the deep-plum ink base keeps it in the same purple family
-    // as the rest of the dark surfaces.
-    $vars['--map-bg'] = tp_to_hex(tp_mix_arr($ink_base, $black, 0.4));
+    // Same value as --ink-deep (#2B1622) — a specific dark-plum shade
+    // requested directly, rather than the earlier looser 0.4-mix. Kept
+    // as its own token (not literally var(--ink-deep) in the CSS) in
+    // case the two need to diverge again later.
+    $vars['--map-bg'] = tp_to_hex($ink_deep);
 
     // Bento case-study cards — "Glassy" style (frosted, static border, no glow halo).
     $vars['--bento-bg']       = 'radial-gradient(120% 130% at 75% 30%, ' . tp_to_hex($mid) . ' -25%, ' . tp_to_hex($ink) . ' 32%, ' . tp_to_hex($ink_deep) . ' 68%, #08120F 100%)';
