@@ -28,15 +28,17 @@
     this.laneX = laneX;
     this.reset(true);
   }
+  var SPEED_FACTOR = 1 / 0.7; // duration multiplier for a 30% speed reduction
+  var WIDTH_FACTOR = 0.35; // vs. the source's slender 0.1 — a visibly wider beam
   Beam.prototype.reset = function (initial) {
     var fast = Math.random() < 0.3;
-    this.duration = fast ? (1.2 + Math.random() * 2) : (6 + Math.random() * 8);
+    this.duration = (fast ? (1.2 + Math.random() * 2) : (6 + Math.random() * 8)) * SPEED_FACTOR;
     this.length = 24 + Math.random() * 60;
     // Source clip-path (polygon(54% 0,54% 0,60% 100%,40% 100%)) tapers
     // to a point at top and a base spanning only the middle 20% of the
-    // beam's own (already-thin, 3-7px) container — a slender sliver,
-    // not a solid bar.
-    this.baseHalfWidth = Math.max(0.5, (3 + Math.random() * 4) * 0.1);
+    // beam's own (already-thin, 3-7px) container. Widened here per
+    // request while keeping the same tapered-sliver shape.
+    this.baseHalfWidth = Math.max(1.2, (3 + Math.random() * 4) * WIDTH_FACTOR);
     this.opacity = fast ? (0.8 + Math.random() * 0.2) : (0.35 + Math.random() * 0.55);
     this.progress = initial ? Math.random() : 0;
   };
