@@ -315,15 +315,15 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-card:hover .tp-card__more { background: #FFFFFF; }
 .tp-card__fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .tp-card__glow { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 55%; filter: blur(34px); opacity: 0.85; animation: riseDrift 11s ease-in-out infinite alternate; }
-.tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p1) 35%, var(--p2) 70%, transparent 90%); }
-.tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p2) 35%, var(--p1) 70%, transparent 90%); }
+.tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p2) 50%, var(--p1) 80%, transparent 92%); }
+.tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p2) 60%, var(--p1) 85%, transparent 94%); }
 /* Static gradient, no flowing/looping animation — background-size:100%
    fits the whole coral -> lavender -> white sweep within the card at
    once, so it's all visible immediately on hover and just holds.
-   Dropped the trailing repeat back to --p1 (coral) — looping the warm
-   tone at both ends of the gradient was what made the wash read as
-   flatly pinkish instead of a coral-to-lavender sweep. */
-.tp-card__fill { position: absolute; inset: 0; background-size: 100% 100%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3)); pointer-events: none; }
+   Lavender (--p2) now holds a wide plateau (30%-70%) instead of an
+   even 3-way split, so purple reads as the dominant hover tone and
+   coral (--p1) only shows briefly at the very start. */
+.tp-card__fill { position: absolute; inset: 0; background-size: 100% 100%; background-image: linear-gradient(115deg, var(--p1) 0%, var(--p2) 30%, var(--p2) 70%, var(--p3) 100%); pointer-events: none; }
 
 /* ===========================================================
    PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
