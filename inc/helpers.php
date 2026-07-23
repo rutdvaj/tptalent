@@ -26,6 +26,16 @@ function tp_wave_colors() {
     return implode(',', tp_palette());
 }
 
+/**
+ * Darker particle palette for <vortex-bg> on a WHITE hero background
+ * (service pages) — the default tp_wave_colors() (coral/lavender/white)
+ * is tuned for the dark pageheroes and would wash out with too little
+ * contrast against white.
+ */
+function tp_wave_colors_dark() {
+    return implode(',', ['#3D1B2E', '#AF8B91', '#FF8063']);
+}
+
 function tp_hex_to_arr($hex) {
     $hex = ltrim($hex ?: '#808080', '#');
     $n = hexdec($hex);

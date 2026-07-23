@@ -577,6 +577,28 @@ vortex-bg.tp-pagehero__wave { pointer-events: auto; }
 .tp-pagehero__ticker-inner { max-width: 1240px; margin: 0 auto; padding: 30px 40px 26px; display: flex; align-items: center; gap: 36px; }
 .tp-pagehero__ticker-label { flex: 0 0 auto; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.06em; color: #FFFFFF; text-shadow: 0 1px 12px rgba(0,0,0,0.4); }
 
+/* Service-page hero only — white background instead of the dark ink
+   gradient every other .tp-pagehero page (industry/solution/blog) still
+   uses. Scoped to the auto page-template body class so the shared
+   .tp-pagehero rules above stay untouched for those. The nav pill keeps
+   its own self-contained dark glass chip regardless (not derived from
+   the hero background), so it needs no change here — only the
+   foreground text/controls that were relying on the dark backdrop for
+   contrast do. */
+.page-template-page-service-php .tp-pagehero { background: #FFFFFF; }
+.page-template-page-service-php .tp-pagehero__headline { color: var(--ink, #3D1B2E); text-shadow: none; }
+.page-template-page-service-php .tp-pagehero__subhead { color: var(--mid, #AF8B91); }
+.page-template-page-service-php .tp-pagehero__ghost-btn { color: var(--ink, #3D1B2E); background: rgba(61,27,46,0.06); border-color: rgba(61,27,46,0.25); }
+.page-template-page-service-php .tp-pagehero__ghost-btn:hover { background: rgba(61,27,46,0.12); color: var(--ink, #3D1B2E); }
+.page-template-page-service-php .tp-pagehero__ticker { background: rgba(61,27,46,0.04); border-top: 1px solid rgba(61,27,46,0.12); box-shadow: none; }
+.page-template-page-service-php .tp-pagehero__ticker-label { color: var(--ink, #3D1B2E); text-shadow: none; }
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile a,
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile__toggle { color: var(--ink, #3D1B2E); }
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile a:hover,
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile__toggle:hover { color: var(--mid, #AF8B91); }
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile__submenu a { color: rgba(61,27,34,0.72); }
+.page-template-page-service-php .tp-pagehero .tp-nav-mobile__submenu a:hover { color: var(--ink, #3D1B2E); }
+
 .tp-problems { background: #FFFFFF; }
 .tp-problems__inner { padding: 78px 40px; }
 .tp-problems__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
