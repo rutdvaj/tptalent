@@ -1,4 +1,4 @@
-/* <beam-bg colors="#94ffd1,#6bf5ff,#ffffff"> — self-contained Canvas 2D
+/* <beam-bg colors="#FF8063,#E5C5FA,#ffffff"> — self-contained Canvas 2D
    "meteor beam" background, ported 1:1 from the Tecno Prism animated-
    background handoff (Solutions Page hero's buildHeroBg()/beamStreak()).
    64 rotated lanes, each carrying a permanent faint guide line; ~30% of
@@ -13,13 +13,14 @@
   var LANE_ANGLE = 12 * Math.PI / 180;
   var LANE_CHANCE = 0.3;
   // Fixed regardless of the `colors` attribute — the source design keeps
-  // this line color constant across accent variants.
-  var LINE_COLOR = 'rgba(167,223,194,0.10)';
+  // this line color constant across accent variants (mint vs. cyan).
+  // Updated by hand alongside the site-wide coral/lavender palette swap.
+  var LINE_COLOR = 'rgba(255,172,154,0.10)';
 
   function hexToRgb(hex) {
     hex = (hex || '').trim().replace('#', '');
     if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-    var n = parseInt(hex || '94ffd1', 16);
+    var n = parseInt(hex || 'FF8063', 16);
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   }
   function rgba(rgb, a) { return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
@@ -86,7 +87,7 @@
       var raf;
 
       function colorList() {
-        var attr = self.getAttribute('colors') || '#94ffd1,#6bf5ff,#ffffff';
+        var attr = self.getAttribute('colors') || '#FF8063,#E5C5FA,#ffffff';
         return attr.split(',').map(hexToRgb);
       }
       function dims() {

@@ -7,7 +7,7 @@
   var GRID_SIZE = 50;
   var GLOW_COUNT = 12;
   var GRID_COLOR = 'rgba(148,255,209,0.07)';
-  var GLOW_COLORS = ['#94ffd1', '#6bf5ff', '#ffffff', '#4F9F8A'];
+  var GLOW_COLORS = ['#FF8063', '#E5C5FA', '#ffffff', '#F2A3AF'];
 
   function Glow(w, h) {
     this.setBounds(w, h);

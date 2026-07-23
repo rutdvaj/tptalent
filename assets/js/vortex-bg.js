@@ -1,4 +1,4 @@
-/* <vortex-bg colors="#94ffd1,#6bf5ff,#ffffff"> — self-contained Canvas 2D
+/* <vortex-bg colors="#FF8063,#E5C5FA,#ffffff"> — self-contained Canvas 2D
    particle flow-field ("vortex") background, ported from the Sea Mint
    Tecno Prism Vortex handoff. No external deps (the source design loads
    simplex-noise from esm.sh at runtime; this inlines a small public-
@@ -72,7 +72,7 @@
   function hexToHue(hex) {
     hex = (hex || '').trim().replace('#', '');
     if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
-    var n = parseInt(hex || '94ffd1', 16);
+    var n = parseInt(hex || 'FF8063', 16);
     var r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
     var max = Math.max(r,g,b), min = Math.min(r,g,b), h = 0, d = max - min;
     if (d !== 0) {
@@ -140,7 +140,7 @@
     }
 
     get cfg() {
-      var colors = (this.getAttribute('colors') || '#94ffd1,#6bf5ff,#ffffff').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      var colors = (this.getAttribute('colors') || '#FF8063,#E5C5FA,#ffffff').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
       // Anchor the sweep's start hue to the palette's first color, but
       // keep the sweep's width fixed at the design's own tuned value —
       // deriving it from just 2 close-together palette hues (mint to

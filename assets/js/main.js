@@ -15,7 +15,7 @@
     return v || fallback;
   }
   function palette() {
-    return [cssVar('--p1', '#94ffd1'), cssVar('--p2', '#6bf5ff'), cssVar('--p3', '#ffffff')];
+    return [cssVar('--p1', '#FF8063'), cssVar('--p2', '#E5C5FA'), cssVar('--p3', '#ffffff')];
   }
   function hexToArr(hex) {
     hex = (hex || '#808080').replace('#', '');
@@ -348,7 +348,7 @@
     };
     var show = function () {
       var c = clients[i];
-      var ink = cssVar('--ink', '#16483B');
+      var ink = cssVar('--ink', '#3D1B2E');
       roll(nm, c.name); roll(mt, c.metric); roll(ds, c.desc);
       dots.forEach(function (d, k) { d.style.background = k === i ? ink : '#E4E8EF'; d.style.width = k === i ? '26px' : '8px'; });
     };
@@ -701,8 +701,8 @@
       if (width <= startingGap - breathingRange) dir = 1;
       width += dir * animationSpeed;
       var pal = palette();
-      var inkDeep = cssVar('--ink-deep', '#0E332B');
-      var ink = cssVar('--ink', '#16483B');
+      var inkDeep = cssVar('--ink-deep', '#2B1622');
+      var ink = cssVar('--ink', '#3D1B2E');
       var stops = [inkDeep + ' 28%', ink + ' 46%', pal[1] + ' 62%', pal[2] + ' 80%', pal[0] + ' 100%'].join(', ');
       el.style.background = 'radial-gradient(' + width + '% ' + (width + 40) + '% at 50% 4%, ' + stops + ')';
       requestAnimationFrame(loop);

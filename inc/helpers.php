@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) exit;
  * ------------------------------------------------------------------- */
 
 function tp_palette() {
-    return ['#94ffd1', '#6bf5ff', '#ffffff'];
+    return ['#FF8063', '#E5C5FA', '#FFFFFF'];
 }
 
 /** Comma-joined palette for the <wave-field> custom element's "colors" attribute. */
@@ -69,8 +69,17 @@ function tp_theme_vars() {
     $n = count($pal);
     $blend = [$blend[0] / $n, $blend[1] / $n, $blend[2] / $n];
 
-    $ink        = tp_mix_arr($blend, $black, 0.62);
-    $ink_deep   = tp_mix_arr($blend, $black, 0.76);
+    // Mechanically mixing the palette average toward black (like every
+    // other token below) desaturates badly for this palette specifically
+    // — averaging a warm coral with a cool pastel lavender and then
+    // darkening washes out into a muddy mauve-gray instead of a rich
+    // tone. Ink/ink-deep use a hand-picked deep plum instead, chosen to
+    // complement both accents without favoring either; every other
+    // token still reads fine with the mechanical formula since it's
+    // only lightly tinted toward black/white, not fully darkened.
+    $ink_base   = [0x3D, 0x1B, 0x2E]; // #3D1B2E
+    $ink        = $ink_base;
+    $ink_deep   = tp_mix_arr($ink_base, $black, 0.35);
     $mid        = tp_mix_arr($blend, $black, 0.30);
     $soft       = tp_mix_arr($blend, $white, 0.22);
     $wash_a     = tp_mix_arr($blend, $white, 0.42);

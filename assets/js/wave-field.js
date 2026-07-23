@@ -156,7 +156,7 @@
     }
 
     _palette() {
-      var raw = (this.getAttribute('colors') || '#94ffd1,#6bf5ff,#ffffff').split(',');
+      var raw = (this.getAttribute('colors') || '#FF8063,#E5C5FA,#ffffff').split(',');
       var out = [];
       for (var i = 0; i < raw.length; i++) { if (raw[i].trim()) out.push(hexToRgb(raw[i])); }
       while (out.length < 2) out.push([1, 1, 1]);
