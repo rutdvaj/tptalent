@@ -357,6 +357,36 @@
   }
 
   /* -----------------------------------------------------------
+   * Quote slideshow ("What our clients say") — auto-advances through
+   * the testimonial slides on an interval, same crossfade + dot
+   * pattern as the kinetic rotator above, plus click-to-jump dots.
+   * --------------------------------------------------------- */
+  function initQuoteSlider() {
+    var root = document.getElementById('tpQuoteSlider');
+    if (!root) return;
+    var slides = Array.prototype.slice.call(root.querySelectorAll('[data-quote-slide]'));
+    var dots = Array.prototype.slice.call(root.querySelectorAll('[data-quote-dot]'));
+    if (slides.length < 2) return;
+
+    var i = 0;
+    var timer = null;
+    var show = function (n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
+    };
+    var restart = function () {
+      if (timer) clearInterval(timer);
+      timer = setInterval(function () { show(i + 1); }, 6000);
+    };
+    dots.forEach(function (d, k) {
+      d.addEventListener('click', function () { show(k); restart(); });
+    });
+    show(0);
+    restart();
+  }
+
+  /* -----------------------------------------------------------
    * Testimonial ribbon — WebGL diagonal color-band sweep.
    * Shipped defaults (no live tweak panel in production).
    * --------------------------------------------------------- */
@@ -890,6 +920,7 @@
     initArticleProgress();
     initAccordion();
     initKinetic();
+    initQuoteSlider();
     initRibbon();
     initMap();
     initGlobalRegionChips();

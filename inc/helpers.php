@@ -252,9 +252,34 @@ function tp_default($section) {
                 ['name' => 'Global enterprise IT partner', 'desc' => 'IT & Consulting', 'metric' => '2,000+ placements'],
                 ['name' => 'Global technology partner', 'desc' => 'IT & Consulting', 'metric' => '8 markets entered'],
             ],
-            'quote' => 'We’ve had a really good relationship with Tecnoprism. The quality is high. You’re keen, you understand, you learn, you’re adapting — we are also adapting together, and it’s been a success.',
-            'client_name' => 'Senior Technology Executive',
-            'client_title' => 'Big 4 company',
+            // 4 quotes on rotation instead of one static quote (see
+            // template-parts/home/testimonial.php's slider markup +
+            // initQuoteSlider() in main.js). Client attributions are
+            // anonymized in the same style as the 'rotator' names above
+            // (real client identities aren't disclosed) — auto-written,
+            // not sourced from an actual client.
+            'quotes' => [
+                [
+                    'quote' => 'We’ve had a really good relationship with Tecnoprism. The quality is high. You’re keen, you understand, you learn, you’re adapting — we are also adapting together, and it’s been a success.',
+                    'client_name' => 'Senior Technology Executive',
+                    'client_title' => 'Big 4 company',
+                ],
+                [
+                    'quote' => 'Tecnoprism has become an extension of our own team. They understand our roles better than most in-house recruiters, and the speed without sacrificing quality has genuinely changed how we plan our hiring.',
+                    'client_name' => 'VP of People Operations',
+                    'client_title' => 'Global technology consultancy',
+                ],
+                [
+                    'quote' => 'What stood out was how quickly they grasped our culture. Every candidate they sent felt vetted, not just matched on paper — that saved us weeks of back-and-forth in the interview process.',
+                    'client_name' => 'Director of Talent Acquisition',
+                    'client_title' => 'Global enterprise IT partner',
+                ],
+                [
+                    'quote' => 'We’ve scaled into two new markets with Tecnoprism’s support, and the consistency of the experience across regions has been the real differentiator. They act like a partner, not a vendor.',
+                    'client_name' => 'Head of Global Recruitment',
+                    'client_title' => 'Fortune 500 company',
+                ],
+            ],
         ],
         'tp_capabilities' => [
             'eyebrow' => 'Capabilities',

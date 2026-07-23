@@ -423,7 +423,18 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-kinetic__dots { display: flex; gap: 8px; margin-top: 28px; align-items: center; }
 .tp-kinetic__dot { height: 8px; width: 8px; border-radius: 999px; background: #E4E8EF; transition: width 0.4s, background 0.4s; display: inline-block; }
 
-.tp-quote { display: flex; gap: 28px; max-width: 840px; margin-top: 52px; }
+/* Slideshow wrapper — same .tp-quote layout per slide (bar/mark/text/
+   name/title unchanged), just one visible at a time with a crossfade
+   and dot navigation instead of a single static quote. */
+.tp-quote-slider { margin-top: 52px; }
+.tp-quote-slider__track { position: relative; min-height: 180px; }
+.tp-quote.tp-quote--slide { display: none; margin-top: 0; opacity: 0; position: absolute; top: 0; left: 0; right: 0; transition: opacity 400ms ease; }
+.tp-quote.tp-quote--slide.is-active { display: flex; opacity: 1; position: relative; }
+.tp-quote-slider__dots { display: flex; gap: 8px; margin-top: 28px; padding-left: 33px; }
+.tp-quote-slider__dot { width: 8px; height: 8px; border-radius: 999px; background: #E4E8EF; border: none; padding: 0; cursor: pointer; transition: background 200ms, width 200ms; }
+.tp-quote-slider__dot.is-active { background: var(--ink, #3D1B2E); width: 26px; }
+
+.tp-quote { display: flex; gap: 28px; max-width: 840px; }
 .tp-quote__bar { width: 5px; border-radius: 3px; flex: 0 0 auto; background: linear-gradient(180deg, var(--p2), var(--ink, #3D1B2E)); }
 .tp-quote__mark { font-family: 'Newsreader', Georgia, serif; font-size: 62px; line-height: 0.5; color: var(--ink, #3D1B2E); margin-bottom: 8px; }
 .tp-quote__text { font-size: 19px; line-height: 1.65; color: #141C2B; margin: 0; max-width: 60ch; text-wrap: pretty; }

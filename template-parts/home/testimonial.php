@@ -6,6 +6,7 @@
  */
 $t = tp_get_section('tp_testimonial');
 $rotator = is_array($t['rotator']) ? $t['rotator'] : [];
+$quotes = is_array($t['quotes']) ? $t['quotes'] : [];
 ?>
 <section class="tp-testimonial" data-screen-label="Testimonial">
   <div class="tp-container tp-testimonial__inner">
@@ -32,14 +33,27 @@ $rotator = is_array($t['rotator']) ? $t['rotator'] : [];
       </div>
     </div>
 
-    <div class="tp-quote" data-reveal>
-      <div class="tp-quote__bar" aria-hidden="true"></div>
-      <div>
-        <div class="tp-quote__mark" aria-hidden="true">&ldquo;</div>
-        <p class="tp-quote__text"><?php echo esc_html($t['quote']); ?></p>
-        <div class="tp-quote__name"><?php echo esc_html($t['client_name']); ?></div>
-        <div class="tp-quote__title"><?php echo esc_html($t['client_title']); ?></div>
+    <div class="tp-quote-slider" id="tpQuoteSlider" data-reveal>
+      <div class="tp-quote-slider__track">
+        <?php foreach ($quotes as $i => $q) : ?>
+          <div class="tp-quote tp-quote--slide<?php echo $i === 0 ? ' is-active' : ''; ?>" data-quote-slide>
+            <div class="tp-quote__bar" aria-hidden="true"></div>
+            <div>
+              <div class="tp-quote__mark" aria-hidden="true">&ldquo;</div>
+              <p class="tp-quote__text"><?php echo esc_html($q['quote']); ?></p>
+              <div class="tp-quote__name"><?php echo esc_html($q['client_name']); ?></div>
+              <div class="tp-quote__title"><?php echo esc_html($q['client_title']); ?></div>
+            </div>
+          </div>
+        <?php endforeach; ?>
       </div>
+      <?php if (count($quotes) > 1) : ?>
+        <div class="tp-quote-slider__dots">
+          <?php foreach ($quotes as $i => $q) : ?>
+            <button type="button" class="tp-quote-slider__dot<?php echo $i === 0 ? ' is-active' : ''; ?>" data-quote-dot aria-label="Show testimonial <?php echo (int) ($i + 1); ?>"></button>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 
