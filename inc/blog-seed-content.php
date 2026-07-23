@@ -176,3 +176,35 @@ function tp_blog_seed_posts_v3() {
 
     ];
 }
+
+/**
+ * 4th (and per the client, final) batch of blog posts — same nav_label
+ * pattern as v2/v3.
+ */
+function tp_blog_seed_posts_v4() {
+    return [
+
+        'talent-acquisition-strategy-2026' => [
+            'title'     => 'How to Build a Winning Talent Acquisition Strategy in 2026',
+            'excerpt'   => 'Discover the essential elements of a modern talent acquisition strategy that helps organizations attract, hire, and retain top talent in an increasingly competitive market.',
+            'nav_label' => 'Talent Strategy 2026',
+            'content'   => "<p>Hiring today is no longer about filling vacancies when they arise. As competition for skilled professionals continues to grow, businesses need a proactive talent acquisition strategy that aligns recruitment with long-term business objectives.</p>\n" .
+                "<p>Organizations that treat talent acquisition as a strategic function rather than an operational task are better positioned to build resilient, high-performing teams.</p>\n" .
+                "<h2>What Is a Talent Acquisition Strategy?</h2>\n" .
+                "<p>A talent acquisition strategy is a long-term approach to attracting, evaluating, and retaining skilled professionals who support business growth. Unlike traditional recruitment, which focuses on immediate hiring needs, talent acquisition emphasizes workforce planning, employer branding, candidate experience, and future talent pipelines.</p>\n" .
+                "<p>This strategic approach enables organizations to respond more effectively to changing business demands and evolving workforce expectations.</p>\n" .
+                "<h2>The Building Blocks of Effective Talent Acquisition</h2>\n" .
+                "<p>Successful talent acquisition begins with understanding the skills your organization needs today and the capabilities it will require in the future. Workforce planning, clear job definitions, strong employer branding, and structured hiring processes all contribute to better recruitment outcomes.</p>\n" .
+                "<p>Organizations that continuously engage with potential candidates also build stronger talent pipelines for future hiring.</p>\n" .
+                "<h2>Why Candidate Experience Matters</h2>\n" .
+                "<p>Today&#8217;s professionals evaluate employers just as carefully as employers evaluate candidates. Lengthy recruitment processes, poor communication, and unclear expectations can discourage qualified candidates from accepting opportunities.</p>\n" .
+                "<p>Creating a transparent, responsive, and professional hiring experience strengthens employer reputation and improves offer acceptance rates.</p>\n" .
+                "<h2>Partnering With the Right Recruitment Experts</h2>\n" .
+                "<p>Building an effective talent acquisition strategy often requires specialized recruitment expertise. Recruitment partners help organizations access broader talent networks, improve hiring efficiency, and identify professionals with the technical skills and cultural fit needed for long-term success.</p>\n" .
+                "<p>By combining market insights with structured recruitment processes, businesses can make more confident hiring decisions.</p>\n" .
+                "<h2>Looking Ahead</h2>\n" .
+                "<p>As workforce expectations continue to evolve, organizations that invest in strategic talent acquisition will gain a significant competitive advantage. A thoughtful hiring strategy not only reduces recruitment challenges but also creates stronger teams capable of driving innovation, growth, and long-term business success.</p>",
+        ],
+
+    ];
+}

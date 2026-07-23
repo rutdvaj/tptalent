@@ -528,6 +528,34 @@ function tp_bootstrap_blog_posts_v3() {
 add_action('init', 'tp_bootstrap_blog_posts_v3');
 
 /**
+ * Same pattern as tp_bootstrap_blog_posts_v3(), for the 4th (and per
+ * the client, final) batch (inc/blog-seed-content.php's
+ * tp_blog_seed_posts_v4()).
+ */
+function tp_bootstrap_blog_posts_v4() {
+    if (get_option('tp_blog_posts_v4_bootstrapped')) return;
+
+    foreach (tp_blog_seed_posts_v4() as $slug => $post) {
+        if (get_page_by_path($slug, OBJECT, 'post')) continue;
+        $id = wp_insert_post([
+            'post_title'   => $post['title'],
+            'post_name'    => $slug,
+            'post_excerpt' => $post['excerpt'],
+            'post_content' => $post['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'post',
+            'post_date'    => current_time('mysql'),
+        ], true);
+        if (!is_wp_error($id) && !empty($post['nav_label'])) {
+            update_post_meta($id, 'tp_nav_label', $post['nav_label']);
+        }
+    }
+
+    update_option('tp_blog_posts_v4_bootstrapped', 1);
+}
+add_action('init', 'tp_bootstrap_blog_posts_v4');
+
+/**
  * One-time: retire the 2 original launch blog posts ("The new deal at
  * work", "The absorption gap") now that the 2nd batch has replaced them
  * as the site's live Insights content. Trashed, not permanently
