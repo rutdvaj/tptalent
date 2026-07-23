@@ -284,7 +284,7 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 /* ===========================================================
    SERVICES + shared card component (also used by Insights)
    =========================================================== */
-.tp-services { background: linear-gradient(180deg, var(--wash-b, #FBE5E8) 0%, #FFFFFF 100%); }
+.tp-services { background: #FFFFFF; }
 /* +10% wider than the site's normal 1240px container (desktop/tablet
    only — see the mobile override below) so each of the 3 equal-width
    grid columns grows proportionally, i.e. the cards themselves get 10%
@@ -315,12 +315,15 @@ body.home [data-reveal] { transform: translateY(36px); transition: opacity 1400m
 .tp-card:hover .tp-card__more { background: #FFFFFF; }
 .tp-card__fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .tp-card__glow { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 55%; filter: blur(34px); opacity: 0.85; animation: riseDrift 11s ease-in-out infinite alternate; }
-.tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--p1) 0%, var(--p2) 45%, transparent 78%); }
-.tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--p2) 0%, var(--p1) 45%, transparent 78%); }
+.tp-card__glow--a { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p1) 35%, var(--p2) 70%, transparent 90%); }
+.tp-card__glow--b { background: radial-gradient(120% 100% at 50% 100%, var(--ink) 0%, var(--p2) 35%, var(--p1) 70%, transparent 90%); }
 /* Static gradient, no flowing/looping animation — background-size:100%
-   fits the whole mint -> cyan -> white -> mint sweep within the card
-   at once, so it's all visible immediately on hover and just holds. */
-.tp-card__fill { position: absolute; inset: 0; background-size: 100% 100%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3), var(--p1)); pointer-events: none; }
+   fits the whole coral -> lavender -> white sweep within the card at
+   once, so it's all visible immediately on hover and just holds.
+   Dropped the trailing repeat back to --p1 (coral) — looping the warm
+   tone at both ends of the gradient was what made the wash read as
+   flatly pinkish instead of a coral-to-lavender sweep. */
+.tp-card__fill { position: absolute; inset: 0; background-size: 100% 100%; background-image: linear-gradient(115deg, var(--p1), var(--p2), var(--p3)); pointer-events: none; }
 
 /* ===========================================================
    PROOF, IN FOUR FIGURES — split narrative + hiring-funnel panel
